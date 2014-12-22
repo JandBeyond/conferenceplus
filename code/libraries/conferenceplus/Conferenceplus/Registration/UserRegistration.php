@@ -40,6 +40,16 @@ class UserRegistration extends \UsersModelRegistration
 		$config['table_path'] = JPATH_ADMINISTRATOR . '/components/com_users/tables';
 
 		parent::__construct($config);
+
+		// Load language files
+		$jlang = \JFactory::getLanguage();
+		$jlang->load($this->option, JPATH_SITE, 'en-GB', true);
+		$jlang->load($this->option, JPATH_SITE, $jlang->getDefault(), true);
+		$jlang->load($this->option, JPATH_SITE, null, true);
+
+		$jlang->load($this->option, JPATH_ADMINISTRATOR, 'en-GB', true);
+		$jlang->load($this->option, JPATH_ADMINISTRATOR, $jlang->getDefault(), true);
+		$jlang->load($this->option, JPATH_ADMINISTRATOR, null, true);
 	}
 
 
