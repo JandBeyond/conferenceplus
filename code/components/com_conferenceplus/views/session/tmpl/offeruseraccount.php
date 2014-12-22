@@ -12,13 +12,19 @@
 // No direct access
 defined('_JEXEC') or die;
 
+$params 		= JComponentHelper::getParams('COM_CONFERENCEPLUS');
+$headerlevel    = $params->get('headerlevel', 2);
+
+$title = 'Thank you! But Wait ...';
+$doc = JFactory::getDocument()->setTitle($title);
+
 $Itemid = Conferenceplus\Route\Helper::getItemid();
 $uri = JUri::base() . "index.php?option=com_conferenceplus&view=callback&layout=register&Itemid=$Itemid";
 ?>
 
 <!-- ************************** START: conferenceplus ************************** -->
 <div class="conferenceplus item">
-
+	<?php echo "<h$headerlevel>" . $title . "</h$headerlevel>"; ?>
 	<?php echo JText::_('COM_CONFERENCEPLUS_SUBMIT_SESSION_THANKYOU_OFFER2CREATEAACCOUNT'); ?>
 
 	<a class="btn btn-success" href="<?php echo $uri; ?>"><?php echo JText::_('COM_CONFERENCEPLUS_CREATEACCOUNT'); ?></a>

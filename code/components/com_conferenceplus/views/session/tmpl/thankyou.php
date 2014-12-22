@@ -11,11 +11,19 @@
 
 // No direct access
 defined('_JEXEC') or die;
+
+$params 		= JComponentHelper::getParams('COM_CONFERENCEPLUS');
+$headerlevel    = $params->get('headerlevel', 2);
+
+$title = 'Thank you!';
+$doc = JFactory::getDocument()->setTitle($title);
+
 ?>
 <!-- ************************** START: conferenceplus ************************** -->
 <div class="conferenceplus item">
-
+	<?php echo "<h$headerlevel>" . $title . "</h$headerlevel>"; ?>
+	<p>
 	<?php echo JText::_('COM_CONFERENCEPLUS_SUBMIT_SESSION_THANKYOU_JOOMLA_USER'); ?>
-
+	</p>
 </div>
 <!-- ************************** END: conferenceplus ************************** -->

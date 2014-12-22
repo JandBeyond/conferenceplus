@@ -22,6 +22,8 @@ $shl111			= $headerlevel + 3;
 $baseLayoutPath = JPATH_ROOT . '/media/conferenceplus/layouts';
 $title = JLayoutHelper::render('html.title', $displayData, $baseLayoutPath);
 
+$doc = JFactory::getDocument()->setTitle($title);
+
 $Itemid = Conferenceplus\Route\Helper::getItemid('call4papers');
 
 ?>
