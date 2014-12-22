@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form
+		validate="true"
+		serverside_validate="true"
+		>
+	<fieldset name="basic_configuration"
+			  label="COM_CONFERENCEPLUS_GROUP_BASIC"
+			  description="COM_CONFERENCEPLUS_GROUP_BASIC_DESC"
+	>
+
+		<field name="enabled" type="list"
+			   label="JSTATUS" description="COM_CONFERENCEPLUS_FIELD_STATE_DESC"
+			   class="inputbox" size="1" default="1" >
+			<option value="1">JPUBLISHED</option>
+			<option value="0">JUNPUBLISHED</option>
+		</field>
+
+		<field name="name" type="text" class="inputbox form-control"  labelClass="control-label"
+		       size="150" label="COM_CONFERENCEPLUS_EMAILTEMPLATENAME"
+		       description="COM_CONFERENCEPLUS_EMAILTEMPLATENAME_DESC" required="true" />
+
+		<field name="description" type="textarea" labelClass="control-label"
+		       label="COM_CONFERENCEPLUS_EMAILTEMPLATEDESCRIPTION"
+		       description="COM_CONFERENCEPLUS_EMAILTEMPLATEDESCRIPTION_DESC"
+		       buttons="false" rows="5" cols="80"/>
+
+		<field name="from_name" type="text" class="inputbox form-control"  labelClass="control-label"
+		       size="150" label="COM_CONFERENCEPLUS_EMAILTEMPLATEFROMNAME"
+		       description="COM_CONFERENCEPLUS_EMAILTEMPLATEFROMNAME_DESC" />
+
+		<field name="from_email" type="text" class="inputbox form-control"  labelClass="control-label"
+		       size="150" label="COM_CONFERENCEPLUS_EMAILTEMPLATEFROMEMAIL"
+		       description="COM_CONFERENCEPLUS_EMAILTEMPLATEFROMEMAIL_DESC" />
+
+		<field name="subject" type="text" class="inputbox form-control"  labelClass="control-label"
+		       size="150" label="COM_CONFERENCEPLUS_EMAILTEMPLATESUBJECT"
+		       description="COM_CONFERENCEPLUS_EMAILTEMPLATESUBJECT_DESC" />
+
+		<field name="text" type="textarea" labelClass="control-label"
+		       label="COM_CONFERENCEPLUS_EMAILTEMPLATETEXT"
+		       description="COM_CONFERENCEPLUS_EMAILTEMPLATETEXT_DESC"
+		       buttons="false" rows="5" cols="80"/>
+
+		<field name="html" type="textarea" labelClass="control-label"
+		       label="COM_CONFERENCEPLUS_EMAILTEMPLATEHTML"
+		       description="COM_CONFERENCEPLUS_EMAILTEMPLATEHTML_DESC"
+		       buttons="false" rows="5" cols="80"/>
+
+	</fieldset>
+
+</form>

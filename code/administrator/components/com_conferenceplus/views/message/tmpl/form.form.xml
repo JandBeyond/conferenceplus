@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form
+		validate="true"
+		serverside_validate="true"
+		>
+	<fieldset name="basic_configuration"
+			  label="COM_CONFERENCEPLUS_GROUP_BASIC"
+			  description="COM_CONFERENCEPLUS_GROUP_BASIC_DESC"
+	>
+
+		<field name="enabled" type="list"
+			   label="JSTATUS" description="COM_CONFERENCEPLUS_FIELD_STATE_DESC"
+			   class="inputbox" size="1" default="1" >
+			<option value="1">JPUBLISHED</option>
+			<option value="0">JUNPUBLISHED</option>
+		</field>
+
+
+	</fieldset>
+
+</form>

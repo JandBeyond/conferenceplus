@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form
+		validate="true"
+		serverside_validate="true"
+		>
+	<fieldset name="basic_configuration"
+			  label="COM_CONFERENCEPLUS_GROUP_BASIC"
+			  description="COM_CONFERENCEPLUS_GROUP_BASIC_DESC"
+	>
+
+		<field name="enabled" type="list"
+			   label="JSTATUS" description="COM_CONFERENCEPLUS_FIELD_STATE_DESC"
+			   class="inputbox" size="1" default="1" >
+			<option value="1">JPUBLISHED</option>
+			<option value="0">JUNPUBLISHED</option>
+		</field>
+
+		<field name="firstname" type="text" class="inputbox form-control"  labelClass="control-label"
+		       size="150" label="COM_CONFERENCEPLUS_SPEAKERFIRSTNAME"
+		       description="COM_CONFERENCEPLUS_SPEAKERFIRSTNAME_DESC" required="true" />
+
+		<field name="lastname" type="text" class="inputbox form-control"  labelClass="control-label"
+		       size="150" label="COM_CONFERENCEPLUS_SPEAKERLASTNAME"
+		       description="COM_CONFERENCEPLUS_SPEAKERLASTNAME_DESC" required="true" />
+
+		<field name="email" type="text" class="inputbox form-control"  labelClass="control-label"
+		       size="150" label="COM_CONFERENCEPLUS_SPEAKEREMAIL"
+		       description="COM_CONFERENCEPLUS_SPEAKEREMAIL_DESC" required="true" />
+
+		<field name="bio" type="textarea" class="inputbox form-control"  labelClass="control-label"
+		       size="150" label="COM_CONFERENCEPLUS_SPEAKERBIO"
+		       description="COM_CONFERENCEPLUS_SPEAKERBIO_DESC"
+		       buttons="false" rows="5" cols="80"/>
+
+		<field name="imagefile" type="media" class="" labelclass="control-label"
+		       label="COM_CONFERENCEPLUS_SPEAKERIMAGE"
+		       description="COM_CONFERENCEPLUS_SPEAKERIMAGE_DESC" accept="image/*" />
+
+		<field name="notes" type="textarea" class="inputbox form-control"  labelClass="control-label"
+		       size="150" label="COM_CONFERENCEPLUS_SPEAKERNOTES"
+		       description="COM_CONFERENCEPLUS_SPEAKERNOTES_DESC"
+		       buttons="false" rows="5" cols="80"/>
+
+		<field name="userid" type="user" class="inputbox form-control"  labelClass="control-label"
+		       label="COM_CONFERENCEPLUS_JOOMLAUSER" />
+
+		<field name="event_id" type="conferenceplus.event" class="inputbox form-control"  labelClass="control-label"
+		       label="COM_CONFERENCEPLUS_EVENTTITLE" />
+
+	</fieldset>
+
+</form>

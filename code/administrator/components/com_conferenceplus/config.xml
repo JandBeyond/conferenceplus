@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+
+	<fieldset
+		name="system"
+		label="COM_CONFERENCEPLUS_SYSTEM"
+		description="COM_CONFERENCEPLUS_SYSTEM_DESC">
+
+		<field name="headerlevel" type="list"
+				label="COM_CONFERENCEPLUS_HEADERLEVEL"
+				description="COM_CONFERENCEPLUS_HEADERLEVEL_DESC"
+				default="2"
+			>
+			<option value="1">h1</option>
+			<option value="2">h2</option>
+			<option value="3">h3</option>
+			<option value="4">h4</option>
+			<option value="5">h5</option>
+		</field>
+
+		<field name="defaultfromname" type="text" class="form-control"  labelClass="control-label"
+		       size="150" label="COM_CONFERENCEPLUS_DEFAULTFROMNAME"
+		       description="COM_CONFERENCEPLUS_DEFAULTFROMNAME_DESC" />
+
+		<field name="defaultfromemail" type="text" class="form-control"  labelClass="control-label"
+		       size="150" label="COM_CONFERENCEPLUS_DEFAULTFROMEMAIL"
+		       description="COM_CONFERENCEPLUS_DEFAULTFROMEMAIL_DESC" />
+
+		<field name="defaultsubject" type="text" class="form-control"  labelClass="control-label"
+		       size="150" label="COM_CONFERENCEPLUS_DEFAULTSUBJECT"
+		       description="COM_CONFERENCEPLUS_DEFAULTSUBJECT_DESC" />
+
+		<field name="currency" type="list"
+		       label="COM_CONFERENCEPLUS_CURRENCY"
+		       description="COM_CONFERENCEPLUS_CURRENCY_DESC"
+		       default="€|Euro"
+				>
+			<option value="€|Euro">€|Euro</option>
+		</field>
+
+		<field name="uploadfolder" type="folderlist" class="form-control"  labelClass="control-label"
+			default="" label="COM_CONFERENCEPLUS_UPLOADFOLDER" description="COM_CONFERENCEPLUS_UPLOADFOLDER_DESC"
+			directory="images" hide_none="true" />
+
+		<field name="sessionselectionmethod" type="list"
+		       label="COM_CONFERENCEPLUS_SESSIONSELECTIONMETHOD"
+		       description="COM_CONFERENCEPLUS_SESSIONSELECTIONMETHOD_DESC"
+		       default="0"
+				>
+			<option value="0">COM_CONFERENCEPLUS_SESSIONSELECTIONMETHOD_OPEN</option>
+			<option value="1">COM_CONFERENCEPLUS_SESSIONSELECTIONMETHOD_BLIND</option>
+		</field>
+
+	</fieldset>
+
+
+	<fieldset name="permissions"
+		label="COM_CONFERENCEPLUS_PERMISSIONS_COMPONENT"
+		description="COM_CONFERENCEPLUS_PERMISSIONS_COMPONENT_DESC"
+	>
+
+		<field name="rules"
+			type="rules"
+			label="COM_CONFERENCEPLUS_PERMISSIONS_COMPONENT_RULESLABEL"
+			validate="rules"
+			filter="rules"
+			component="com_conferenceplus"
+			section="component" />
+	</fieldset>
+
+
+</config>

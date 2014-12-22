@@ -1,0 +1,14 @@
+{
+    "name": "rdeutz/com_conferenceplus/libraries",
+    "authors": [
+        {
+            "name": "Robert Deutz",
+            "email": "rdeutz@googlemail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Conferenceplus\\": "Conferenceplus"
+        }
+    }
+}

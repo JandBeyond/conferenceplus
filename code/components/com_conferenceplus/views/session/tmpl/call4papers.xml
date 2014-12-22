@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+    <layout title="COM_CONFERENCEPLUS_VIEW_CALL4PAPERS_TITLE">
+        <message>
+            <![CDATA[COM_CONFERENCEPLUS_VIEW_CALL4PAPERS_DESC]]>
+        </message>
+    </layout>
+    <state>
+        <name>COM_CONFERENCEPLUS_VIEW_CALL4PAPERS_TITLE</name>
+        <description>COM_CONFERENCEPLUS_VIEW_CALL4PAPERS_DESC</description>
+    </state>
+    <!-- Add fields to the request variables for the layout. -->
+    <fields name="request">
+        <fieldset name="request"
+                  addfieldpath="/libraries/conferenceplus/form/field">
+
+            <field name="event_id" type="conferenceplus.event"
+                   label="Select an Event"
+                   required="true"
+                   description=""
+                    />
+        </fieldset>
+    </fields>
+
+</metadata>

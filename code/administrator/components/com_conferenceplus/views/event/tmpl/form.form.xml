@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form
+		validate="true"
+		serverside_validate="true"
+		>
+	<fieldset name="basic_configuration"
+			  label="COM_CONFERENCEPLUS_GROUP_BASIC"
+			  description="COM_CONFERENCEPLUS_GROUP_BASIC_DESC"
+	>
+
+		<field name="enabled" type="list"
+			   label="JSTATUS" description="COM_CONFERENCEPLUS_FIELD_STATE_DESC"
+			   class="inputbox" size="1" default="1" >
+			<option value="1">JPUBLISHED</option>
+			<option value="0">JUNPUBLISHED</option>
+		</field>
+
+		<field name="name" type="text" class="inputbox form-control"  labelClass="control-label"
+			   size="150" label="COM_CONFERENCEPLUS_EVENTNAME"
+			   description="COM_CONFERENCEPLUS_EVENTNAME_DESC" required="true" />
+
+		<field name="description" type="textarea" labelClass="control-label"
+			   label="COM_CONFERENCEPLUS_DESCRIPTION" description="COM_CONFERENCEPLUS_DESCRIPTION_DESC"
+			   buttons="false" rows="5" cols="80"/>
+
+		<field name="venuename" type="text" class="inputbox form-control"  labelClass="control-label"
+			   size="150" label="COM_CONFERENCEPLUS_VENUENAME"
+			   description="COM_CONFERENCEPLUS_VENUENAME_DESC" />
+
+		<field name="street" type="text" class="inputbox form-control"  labelClass="control-label"
+			   size="150" label="COM_CONFERENCEPLUS_STREET"
+			   description="COM_CONFERENCEPLUS_STREET_DESC" />
+
+		<field name="city" type="text" class="inputbox form-control"  labelClass="control-label"
+			   size="150" label="COM_CONFERENCEPLUS_CITY"
+			   description="COM_CONFERENCEPLUS_CITY_DESC" />
+
+		<field name="country" type="text" class="inputbox form-control"  labelClass="control-label"
+			   size="150" label="COM_CONFERENCEPLUS_COUNTRY"
+			   description="COM_CONFERENCEPLUS_COUNTRY_DESC" />
+
+		<field name="sdate" type="calendar" class="inputbox form-control" default="1.1.2015" 
+			label="COM_CONFERENCEPLUS_START" description="COM_CONFERENCEPLUS_START_DESC" format="%d.%m.%Y" />	   
+
+		<field name="stimehh" type="list"
+			label="COM_CONFERENCEPLUS_STIME_HH" description="COM_CONFERENCEPLUS_STIME_HH_DESC"
+			class="input-mini" size="1" default="" >
+			<option value="">--</option>
+			<option value="00">0</option>
+			<option value="01">1</option>
+			<option value="02">2</option>
+			<option value="03">3</option>
+			<option value="04">4</option>
+			<option value="05">5</option>
+			<option value="06">6</option>
+			<option value="07">7</option>
+			<option value="08">8</option>
+			<option value="09">9</option>
+			<option value="10">10</option>
+			<option value="11">11</option>
+			<option value="12">12</option>
+			<option value="13">13</option>
+			<option value="14">14</option>
+			<option value="15">15</option>
+			<option value="16">16</option>
+			<option value="17">17</option>
+			<option value="18">18</option>
+			<option value="19">19</option>
+			<option value="20">20</option>
+			<option value="21">21</option>
+			<option value="22">22</option>
+			<option value="23">23</option>
+		</field>
+
+		<field name="stimemm" type="list"
+			label="COM_CONFERENCEPLUS_STIME_MM" description="COM_CONFERENCEPLUS_STIME_MM_DESC"
+			class="input-mini" size="1" default="" >
+			<option value="">--</option>
+			<option value="00">0</option>
+			<option value="15">15</option>
+			<option value="30">30</option>
+			<option value="45">45</option>
+		</field>
+
+		<field name="edate" type="calendar" class="inputbox form-control" default="1.1.2015" 
+			label="COM_CONFERENCEPLUS_END" description="COM_CONFERENCEPLUS_END_DESC" format="%d.%m.%Y" />	   
+
+		<field name="etimehh" type="list"
+			label="COM_CONFERENCEPLUS_ETIME_HH" description="COM_CONFERENCEPLUS_ETIME_HH_DESC"
+			class="input-mini" size="1" default="" >
+			<option value="">--</option>
+			<option value="00">0</option>
+			<option value="01">1</option>
+			<option value="02">2</option>
+			<option value="03">3</option>
+			<option value="04">4</option>
+			<option value="05">5</option>
+			<option value="06">6</option>
+			<option value="07">7</option>
+			<option value="08">8</option>
+			<option value="09">9</option>
+			<option value="10">10</option>
+			<option value="11">11</option>
+			<option value="12">12</option>
+			<option value="13">13</option>
+			<option value="14">14</option>
+			<option value="15">15</option>
+			<option value="16">16</option>
+			<option value="17">17</option>
+			<option value="18">18</option>
+			<option value="19">19</option>
+			<option value="20">20</option>
+			<option value="21">21</option>
+			<option value="22">22</option>
+			<option value="23">23</option>
+		</field>
+
+		<field name="etimemm" type="list"
+			label="COM_CONFERENCEPLUS_ETIME_MM" description="COM_CONFERENCEPLUS_ETIME_MM_DESC"
+			class="input-mini" size="1" default="" >
+			<option value="">--</option>
+			<option value="00">0</option>
+			<option value="15">15</option>
+			<option value="30">30</option>
+			<option value="45">45</option>
+		</field>
+
+
+		<field name="contactemail" type="text" class="inputbox form-control"  labelClass="control-label"
+			   size="60" label="COM_CONFERENCEPLUS_CONTACTEMAIL"
+			   description="COM_CONFERENCEPLUS_CONTACTEMAIL_DESC"/>
+
+
+	</fieldset>
+
+	<fieldset name="params"
+	          label="COM_CONFERENCEPLUS_EVENT_PARAMS"
+	          description="COM_CONFERENCEPLUS_EVENT_PARAMS_DESC"
+			>
+
+		<field name="ask4gender" type="list"
+		       label="COM_CONFERENCEPLUS_ASK4GENDER" description="COM_CONFERENCEPLUS_ASK4GENDER_DESC"
+		       class="inputbox" size="1" default="1" >
+			<option value="COM_CONFERENCEPLUS_ASK4GENDER_MALE|COM_CONFERENCEPLUS_ASK4GENDER_FEMALE">COM_CONFERENCEPLUS_ASK4GENDER_MALE_OR_FEMALE</option>
+			<option value="0">JNO</option>
+		</field>
+
+		<field name="ask4food" type="list"
+		       label="COM_CONFERENCEPLUS_ASK4FOOD" description="COM_CONFERENCEPLUS_ASK4FOOD_DESC"
+		       class="inputbox" size="1" default="1" >
+			<option value="COM_CONFERENCEPLUS_ASK4FOOD_NOPREF|COM_CONFERENCEPLUS_ASK4FOOD_VEGAN|COM_CONFERENCEPLUS_ASK4FOOD_VEGETARIAN">COM_CONFERENCEPLUS_ASK4FOOD_NOPREF_OR_VEGAN_OR_VEGETARIAN</option>
+			<option value="0">JNO</option>
+		</field>
+
+		<field name="ask4tshirtsize" type="list"
+		       label="COM_CONFERENCEPLUS_ASK4TSHIRTSIZE" description="COM_CONFERENCEPLUS_ASK4TSHIRTSIZE_DESC"
+		       class="inputbox" size="1" default="1" >
+			<option value="XS|S|M|L|XL|XXL|XXXL">XS|S|M|L|XL|XXL|XXXL</option>
+			<option value="0">JNO</option>
+		</field>
+
+
+	</fieldset>
+
+</form>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form
+		validate="true"
+		serverside_validate="true"
+		>
+	<fieldset name="basic_configuration"
+			  label="COM_CONFERENCEPLUS_GROUP_BASIC"
+			  description="COM_CONFERENCEPLUS_GROUP_BASIC_DESC"
+	>
+
+		<field name="enabled" type="list"
+			   label="JSTATUS" description="COM_CONFERENCEPLUS_FIELD_STATE_DESC"
+			   class="inputbox" size="1" default="1" >
+			<option value="1">JPUBLISHED</option>
+			<option value="0">JUNPUBLISHED</option>
+		</field>
+
+		<field name="name" type="text" class="inputbox form-control"  labelClass="control-label"
+		       size="150" label="COM_CONFERENCEPLUS_TICKETTYPENAME"
+		       description="COM_CONFERENCEPLUS_TICKETTYPENAME_DESC" required="true" />
+
+		<field name="description" type="textarea" labelClass="control-label"
+		       label="COM_CONFERENCEPLUS_TICKETTYPEDESCRIPTION" description="COM_CONFERENCEPLUS_TICKETTYPEDESCRIPTION_DESC"
+		       buttons="false" rows="5" cols="80"/>
+
+		<field name="fee" type="text" class="inputbox form-control"  labelClass="control-label"
+		       size="15" label="COM_CONFERENCEPLUS_TICKETTYPEFEE"
+		       description="COM_CONFERENCEPLUS_TICKETTYPEFEE_DESC" required="true" />
+
+		<field name="vat" type="text" class="inputbox form-control"  labelClass="control-label"
+		       size="15" label="COM_CONFERENCEPLUS_TICKETTYPEVAT" default="0"
+		       description="COM_CONFERENCEPLUS_TICKETTYPEVAT_DESC" required="true" />
+
+		<field name="total_number_of_ticktes_available" type="text" class="inputbox form-control"  labelClass="control-label"
+		       size="15" label="COM_CONFERENCEPLUS_TICKETTYPETOTALNUMBEROFTICKTESAVAILABLE" default="0"
+		       description="COM_CONFERENCEPLUS_TICKETTYPETOTALNUMBEROFTICKTESAVAILABLE_DESC" required="true" />
+
+		<field name="event_id" type="conferenceplus.event" class="inputbox form-control"  labelClass="control-label"
+		       label="COM_CONFERENCEPLUS_EVENTTITLE" />
+
+
+
+		<field name="question1_lang_tag" type="text" class="inputbox form-control"  labelClass="control-label"
+		       size="15" label="COM_CONFERENCEPLUS_TICKETTYPEQUESTION1LANGTAG"
+		       description="COM_CONFERENCEPLUS_TICKETTYPEQUESTION1LANGTAG_DESC" />
+
+		<field name="question1_type" type="text" class="inputbox form-control"  labelClass="control-label"
+		       size="15" label="COM_CONFERENCEPLUS_TICKETTYPEQUESTION1TYPE"
+		       description="COM_CONFERENCEPLUS_TICKETTYPEQUESTION1TYPE_DESC" />
+
+		<field name="question1_options" type="textarea" labelClass="control-label"
+		       label="COM_CONFERENCEPLUS_TICKETTYPEQUESTION1OPTIONS"
+		       description="COM_CONFERENCEPLUS_TICKETTYPEQUESTION1OPTIONS_DESC"
+		       buttons="false" rows="5" cols="80"/>
+
+		<field name="question2_lang_tag" type="text" class="inputbox form-control"  labelClass="control-label"
+		       size="15" label="COM_CONFERENCEPLUS_TICKETTYPEQUESTION2LANGTAG"
+		       description="COM_CONFERENCEPLUS_TICKETTYPEQUESTION2LANGTAG_DESC" />
+
+		<field name="question2_type" type="text" class="inputbox form-control"  labelClass="control-label"
+		       size="15" label="COM_CONFERENCEPLUS_TICKETTYPEQUESTION2TYPE"
+		       description="COM_CONFERENCEPLUS_TICKETTYPEQUESTION2TYPE_DESC" />
+
+		<field name="question2_options" type="textarea" labelClass="control-label"
+		       label="COM_CONFERENCEPLUS_TICKETTYPEQUESTION2OPTIONS"
+		       description="COM_CONFERENCEPLUS_TICKETTYPEQUESTION2OPTIONS_DESC"
+		       buttons="false" rows="5" cols="80"/>
+
+		<field name="question3_lang_tag" type="text" class="inputbox form-control"  labelClass="control-label"
+		       size="15" label="COM_CONFERENCEPLUS_TICKETTYPEQUESTION3LANGTAG"
+		       description="COM_CONFERENCEPLUS_TICKETTYPEQUESTION3LANGTAG_DESC" />
+
+		<field name="question3_type" type="text" class="inputbox form-control"  labelClass="control-label"
+		       size="15" label="COM_CONFERENCEPLUS_TICKETTYPEQUESTION3TYPE"
+		       description="COM_CONFERENCEPLUS_TICKETTYPEQUESTION3TYPE_DESC" />
+
+		<field name="question3_options" type="textarea" labelClass="control-label"
+		       label="COM_CONFERENCEPLUS_TICKETTYPEQUESTION3OPTIONS"
+		       description="COM_CONFERENCEPLUS_TICKETTYPEQUESTION3OPTIONS_DESC"
+		       buttons="false" rows="5" cols="80"/>
+
+		<field name="question4_lang_tag" type="text" class="inputbox form-control"  labelClass="control-label"
+		       size="15" label="COM_CONFERENCEPLUS_TICKETTYPEQUESTION4LANGTAG"
+		       description="COM_CONFERENCEPLUS_TICKETTYPEQUESTION4LANGTAG_DESC" />
+
+		<field name="question4_type" type="text" class="inputbox form-control"  labelClass="control-label"
+		       size="15" label="COM_CONFERENCEPLUS_TICKETTYPEQUESTION4TYPE"
+		       description="COM_CONFERENCEPLUS_TICKETTYPEQUESTION4TYPE_DESC" />
+
+		<field name="question4_options" type="textarea" labelClass="control-label"
+		       label="COM_CONFERENCEPLUS_TICKETTYPEQUESTION4OPTIONS"
+		       description="COM_CONFERENCEPLUS_TICKETTYPEQUESTION4OPTIONS_DESC"
+		       buttons="false" rows="5" cols="80"/>
+	</fieldset>
+
+</form>

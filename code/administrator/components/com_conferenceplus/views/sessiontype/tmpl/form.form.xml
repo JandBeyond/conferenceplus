@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form
+		validate="true"
+		serverside_validate="true"
+		>
+	<fieldset name="basic_configuration"
+			  label="COM_CONFERENCEPLUS_GROUP_BASIC"
+			  description="COM_CONFERENCEPLUS_GROUP_BASIC_DESC"
+	>
+
+		<field name="enabled" type="list"
+			   label="JSTATUS" description="COM_CONFERENCEPLUS_FIELD_STATE_DESC"
+			   class="inputbox" size="1" default="1" >
+			<option value="1">JPUBLISHED</option>
+			<option value="0">JUNPUBLISHED</option>
+		</field>
+
+		<field name="name" type="text" class="inputbox form-control"  labelClass="control-label"
+			   size="150" label="COM_CONFERENCEPLUS_SESSIONTYPENAME"
+			   description="COM_CONFERENCEPLUS_SESSIONTYPENAME_DESC" />
+
+		<field name="length" type="text" class="inputbox form-control"  labelClass="control-label"
+			   size="150" label="COM_CONFERENCEPLUS_LENGTH"
+			   description="COM_CONFERENCEPLUS_LENGTH_DESC" />
+
+		<field name="event_id" type="conferenceplus.event" class="inputbox form-control"  labelClass="control-label"
+		       label="COM_CONFERENCEPLUS_EVENTTITLE" />
+
+	</fieldset>
+
+</form>

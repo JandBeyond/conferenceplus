@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form
+		validate="true"
+		serverside_validate="true"
+		addfieldpath="/libraries/conferenceplus/form/field"
+		>
+	<fieldset name="basic_configuration"
+			  label="COM_CONFERENCEPLUS_GROUP_BASIC"
+			  description="COM_CONFERENCEPLUS_GROUP_BASIC_DESC"
+			>
+
+		<field name="title" type="text" class="inputbox form-control"  labelClass="control-label"
+			   size="150" label="COM_CONFERENCEPLUS_SESSIONTITLE"
+			   description="COM_CONFERENCEPLUS_SESSIONTITLE_DESC" required="true" />
+
+		<field name="firstname" type="text" class="inputbox form-control"  labelClass="control-label"
+			   size="150" label="COM_CONFERENCEPLUS_FIRSTNAME"
+			   description="COM_CONFERENCEPLUS_FIRSTNAME_DESC" required="true" />
+
+		<field name="lastname" type="text" class="inputbox form-control"  labelClass="control-label"
+			   size="150" label="COM_CONFERENCEPLUS_LASTNAME"
+			   description="COM_CONFERENCEPLUS_LASTNAME_DESC" required="true" />
+
+		<field name="email" type="text" class="inputbox form-control"  labelClass="control-label"
+			   size="150" label="COM_CONFERENCEPLUS_EMAIL"
+			   description="COM_CONFERENCEPLUS_EMAIL_DESC" required="true" />
+
+		<field name="description" type="textarea" labelClass="control-label" class="form-control"
+			label="COM_CONFERENCEPLUS_DESCRIPTION"
+			buttons="false" rows="5" cols="80" required="true" />
+
+		<field name="bio" type="textarea" labelClass="control-label" class="form-control"
+			label="COM_CONFERENCEPLUS_BIO" description="COM_CONFERENCEPLUS_BIO_DESC"
+			buttons="false" rows="5" cols="80" />
+
+		<field name="imagefile" type="conferenceplus.mediaupload" class="" labelclass="control-label"
+		       label="COM_CONFERENCEPLUS_SPEAKERIMAGE" placeholder="true"
+		       description="COM_CONFERENCEPLUS_SPEAKERIMAGE_DESC" accept="image" />
+
+		<field name="addidionalinfo" type="textarea" labelClass="control-label" class="form-control"
+			label="COM_CONFERENCEPLUS_ADDIDIONALINFO" description="COM_CONFERENCEPLUS_ADDIDIONALINFO_DESC"
+			buttons="false" rows="5" cols="80" />
+
+		<field name="catid" type="category" extension="com_conferenceplus" labelClass="control-label" class="form-control"
+		       label="COM_CONFERENCEPLUS_SESSIONCATEGORY" />
+
+		<field name="speaker_multiple" type="conferenceplus.radiobs3" class="inputbox form-control"  labelClass="control-label"
+			   size="150" label="COM_CONFERENCEPLUS_SPEAKERSMULTIPLE" default="0"
+			   description="COM_CONFERENCEPLUS_SPEAKERSMULTIPLE_DESC">
+			<option value="1">COM_CONFERENCEPLUS_SPEAKERSMULTIPLE_YES</option>
+			<option value="0">COM_CONFERENCEPLUS_SPEAKERSMULTIPLE_NO</option>
+		</field>
+
+		<field name="speaker_listtext" type="text" class="inputbox form-control"  labelClass="control-label"
+			   size="150" label="COM_CONFERENCEPLUS_SPEAKERSLIST"
+			   description="COM_CONFERENCEPLUS_SPEAKERSLIST_DESC" />
+
+		<field name="event_id" type="hidden"/>
+
+	</fieldset>
+
+</form>

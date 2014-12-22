@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="3.1" type="plugin" group="user">
+	<name>plg_user_conferenceplus</name>
+	<creationDate>December 2014</creationDate>
+	<author>Robert Deutz</author>
+	<copyright>Robert Deutz</copyright>
+	<license>GNU General Public License version 3</license>
+	<authorEmail>rdeutz@googlemail.com</authorEmail>
+	<authorUrl>jandbeyond.org</authorUrl>
+	<version>1.0</version>
+	<description>PLG_USER_CONFERENCEPLUS_XML_DESCRIPTION</description>
+	<files>
+		<filename plugin="conferenceplus">conferenceplus.php</filename>
+	</files>
+	<languages>
+		<language tag="en-GB">en-GB.plg_user_conferenceplus.ini</language>
+		<language tag="en-GB">	</language>
+	</languages>
+	<config>
+		<fields name="params">
+		</fields>
+	</config>
+</extension>

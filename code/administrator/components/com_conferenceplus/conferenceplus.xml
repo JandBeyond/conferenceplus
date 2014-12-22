@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="component" version="3.0" method="upgrade">
+	<name>conferenceplus</name>
+	<creationDate>October 2014</creationDate>
+	<author>Robert Deutz</author>
+	<copyright>JandBeyond</copyright>
+	<license>GNU General Public License version 3</license>
+	<authorEmail>rdeutz@googlemail.com</authorEmail>
+	<authorUrl>www.jandbeyond.com</authorUrl>
+	<version>1.0</version>
+	<description>Component to support the JAB Conference</description>
+	<files folder="site">
+		<filename>conferenceplus.php</filename>
+	</files>	
+		
+	<administration>
+    	<menu link="option=com_conferenceplus" view="default">COM_CONFERENCEPLUS</menu>
+    	<menu link="option=com_categories&amp;extension=com_conferenceplus" view="categories" alt="conferenceplus/Categories">COM_CONFERENCEPLUS_CATEGORIES</menu>
+		<files folder="admin">
+		  	<filename>conferenceplus.php</filename>
+		</files>
+	</administration>		
+
+</extension>

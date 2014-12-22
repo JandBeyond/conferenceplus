@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form
+		validate="true"
+		serverside_validate="true"
+		>
+	<fieldset name="basic_configuration"
+			  label="COM_CONFERENCEPLUS_GROUP_BASIC"
+			  description="COM_CONFERENCEPLUS_GROUP_BASIC_DESC"
+	>
+
+		<field name="firstname" type="text" class="inputbox form-control"  labelClass="control-label"
+		       size="150" label="COM_CONFERENCEPLUS_AWARDNOMINATIONFIRSTNAME"
+		       description="COM_CONFERENCEPLUS_AWARDNOMINATIONFIRSTNAME_DESC" required="true" />
+
+		<field name="lastname" type="text" class="inputbox form-control"  labelClass="control-label"
+		       size="150" label="COM_CONFERENCEPLUS_AWARDNOMINATIONLASTNAME"
+		       description="COM_CONFERENCEPLUS_AWARDNOMINATIONLASTNAME_DESC" required="true" />
+
+		<field name="email" type="text" class="inputbox form-control"  labelClass="control-label"
+		       size="150" label="COM_CONFERENCEPLUS_AWARDNOMINATIONEMAIL"
+		       description="COM_CONFERENCEPLUS_AWARDNOMINATIONEMAIL_DESC" required="true" />
+
+		<field name="nominee" type="text" class="inputbox form-control"  labelClass="control-label"
+		       size="150" label="COM_CONFERENCEPLUS_AWARDNOMINATIONNOMINEE"
+		       description="COM_CONFERENCEPLUS_AWARDNOMINATIONNOMINEE_DESC" required="true" />
+
+		<field name="awardcategory_id" type="conferenceplus.awardcategory" class="inputbox form-control"  labelClass="control-label"
+		       label="COM_CONFERENCEPLUS_AWARDCATEGORY" required="true" />
+
+		<field name="shortlist" type="list"
+		       label="COM_CONFERENCEPLUS_AWARDNOMINATIONSHORTLIST"
+		       description="COM_CONFERENCEPLUS_AWARDNOMINATIONSHORTLIST_DESC"
+		       class="inputbox" size="1" default="0" >
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+
+	</fieldset>
+
+</form>

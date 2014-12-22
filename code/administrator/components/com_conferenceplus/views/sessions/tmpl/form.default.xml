@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form
+        type="browse"
+        show_header="1"
+        show_filters="1"
+        show_pagination="1"
+        norows_placeholder="COM_CONFERENCEPLUS_COMMON_NORECORDS"
+        >
+    <headerset>
+        <header name="conferenceplus_session_id" type="rowselect" tdwidth="20" />
+        <header name="enabled" type="published" sortable="true" tdwidth="5%" />
+        <header name="title" type="fieldsearchable" sortable="true"
+                buttons="yes" buttonclass="btn" placeholder="COM_CONFERENCEPLUS_SEARCH"
+                />
+        <header name="description" type="text" />
+        <header name="category" type="text" />
+    </headerset>
+
+    <fieldset name="items">
+        <field name="conferenceplus_session_id" type="selectrow"/>
+        <field name="enabled" type="published"/>
+        <field name="title" type="text"
+               show_link="true"
+               url="index.php?option=com_conferenceplus&amp;view=session&amp;id=[ITEM:ID]"
+                />
+        <field name="description" type="text" />
+        <field name="categoryname" type="text" />
+    </fieldset>
+
+</form>

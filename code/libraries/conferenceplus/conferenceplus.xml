@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="library" method="upgrade" version="2.5">
+    <name>Conferenceplus - Library</name>
+    <libraryname>conferenceplus</libraryname>
+    <author>Robert Deutz</author>
+    <authorEmail>rdeutz@googlemail.com</authorEmail>
+    <authorUrl>www.robert-deutz.de</authorUrl>
+    <copyright>Copyright (C) 2014 JandBeyond e.V. All rights reserved.</copyright>
+    <creationDate>December 2014</creationDate>
+    <license>GNU/GPL</license>
+    <version>1.0.0</version>
+    <description>ConferencePlus library</description>
+    <files>
+        <folder>Conferenceplus</folder>
+        <folder>form</folder>
+        <filename>LICENSE</filename>
+        <filename>library.php</filename>
+    </files>
+
+    <languages folder="language">
+        <language tag="en-GB">en-GB/en-GB.lib_conferenceplus.ini</language>
+    </languages>
+</extension>

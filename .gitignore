@@ -1,0 +1,11 @@
+/.idea/
+/vendor
+/css
+/js
+/fonts
+/node_modules
+/assets/bower
+phinx.yml
+composer.phar
+.DS_Store
+
