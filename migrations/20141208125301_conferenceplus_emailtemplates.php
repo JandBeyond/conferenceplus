@@ -4,7 +4,7 @@ use Phinx\Migration\AbstractMigration;
 
 class ConferenceplusEmailtemplates extends AbstractMigration
 {
-    protected $tableName = 'u7jvr_conferenceplus_emailtemplates';
+    protected $tableName = 'bt12_conferenceplus_emailtemplates';
 
     /**
      * Migrate Up.

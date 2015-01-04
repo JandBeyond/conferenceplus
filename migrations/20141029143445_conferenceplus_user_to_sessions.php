@@ -4,7 +4,7 @@ use Phinx\Migration\AbstractMigration;
 
 class conferenceplusUserToSessions extends AbstractMigration
 {
-    protected $tableName = 'u7jvr_conferenceplus_user_to_sessions';
+    protected $tableName = 'bt12_conferenceplus_user_to_sessions';
 
     /**
      * Migrate Up.

@@ -4,7 +4,7 @@ use Phinx\Migration\AbstractMigration;
 
 class conferenceplusTickets extends AbstractMigration
 {
-    protected $tableName = 'u7jvr_conferenceplus_tickets';
+    protected $tableName = 'bt12_conferenceplus_tickets';
 
     /**
      * Migrate Up.
@@ -16,10 +16,12 @@ class conferenceplusTickets extends AbstractMigration
         $table->addColumn('tickettype_id', 'integer' , ['comment' => 'realtion to the Tickettype'])
             ->addColumn('payment_id', 'integer' , ['comment' => 'realtion to the Payment'])
             ->addColumn('processdata', 'text', ['comment' => 'Process Data as json'])
+            ->addColumn('firstname', 'string' , ['comment' => 'The Firstname'])
+            ->addColumn('lastname', 'string' , ['comment' => 'The Lastname'])
+            ->addColumn('email', 'string', ['comment' => 'Email'])
             ->addColumn('created', 'datetime', ['comment' => 'Entry created'])
             ->addColumn('modified', 'datetime', ['comment' => 'Last modification'])
             ->addColumn('enabled', 'integer', ['comment' => 'makes the item available'])
-            ->addColumn('event_id', 'integer', ['comment' => 'realtion to an event'])
             ->addIndex(['conferenceplus_ticket_id'], ['unique' => true])
             ->create();
     }
