@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="3.1" type="plugin" group="payment">
+	<name>plg_payment_paypal</name>
+	<creationDate>January 2015</creationDate>
+	<author>Robert Deutz</author>
+	<copyright>Robert Deutz</copyright>
+	<license>GNU General Public License version 3</license>
+	<authorEmail>rdeutz@googlemail.com</authorEmail>
+	<authorUrl>jandbeyond.org</authorUrl>
+	<version>1.0</version>
+	<description>PLG_PAYMENT_PAYPAL_XML_DESCRIPTION</description>
+	<files>
+		<filename plugin="paypal">paypal.php</filename>
+	</files>
+	<languages>
+		<language tag="en-GB">en-GB.plg_payment_paypal.ini</language>
+		<language tag="en-GB">	</language>
+	</languages>
+	<config>
+		<fields name="params">
+
+			<fieldset name="basic">
+				<field name="merchant" type="text" size="50" default="" label="PLG_PAYMENT_PAYPAL_MERCHANT" description="PLG_PAYMENT_PAYPAL_MERCHANT_DESC"/>
+				<field type="spacer" />
+				<field name="sandbox" type="radio" default="0" label="PLG_PAYMENT_PAYPAL_SANDBOX" description="PLG_PAYMENT_PAYPAL_SANDBOX_DESC">
+					<option value="0">JNo</option>
+					<option value="1">JYes</option>
+				</field>
+				<field name="sandbox_merchant" type="text" size="50" default="" label="PLG_PAYMENT_PAYPAL_SANDBOXMERCHANT" description="PLG_PAYMENT_PAYPAL_SANDBOXMERCHANT_DESC"/>
+			</fieldset>
+
+
+		</fields>
+	</config>
+</extension>

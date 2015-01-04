@@ -13,7 +13,7 @@
 defined('_JEXEC') or die;
 
 /**
- * controller session
+ * controller ticket
  *
  * @package  Conferenceplus
  * @since    1.0
@@ -27,8 +27,46 @@ class ConferenceplusControllerTicket extends FOFController
 	 */
 	protected function onBeforeAdd()
 	{
-		JFactory::getApplication()->setUserState('com_conferenceplus.ticketId', $this->input->get('tickettype'));
+		$ticketypeId = $this->input->get('tickettype');
+
+		$tickettype = FOFModel::getAnInstance('tickettypes', 'ConferenceplusModel');
+
+		if ($tickettype->isValid($ticketypeId))
+		{
+			JFactory::getApplication()->setUserState('com_conferenceplus.tickettypeId', $ticketypeId);
+
+			return true;
+		}
+
+		JFactory::getApplication()->setUserState('com_conferenceplus.tickettypeId', null);
+
+		return false;
+	}
+
+	/**
+	 * onAfterSave redirects after save to the buy page
+	 *
+	 * @return  mixed  true on success, exeception if something goes wrong
+	 */
+	protected function onAfterSave()
+	{
+		if (FOFPlatform::getInstance()->isFrontend())
+		{
+			$model = $this->getThisModel();
+
+			$ticketId = $model->getId();
+
+			$model->resetSavedState();
+
+			JFactory::getApplication()->setUserState('com_conferenceplus.tickettypeId', null);
+			JFactory::getApplication()->setUserState('com_conferenceplus.ticketId', $ticketId);
+
+			$Itemid = Conferenceplus\Route\Helper::getItemid();
+
+			$this->setRedirect("index.php?option=com_conferenceplus&view=payment&layout=buy&Itemid=$Itemid");
+		}
 
 		return true;
 	}
+
 }

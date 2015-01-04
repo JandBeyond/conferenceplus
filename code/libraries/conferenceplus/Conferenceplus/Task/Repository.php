@@ -59,7 +59,10 @@ class Repository
 		if ($this->isNew)
 		{
 			$this->table->created = JFactory::getDate()->toSql();
-			$this->table->name = 'ConfirmEmail';
+			if (trim($this->table->name) == '')
+			{
+				$this->table->name = 'UNDEFINED';
+			}
 		}
 		else
 		{

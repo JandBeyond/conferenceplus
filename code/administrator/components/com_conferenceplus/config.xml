@@ -33,9 +33,9 @@
 		<field name="currency" type="list"
 		       label="COM_CONFERENCEPLUS_CURRENCY"
 		       description="COM_CONFERENCEPLUS_CURRENCY_DESC"
-		       default="€|Euro"
+		       default="€|Euro|EUR"
 				>
-			<option value="€|Euro">€|Euro</option>
+			<option value="€|Euro|EUR">€|Euro|EUR</option>
 		</field>
 
 		<field name="uploadfolder" type="folderlist" class="form-control"  labelClass="control-label"

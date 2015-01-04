@@ -26,6 +26,23 @@ $doc = JFactory::getDocument()->setTitle($title);
 
 $Itemid = Conferenceplus\Route\Helper::getItemid('call4papers');
 
+$script ='
+
+	$(document).ready(function() {
+		$("#speaker_listtext-lbl").parent().hide();
+	    $("input[name$=\'speaker_multiple\']").click(function() {
+	        var test = $(this).val();
+			if (test == 0) {
+		        $("#speaker_listtext-lbl").parent().hide();
+			} else {
+				$("#speaker_listtext-lbl").parent().show();
+			}
+				
+	    });
+	});
+';
+$doc->addScriptDeclaration($script);
+
 ?>
 
 <!-- ************************** START: conferenceplus ************************** -->

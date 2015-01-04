@@ -31,5 +31,12 @@
             </acl>
         </view>
 
+        <view name="ticket">
+            <!-- Task mapping -->
+            <taskmap>
+                <task name="buy">dobuy</task>
+                <task name="list">browse</task>
+            </taskmap>
+        </view>
     </frontend>
 </fof>

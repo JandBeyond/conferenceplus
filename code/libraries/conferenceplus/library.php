@@ -9,6 +9,12 @@
 
 defined('_JEXEC') or die;
 
+// non supported PHP version detection. EJECT! EJECT! EJECT!
+if(!version_compare(PHP_VERSION, '5.6.2', '<='))
+{
+	return JError::raise(E_ERROR, 500, 'PHP versions less than 5.6.2 are not supported.<br/><br/>');
+}
+
 // Ensure that autoloaders are set
 JLoader::setup();
 

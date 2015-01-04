@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form
+		validate="true"
+		serverside_validate="true"
+		addfieldpath="/libraries/conferenceplus/form/field"
+		>
+	<fieldset name="basic_configuration"
+			  label="COM_CONFERENCEPLUS_GROUP_BASIC"
+			  description="COM_CONFERENCEPLUS_GROUP_BASIC_DESC"
+			>
+
+		<field name="firstname" type="text" class="inputbox form-control"  labelclass="control-label"
+			   size="150" label="COM_CONFERENCEPLUS_FIRSTNAME"
+			   description="COM_CONFERENCEPLUS_FIRSTNAME_DESC" required="true" />
+
+		<field name="lastname" type="text" class="inputbox form-control"  labelclass="control-label"
+			   size="150" label="COM_CONFERENCEPLUS_LASTNAME"
+			   description="COM_CONFERENCEPLUS_LASTNAME_DESC" required="true" />
+
+		<field name="email" type="text" class="inputbox form-control"  labelclass="control-label"
+			   size="150" label="COM_CONFERENCEPLUS_EMAIL"
+			   description="COM_CONFERENCEPLUS_EMAIL_DESC" required="true" />
+
+
+
+	</fieldset>
+
+</form>

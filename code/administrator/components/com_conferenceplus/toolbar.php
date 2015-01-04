@@ -175,7 +175,7 @@ class ConferenceplusToolbar extends FOFToolbar
 	{
 		if ($this->perms->edit)
 		{
-			JToolBarHelper::save();
+			//JToolBarHelper::save();
 		}
 
 		JToolBarHelper::cancel();

@@ -20,54 +20,56 @@ defined('_JEXEC') or die;
  */
 class ConferenceplusControllerCallback extends FOFController
 {
-	/**
-	 * That is what fof usally calls we need to find out what we have to do
-	 *
-	 * @return  false|void
-	 */
-	public function add()
+
+	public function __construct($config = array())
 	{
-		$layout = $this->input->get('layout');
+		parent::__construct($config);
+
+		$this->csrfProtection = false;
+
+		$this->cacheableTasks = array();
+	}
 
 
-		if ($layout == 'register')
+	public function execute($task)
+	{
+		if ( ! in_array($task, array('read', 'cancel')))
+		{
+			$task = 'read';
+			$this->input->set('task','read');
+		}
+
+		parent::execute($task);
+	}
+
+	public function read($cachable = false)
+	{
+		$type = $this->input->get('type');
+
+		if ($type == 'register')
 		{
 			$this->registerUser();
+
+			// Display
+			$this->display();
+
+			return true;
 		}
 
-
-
-		// Load and reset the model
-		$model = $this->getThisModel();
-		$model->reset();
-
-		// Set the layout to form, if it's not set in the URL
-
-		if (is_null($this->layout))
+		if ($type == 'payment')
 		{
-			$this->layout = 'form';
+			$model = FOFModel::getTmpInstance('Payments', 'ConferenceplusModel');
+			$result = $model->runCallback($this->input->getCmd('paymentmethod','none'));
+
+			echo $result ? 'OK' : 'FAILED';
 		}
 
-		// Do I have a form?
-		$model->setState('form_name', 'form.' . $this->layout);
+		JFactory::getApplication()->close();
+	}
 
-		$item = $model->getItem();
+	public function cancel()
+	{
 
-		if (!($item instanceof FOFTable))
-		{
-			return false;
-		}
-
-		$formData = is_object($item) ? $item->getData() : array();
-		$form = $model->getForm($formData);
-
-		if ($form !== false)
-		{
-			$this->hasForm = true;
-		}
-
-		// Display
-		$this->display(in_array('add', $this->cacheableTasks));
 	}
 
 	/**

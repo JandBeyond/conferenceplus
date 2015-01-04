@@ -8,12 +8,21 @@
 			  description="COM_CONFERENCEPLUS_GROUP_BASIC_DESC"
 	>
 
-		<field name="enabled" type="list"
-			   label="JSTATUS" description="COM_CONFERENCEPLUS_FIELD_STATE_DESC"
-			   class="inputbox" size="1" default="1" >
-			<option value="1">JPUBLISHED</option>
-			<option value="0">JUNPUBLISHED</option>
-		</field>
+		<field name="name" type="text" class="inputbox form-control"  labelclass="control-label"
+		       size="150" label="COM_CONFERENCEPLUS_NAME"
+		       readonly="true" />
+
+		<field name="created" type="text" class="inputbox form-control"  labelclass="control-label"
+		       size="150" label="COM_CONFERENCEPLUS_PAYMENT_CREATED"
+		       readonly="true" />
+
+		<field name="processkey" type="text" class="inputbox form-control"  labelclass="control-label"
+		       size="150" label="COM_CONFERENCEPLUS_PROCESSKEY"
+		       readonly="true" />
+
+		<field name="processdata" type="textarea" class="inputbox form-control"  labelclass="control-label"
+		       rows="50" cols="80" label="COM_CONFERENCEPLUS_PROCESSDATA"
+		       readonly="true" />
 
 
 	</fieldset>

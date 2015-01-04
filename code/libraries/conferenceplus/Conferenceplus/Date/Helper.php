@@ -13,6 +13,123 @@
 namespace Conferenceplus\Date;
 
 trait Helper {
+
+	public function prepareItemTimeFields(&$record)
+	{
+		$record->addKnownField('stimehh');
+		$record->addKnownField('stimemm');
+		$record->addKnownField('etimehh');
+		$record->addKnownField('etimemm');
+
+		if ($record->sdate == '0000-00-00')
+		{
+			$record->sdate = '';
+		}
+
+		if ($record->edate == '0000-00-00')
+		{
+			$record->edate = '';
+		}
+
+		if (strpos($record->sdate, '-') !== false)
+		{
+			list($y, $m, $d) = explode('-', $record->sdate);
+			$record->sdate = $d . '.' . $m . '.' . $y;
+		}
+
+		if (strpos($record->edate, '-') !== false)
+		{
+			list($y, $m, $d) = explode('-', $record->edate);
+			$record->edate = $d . '.' . $m . '.' . $y;
+		}
+
+		if ($record->stimeset == 1)
+		{
+			list($stimehh, $stimemm) = explode(":", $record->stime);
+			$record->stimehh = (int) $stimehh;
+			$record->stimemm = (int) $stimemm;
+		}
+
+		if ($record->etimeset == 1)
+		{
+			list($etimehh, $etimemm) = explode(":", $record->etime);
+			$record->etimehh = (int) $etimehh;
+			$record->etimemm = (int) $etimemm;
+		}
+
+	}
+
+
+
+
+	/**
+	 * it merges date and time fields and allows to separate between time not set and 00:00:00
+	 *
+	 * @param  array   $data                Form data
+	 * @param  array   $dateFieldPrefixes   prefixes for the date/time fileds
+	 * @param  array   $combinedDateFields  set these fields with the merged data
+	 *
+	 * @return bool    true on success, false otherwise
+	 */
+	public function manageDateFields(&$data, $dateFieldPrefixes, $combinedDateFields = [])
+	{
+
+		$dtFields = (array) $dateFieldPrefixes;
+
+		$results = [];
+
+		foreach ($dtFields as $dtf)
+		{
+			// Preset default values
+			$data[$dtf . 'time']    = '00:00:00';
+			$data[$dtf . 'timeset'] = '0';
+
+			// Check time and date
+			$result = $this->checkDate($dtf . 'date');
+
+			if ($result !== false)
+			{
+				// format the date so that it is in the right format for saving in the DB
+				$result = $this->formatDate($result);
+
+				if ($result === false)
+				{
+					$this->setError('Date format not valid: ' . $dtf . 'date');
+
+					return false;
+				}
+
+				$combined = $result;
+				$data[$dtf . 'date'] = $result;
+				$result              = $this->checkTime($dtf . 'time');
+
+				if ($result !== false)
+				{
+					$data[$dtf . 'time']    = $result . ':00';
+					$data[$dtf . 'timeset'] = 1;
+					$combined = $combined . ' ' . $result . ':00';
+				}
+				$results[] = $combined;
+			}
+		}
+
+		if ( ! empty($combinedDateFields) && ! empty($results))
+		{
+			foreach($combinedDateFields as $field)
+			{
+				if (! list(, $val) = each($results))
+				{
+					break;
+				}
+
+				$data[$field] = $val;
+			}
+		}
+
+		return true;
+	}
+
+
 	/**
 	 * checks if a Date is valid
 	 *

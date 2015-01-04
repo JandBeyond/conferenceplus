@@ -19,7 +19,7 @@ $title = 'Thank you! But Wait ...';
 $doc = JFactory::getDocument()->setTitle($title);
 
 $Itemid = Conferenceplus\Route\Helper::getItemid();
-$uri = JUri::base() . "index.php?option=com_conferenceplus&view=callback&layout=register&Itemid=$Itemid";
+$uri = JUri::base() . "index.php?option=com_conferenceplus&view=callback&type=register&layout=register&Itemid=$Itemid";
 ?>
 
 <!-- ************************** START: conferenceplus ************************** -->

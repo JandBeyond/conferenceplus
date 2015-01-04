@@ -72,6 +72,7 @@ var mediaScripts1 = [
 gulp.task('mediaJsFileupload', function(){
     return gulp.src(mediaScripts1)
         .pipe(concat('fileupload.js'))
+        .pipe(uglify())
         .pipe(gulp.dest(mediaJsOut));
 
 });

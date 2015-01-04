@@ -31,6 +31,99 @@
 		       size="15" label="COM_CONFERENCEPLUS_TICKETTYPEVAT" default="0"
 		       description="COM_CONFERENCEPLUS_TICKETTYPEVAT_DESC" required="true" />
 
+		<field name="partnerticket" type="radio"
+		       label="COM_CONFERENCEPLUS_PARTNERTICKET" description="COM_CONFERENCEPLUS_PARTNERTICKET_DESC"
+		       default="0" >
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+
+		<field name="sdate" type="calendar" class="inputbox form-control" default="1.1.2015"
+		       label="COM_CONFERENCEPLUS_TICKETTYPESTART" description="COM_CONFERENCEPLUS_TICKETTYPESTART_DESC" format="%d.%m.%Y" />
+
+		<field name="stimehh" type="list"
+		       label="COM_CONFERENCEPLUS_TICKETTYPESTIME_HH" description="COM_CONFERENCEPLUS_TICKETTYPESTIME_HH_DESC"
+		       class="input-mini" size="1" default="" >
+			<option value="">--</option>
+			<option value="00">0</option>
+			<option value="01">1</option>
+			<option value="02">2</option>
+			<option value="03">3</option>
+			<option value="04">4</option>
+			<option value="05">5</option>
+			<option value="06">6</option>
+			<option value="07">7</option>
+			<option value="08">8</option>
+			<option value="09">9</option>
+			<option value="10">10</option>
+			<option value="11">11</option>
+			<option value="12">12</option>
+			<option value="13">13</option>
+			<option value="14">14</option>
+			<option value="15">15</option>
+			<option value="16">16</option>
+			<option value="17">17</option>
+			<option value="18">18</option>
+			<option value="19">19</option>
+			<option value="20">20</option>
+			<option value="21">21</option>
+			<option value="22">22</option>
+			<option value="23">23</option>
+		</field>
+
+		<field name="stimemm" type="list"
+		       label="COM_CONFERENCEPLUS_TICKETTYPESTIME_MM" description="COM_CONFERENCEPLUS_TICKETTYPESTIME_MM_DESC"
+		       class="input-mini" size="1" default="" >
+			<option value="">--</option>
+			<option value="00">0</option>
+			<option value="15">15</option>
+			<option value="30">30</option>
+			<option value="45">45</option>
+		</field>
+
+		<field name="edate" type="calendar" class="inputbox form-control" default="1.1.2015"
+		       label="COM_CONFERENCEPLUS_TICKETTYPEEND" description="COM_CONFERENCEPLUS_TICKETTYPEEND_DESC" format="%d.%m.%Y" />
+
+		<field name="etimehh" type="list"
+		       label="COM_CONFERENCEPLUS_TICKETTYPEETIME_HH" description="COM_CONFERENCEPLUS_TICKETTYPEETIME_HH_DESC"
+		       class="input-mini" size="1" default="" >
+			<option value="">--</option>
+			<option value="00">0</option>
+			<option value="01">1</option>
+			<option value="02">2</option>
+			<option value="03">3</option>
+			<option value="04">4</option>
+			<option value="05">5</option>
+			<option value="06">6</option>
+			<option value="07">7</option>
+			<option value="08">8</option>
+			<option value="09">9</option>
+			<option value="10">10</option>
+			<option value="11">11</option>
+			<option value="12">12</option>
+			<option value="13">13</option>
+			<option value="14">14</option>
+			<option value="15">15</option>
+			<option value="16">16</option>
+			<option value="17">17</option>
+			<option value="18">18</option>
+			<option value="19">19</option>
+			<option value="20">20</option>
+			<option value="21">21</option>
+			<option value="22">22</option>
+			<option value="23">23</option>
+		</field>
+
+		<field name="etimemm" type="list"
+		       label="COM_CONFERENCEPLUS_TICKETTYPEETIME_MM" description="COM_CONFERENCEPLUS_TICKETTYPEETIME_MM_DESC"
+		       class="input-mini" size="1" default="" >
+			<option value="">--</option>
+			<option value="00">0</option>
+			<option value="15">15</option>
+			<option value="30">30</option>
+			<option value="45">45</option>
+		</field>
+
 		<field name="total_number_of_ticktes_available" type="text" class="inputbox form-control"  labelClass="control-label"
 		       size="15" label="COM_CONFERENCEPLUS_TICKETTYPETOTALNUMBEROFTICKTESAVAILABLE" default="0"
 		       description="COM_CONFERENCEPLUS_TICKETTYPETOTALNUMBEROFTICKTESAVAILABLE_DESC" required="true" />
@@ -38,59 +131,6 @@
 		<field name="event_id" type="conferenceplus.event" class="inputbox form-control"  labelClass="control-label"
 		       label="COM_CONFERENCEPLUS_EVENTTITLE" />
 
-
-
-		<field name="question1_lang_tag" type="text" class="inputbox form-control"  labelClass="control-label"
-		       size="15" label="COM_CONFERENCEPLUS_TICKETTYPEQUESTION1LANGTAG"
-		       description="COM_CONFERENCEPLUS_TICKETTYPEQUESTION1LANGTAG_DESC" />
-
-		<field name="question1_type" type="text" class="inputbox form-control"  labelClass="control-label"
-		       size="15" label="COM_CONFERENCEPLUS_TICKETTYPEQUESTION1TYPE"
-		       description="COM_CONFERENCEPLUS_TICKETTYPEQUESTION1TYPE_DESC" />
-
-		<field name="question1_options" type="textarea" labelClass="control-label"
-		       label="COM_CONFERENCEPLUS_TICKETTYPEQUESTION1OPTIONS"
-		       description="COM_CONFERENCEPLUS_TICKETTYPEQUESTION1OPTIONS_DESC"
-		       buttons="false" rows="5" cols="80"/>
-
-		<field name="question2_lang_tag" type="text" class="inputbox form-control"  labelClass="control-label"
-		       size="15" label="COM_CONFERENCEPLUS_TICKETTYPEQUESTION2LANGTAG"
-		       description="COM_CONFERENCEPLUS_TICKETTYPEQUESTION2LANGTAG_DESC" />
-
-		<field name="question2_type" type="text" class="inputbox form-control"  labelClass="control-label"
-		       size="15" label="COM_CONFERENCEPLUS_TICKETTYPEQUESTION2TYPE"
-		       description="COM_CONFERENCEPLUS_TICKETTYPEQUESTION2TYPE_DESC" />
-
-		<field name="question2_options" type="textarea" labelClass="control-label"
-		       label="COM_CONFERENCEPLUS_TICKETTYPEQUESTION2OPTIONS"
-		       description="COM_CONFERENCEPLUS_TICKETTYPEQUESTION2OPTIONS_DESC"
-		       buttons="false" rows="5" cols="80"/>
-
-		<field name="question3_lang_tag" type="text" class="inputbox form-control"  labelClass="control-label"
-		       size="15" label="COM_CONFERENCEPLUS_TICKETTYPEQUESTION3LANGTAG"
-		       description="COM_CONFERENCEPLUS_TICKETTYPEQUESTION3LANGTAG_DESC" />
-
-		<field name="question3_type" type="text" class="inputbox form-control"  labelClass="control-label"
-		       size="15" label="COM_CONFERENCEPLUS_TICKETTYPEQUESTION3TYPE"
-		       description="COM_CONFERENCEPLUS_TICKETTYPEQUESTION3TYPE_DESC" />
-
-		<field name="question3_options" type="textarea" labelClass="control-label"
-		       label="COM_CONFERENCEPLUS_TICKETTYPEQUESTION3OPTIONS"
-		       description="COM_CONFERENCEPLUS_TICKETTYPEQUESTION3OPTIONS_DESC"
-		       buttons="false" rows="5" cols="80"/>
-
-		<field name="question4_lang_tag" type="text" class="inputbox form-control"  labelClass="control-label"
-		       size="15" label="COM_CONFERENCEPLUS_TICKETTYPEQUESTION4LANGTAG"
-		       description="COM_CONFERENCEPLUS_TICKETTYPEQUESTION4LANGTAG_DESC" />
-
-		<field name="question4_type" type="text" class="inputbox form-control"  labelClass="control-label"
-		       size="15" label="COM_CONFERENCEPLUS_TICKETTYPEQUESTION4TYPE"
-		       description="COM_CONFERENCEPLUS_TICKETTYPEQUESTION4TYPE_DESC" />
-
-		<field name="question4_options" type="textarea" labelClass="control-label"
-		       label="COM_CONFERENCEPLUS_TICKETTYPEQUESTION4OPTIONS"
-		       description="COM_CONFERENCEPLUS_TICKETTYPEQUESTION4OPTIONS_DESC"
-		       buttons="false" rows="5" cols="80"/>
 	</fieldset>
 
 </form>

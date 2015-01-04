@@ -12,34 +12,32 @@
 namespace Conferenceplus\Task;
 
 /**
- * Class ConfirmEmail
+ * Class AfterPayment
  *
  * @package  Conferenceplus\Task
  * @since    1.0
  */
-class ConfirmEmail extends Base
+class AfterPayment extends Base
 {
 	/**
 	 * Create a task
 	 *
-	 * @param   string  $firstname  the firstname
-	 * @param   string  $lastname   the lastname
-	 * @param   string  $email      the email
-	 * @param   string  $event_id   the event id
+	 * @param   FofTable  $firstname  the firstname
 	 *
 	 * @return  boolean true on success
 	 */
-	public function create($firstname, $lastname, $email, $event_id)
+	public function create($paymentTable)
 	{
 		$taskRepository = new Repository;
 
 		$task = $taskRepository->getItem();
 
-		$data = ['firstname' => $firstname, 'lastname' => $lastname, 'email' => $email];
+		$data = ['payment_id'  => $paymentTable->conferenceplus_payment_id,
+		         'processdata' => $paymentTable->processdata,
+				 'processkey'  => $paymentTable->processkey ];
 
 		$task->processdata = json_encode($data);
-		$task->event_id    = $event_id;
-		$task->name        = 'ConfirmEmail';
+		$task->name        = 'AfterPayment';
 
 		return $task->store();
 	}
