@@ -56,4 +56,89 @@ class Helper
 
 		return $key;
 	}
+
+	public static function logData($data, $type="ERROR")
+	{
+		jimport('joomla.log.log');
+		$types = array(
+			'EMERGENCY',
+			'ALERT',
+			'CRITICAL',
+			'ERROR',
+			'WARNING',
+			'NOTICE',
+			'INFO',
+			'DEBUG'
+		);
+
+		if (!in_array($type, $types))
+		{
+			$type = 'EMERGENCY';
+		}
+
+		$loglevel = constant('JLog::' . $type);
+		$date = date('Ymd');
+		\JLog::addLogger(
+			array(
+				//Sets file name
+				'text_file' => 'com_conferenceplus.' . $date . '.' . strtolower($type) . '.php'
+			),
+			$loglevel,
+			//Chooses a category name
+			'com_conferenceplus'
+		);
+
+
+		\JLog::add('- START LOGGING DATA -', $loglevel, 'com_conferenceplus');
+
+		// we are trying to convert the data to an array
+		$convertedData = array();
+
+		if (is_array($data))
+		{
+			$convertedData = $data;
+		}
+		else
+		{
+			if (is_string($data) || is_bool($data) || is_integer($data) || is_float($data))
+			{
+				$convertedData = (array) $data;
+			}
+			else
+			{
+				if (is_object($data))
+				{
+					$convertedData = \JArrayHelper::fromObject($data);
+				}
+
+			}
+
+		}
+
+		self::doLog($convertedData, $loglevel);
+
+		\JLog::add('- END LOGGING DATA -', $loglevel, 'com_conferenceplus');
+
+	}
+
+	private static function doLog($data, $loglevel, $level=0, $component='com_conferenceplus')
+	{
+		foreach ($data as $key => $value)
+		{
+			if (is_array($value))
+			{
+				if ($level < 50)
+				{
+					self::doLog($value, $loglevel, $level++);
+				}
+			}
+			else
+			{
+				\JLog::add($key . '=' . $value, $loglevel, $component);
+			}
+
+		}
+
+	}
+
 }
