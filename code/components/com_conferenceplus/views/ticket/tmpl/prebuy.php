@@ -78,11 +78,11 @@ if (0)
 				<?php foreach($fields AS $f) : ?>
 
 					<?php if (in_array($f, $keys)) : ?>
-						<?php echo JText::_(Conferenceplus\helper::checkLangTag('COM_CONFERENCEPLUS_' . strtoupper($f) . 'PREINFO', '', 'COM_CONFERENCEPLUS_EMPTY', '')); ?>
+						<?php echo JText::_(Conferenceplus\Helper::checkLangTag('COM_CONFERENCEPLUS_' . strtoupper($f) . 'PREINFO', '', 'COM_CONFERENCEPLUS_EMPTY', '')); ?>
 						<?php $displayData->label = $form->getLabel($f); ?>
 						<?php $displayData->input = $form->getInput($f); ?>
 						<?php echo JLayoutHelper::render('form.formelement', $displayData, $baseLayoutPath); ?>
-						<?php echo JText::_(Conferenceplus\helper::checkLangTag('COM_CONFERENCEPLUS_' . strtoupper($f) . 'POSTINFO', '', 'COM_CONFERENCEPLUS_EMPTY', '')); ?>
+						<?php echo JText::_(Conferenceplus\Helper::checkLangTag('COM_CONFERENCEPLUS_' . strtoupper($f) . 'POSTINFO', '', 'COM_CONFERENCEPLUS_EMPTY', '')); ?>
 					<?php endif; ?>
 
 				<?php endforeach; ?>
