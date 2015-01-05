@@ -93,19 +93,16 @@ class ConferenceplusModelPayments extends ConferenceplusModelDefault
 		$ticketTable->payment_id = $table->conferenceplus_payment_id;
 		$ticketTable->modified   = JFactory::getDate()->toSql();
 
-		$ticketTableresult = $ticketTable->store();
+		$ticketTableResult = $ticketTable->store();
 
-		if ($this->_isNewRecord && $table->userid == 0)
+		if ($this->_isNewRecord)
 		{
 			$task = new Conferenceplus\Task\AfterPayment;
 
-			if ( ! $task->create($table))
-			{
-				return false;
-			}
+			$taskCreateResult = $task->create($table);
 		}
 
-		return $ticketTable->store();
+		return ($ticketTableResult && $taskCreateResult);
 	}
 
 	/**
@@ -149,6 +146,8 @@ class ConferenceplusModelPayments extends ConferenceplusModelDefault
 
 		$data = array_merge($rawDataGet, $rawDataPost);
 
+		Conferenceplus\Helper::logData($data,'DEBUG');
+
 		// Some plugins result in an empty Itemid being added to the request
 		// data, screwing up the payment callback validation in some cases (e.g.PayPal).
 		if (array_key_exists('Itemid', $data))
@@ -187,9 +186,13 @@ class ConferenceplusModelPayments extends ConferenceplusModelDefault
 				$saveData['state']       = $pluginData['state'];
 				$saveData['processdata'] = $this->prepareProcessData($pluginData, $ticketData, $data);
 
+				Conferenceplus\Helper::logData($saveData,'DEBUG');
+
 				$result = parent::save($saveData);
 
 				$this->deleteTicketId();
+
+				Conferenceplus\Helper::logData($result ? 'SAVE SUCCESS' : 'SAVE FAIL','DEBUG');
 
 				return $result;
 			}
