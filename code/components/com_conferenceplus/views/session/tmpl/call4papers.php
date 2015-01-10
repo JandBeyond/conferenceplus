@@ -26,6 +26,9 @@ $doc = JFactory::getDocument()->setTitle($title);
 
 $Itemid = Conferenceplus\Route\Helper::getItemid('call4papers');
 
+$uri       = JUri::getInstance();
+$returnurl = base64_encode($uri->toString(['path', 'query', 'fragment']));
+
 $script ='
 
 	$(document).ready(function() {
@@ -43,30 +46,23 @@ $script ='
 ';
 $doc->addScriptDeclaration($script);
 
+$showMessages = ! empty(JFactory::getApplication()->getMessageQueue());
 ?>
 
 <!-- ************************** START: conferenceplus ************************** -->
 <div class="conferenceplus item">
 
-	<?php if (count($errors) != 0)
-	{
-		echo "<h$headerlevel>" . JText::_('COM_CONFERENCEPLUS_ERROR') . "</h$headerlevel>";
-		$displayData->pretext = JText::_('COM_CONFERENCEPLUS_ERRORSUBMIT');
-		$displayData->errors = $errors;
-		echo JLayoutHelper::render('form.error', $displayData, $baseLayoutPath);
-		unset($displayData);
-	}
-	else
-	{
+	<?php
 		echo "<h$headerlevel>" . $title . "</h$headerlevel>";
 		echo JText::_('COM_CONFERENCEPLUS_HEADTEXTSUBMIT_SESSION');
-	}
-
 	?>
 
-
 	<?php echo JText::_('COM_CONFERENCEPLUS_CALL4PAPERS_PRETEXT');?>
-	
+
+	<?php if ($showMessages) : ?>
+		<?php echo JLayoutHelper::render('html.messages', '', $baseLayoutPath); ?>
+	<?php endif; ?>
+
 	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 		<div class="row">
 
@@ -93,7 +89,8 @@ $doc->addScriptDeclaration($script);
 				<input type="hidden" name="option" value="com_conferenceplus" />
 				<input type="hidden" name="view" value="session" />
 				<input type="hidden" name="task" value="save" />
-				<input type="hidden" name="layout" value="call4paper" />
+				<input type="hidden" name="layout" value="call4papers" />
+				<input type="hidden" name="returnurl" value="<?php echo $returnurl; ?>" />
 				<input type="hidden" name="<?php echo JFactory::getSession()->getFormToken();?>" value="1" />
 			</form>	
 

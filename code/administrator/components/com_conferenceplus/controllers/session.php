@@ -32,6 +32,12 @@ class ConferenceplusControllerSession extends FOFController
 		{
 			$model = $this->getThisModel();
 
+			// we need to check if save was successful
+			if ( ! empty($model->_errors))
+			{
+				return true;
+			}
+
 			$hasUserAccount = $model->hasUserAccount();
 
 			$sessionId = $model->getId();

@@ -10,7 +10,6 @@ defined('_JEXEC') or die;
 
 $displayData 	= new stdClass;
 $form 			= $this->form;
-$errors 		= $form->getErrors();
 $params 		= JComponentHelper::getParams('COM_CONFERENCEPLUS');
 $keys 			= array_keys($form->getFieldset());
 
@@ -25,33 +24,18 @@ $Itemid = Conferenceplus\Route\Helper::getItemid('');
 
 $currency = explode('|', $params->get('currency'))[0];
 
-if (0)
-{
-	echo "#<div style='text-align:left;font_size:1.2em;'><pre>";
-	//print_r($this->item->eventParams);
-	print_r($keys);
-	echo "</pre></div>#";
-}
+$uri       = JUri::getInstance();
+$returnurl = base64_encode($uri->toString(['path', 'query', 'fragment']));
 
+$showMessages = ! empty(JFactory::getApplication()->getMessageQueue());
 ?>
 
 <!-- ************************** START: conferenceplus ************************** -->
 <div class="conferenceplus item">
 
-	<?php if (count($errors) != 0)
-	{
-		echo "<h$headerlevel>" . JText::_('COM_CONFERENCEPLUS_ERROR') . "</h$headerlevel>";
-		$displayData->pretext = JText::_('COM_CONFERENCEPLUS_ERRORSUBMIT');
-		$displayData->errors = $errors;
-		echo JLayoutHelper::render('form.error', $displayData, $baseLayoutPath);
-		unset($displayData);
-	}
-	else
-	{
+	<?php
 		echo "<h$headerlevel>" . $title . "</h$headerlevel>";
 		echo JText::_('COM_CONFERENCEPLUS_PREBUY_TICKET');
-	}
-
 	?>
 
 	<div class="selectedticket">
@@ -67,7 +51,11 @@ if (0)
 	</div>
 
 	<?php echo JText::_('COM_CONFERENCEPLUS_PREBUY_TICKET_PRETEXT');?>
-	
+
+	<?php if ($showMessages) : ?>
+		<?php echo JLayoutHelper::render('html.messages', '', $baseLayoutPath); ?>
+	<?php endif; ?>
+
 	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 		<div class="row">
 
@@ -95,6 +83,7 @@ if (0)
 				<input type="hidden" name="view" value="ticket" />
 				<input type="hidden" name="task" value="save" />
 				<input type="hidden" name="layout" value="buy" />
+				<input type="hidden" name="returnurl" value="<?php echo $returnurl; ?>" />
 				<input type="hidden" name="<?php echo JFactory::getSession()->getFormToken();?>" value="1" />
 			</form>	
 
