@@ -8,11 +8,11 @@
         >
     <headerset>
         <header name="conferenceplus_payment_id" type="rowselect" tdwidth="20" />
-        <header name="state" type="fieldsearchable" sortable="true"/>
+        <header name="state" type="text" sortable="true"/>
         <header name="name" type="fieldsearchable" sortable="true"
-                buttons="yes" buttonclass="btn" placeholder="COM_CONFERENCEPLUS_SEARCH_IN_NAME"
+                buttons="yes" buttonclass="btn" placeholder="COM_CONFERENCEPLUS_SEARCH"
                 />
-        <header name="processkey" type="fieldsearchable" sortable="true"/>
+        <header name="processkey" type="text" sortable="true"/>
     </headerset>
 
     <fieldset name="items">
