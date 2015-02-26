@@ -2,11 +2,11 @@
 /**
  * Conferenceplus
  *
- * @package    Conferenceplus
- * @author     Robert Deutz <rdeutz@googlemail.com>
+ * @package   Conferenceplus
+ * @author    Robert Deutz <rdeutz@googlemail.com>
  *
- * @copyright  2014 JandBeyond
- * @license    GNU General Public License version 2 or later
+ * @copyright 2014 JandBeyond
+ * @license   GNU General Public License version 2 or later
  */
 
 // No direct access
@@ -15,11 +15,39 @@ defined('_JEXEC') or die;
 /**
  * controller session
  *
- * @package  Conferenceplus
- * @since    1.0
+ * @package Conferenceplus
+ * @since   1.0
  */
 class ConferenceplusControllerSession extends FOFController
 {
+
+	private $botDetected = false;
+
+	/**
+	 * Save the incoming data and then return to the Browse task
+	 *
+	 * @return  bool
+	 */
+	public function save()
+	{
+		$params 		= JComponentHelper::getParams('com_conferenceplus');
+		$starttime = JFactory::getApplication()->getUserState('com_conferenceplus.starttime');
+		$now = time();
+		$delay = (int) $params->get('delay', 5);
+
+		$this->botDetected = $starttime + $delay > $now;
+
+		if ($this->botDetected)
+		{
+			// some submitted the form to fast, seems a to be a bot
+			$this->setRedirect('index.php', JText::_('COM_CONFERENCEPLUS_BOT_DETECTED'));
+
+			return true;
+		}
+
+		return parent::save();
+	}
+
 
 	/**
 	 * onAfterSave redirects after save to the thank you page
@@ -28,7 +56,7 @@ class ConferenceplusControllerSession extends FOFController
 	 */
 	protected function onAfterSave()
 	{
-		if (FOFPlatform::getInstance()->isFrontend())
+		if (FOFPlatform::getInstance()->isFrontend() && ! $this->botDetected)
 		{
 			$model = $this->getThisModel();
 
@@ -60,7 +88,20 @@ class ConferenceplusControllerSession extends FOFController
 	}
 
 	/**
-	 * onAfterSave redirects after save to the thank you page
+	 * run before the add function is executed
+	 *
+	 * @return bool
+	 * @throws Exception
+	 */
+	public function onBeforeAdd()
+	{
+		JFactory::getApplication()->setUserState('com_conferenceplus.starttime', time());
+
+		return true;
+	}
+
+	/**
+	 * onAfterSave
 	 *
 	 * @return  true in success
 	 */

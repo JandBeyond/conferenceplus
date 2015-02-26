@@ -51,6 +51,19 @@
 			<option value="1">COM_CONFERENCEPLUS_SESSIONSELECTIONMETHOD_BLIND</option>
 		</field>
 
+		<field name="delay" type="list"
+		       label="COM_CONFERENCEPLUS_DELAY"
+		       description="COM_CONFERENCEPLUS_DELAY_DESC"
+		       default="5"
+				>
+			<option value="0">COM_CONFERENCEPLUS_DELAY_DISABLED</option>
+			<option value="5">COM_CONFERENCEPLUS_DELAY_5</option>
+			<option value="10">COM_CONFERENCEPLUS_DELAY_10</option>
+			<option value="15">COM_CONFERENCEPLUS_DELAY_15</option>
+			<option value="20">COM_CONFERENCEPLUS_DELAY_20</option>
+		</field>
+
+
 	</fieldset>
 
 
