@@ -39,7 +39,7 @@ class ConferenceplusModelTickets extends ConferenceplusModelDefault
 				->select($db->qn('p.state') . ' AS ' . $db->qn('paymentstate'));
 			// Join tickettype
 			$query->join('INNER', '#__conferenceplus_tickettypes AS t ON t.conferenceplus_tickettype_id = tickettype_id')
-				->select($db->qn('t.name') . ' AS ' . $db->qn('ticketname'))
+				->select($db->qn('t.productname') . ' AS ' . $db->qn('ticketname'))
 				->select($db->qn('t.partnerticket') . ' AS ' . $db->qn('partnerticket'));
 		}
 

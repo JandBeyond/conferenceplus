@@ -279,7 +279,7 @@ class ConferenceplusModelPayments extends ConferenceplusModelDefault
 		$params = [];
 
 		$params['net_amount']  = $ticketData->tickettype->fee / 100;
-		$params['item_name']   = $ticketData->tickettype->name;
+		$params['item_name']   = $ticketData->tickettype->productname;
 		$params['item_number'] = 1;
 		$params['currency']    = 'EUR';
 		$params['custom']      = $ticketData->ticket->conferenceplus_ticket_id;

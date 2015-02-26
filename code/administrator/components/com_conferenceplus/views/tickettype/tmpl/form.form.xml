@@ -19,6 +19,10 @@
 		       size="150" label="COM_CONFERENCEPLUS_TICKETTYPENAME"
 		       description="COM_CONFERENCEPLUS_TICKETTYPENAME_DESC" required="true" />
 
+		<field name="productname" type="text" class="inputbox form-control"  labelClass="control-label"
+		       size="150" label="COM_CONFERENCEPLUS_TICKETTYPEPRODUCTNAME"
+		       description="COM_CONFERENCEPLUS_TICKETTYPEPRODUCTNAME_DESC" required="true" />
+
 		<field name="description" type="textarea" labelClass="control-label"
 		       label="COM_CONFERENCEPLUS_TICKETTYPEDESCRIPTION" description="COM_CONFERENCEPLUS_TICKETTYPEDESCRIPTION_DESC"
 		       buttons="false" rows="5" cols="80"/>
