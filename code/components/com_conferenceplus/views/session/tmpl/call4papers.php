@@ -11,7 +11,7 @@ defined('_JEXEC') or die;
 $displayData 	= new stdClass;
 $form 			= $this->form;
 $errors 		= $form->getErrors();
-$params 		= JComponentHelper::getParams('COM_CONFERENCEPLUS');
+$params 		= JComponentHelper::getParams('com_conferenceplus');
 $keys 			= array_keys($form->getFieldset());
 
 $headerlevel    = $params->get('headerlevel', 2);
@@ -69,7 +69,7 @@ $showMessages = ! empty(JFactory::getApplication()->getMessageQueue());
 			<form action="index.php?option=com_conferenceplus&view=session&layout=form&Itemid=<?php echo $Itemid;?>" method="post" id="adminForm" role="form">
 
 			<?php $fields = array('title', 'firstname', 'lastname', 'email', 'description', 'bio', 'imagefile', 'catid', 'addidionalinfo', 'speaker_multiple', 'speaker_listtext'); ?>
-
+			
 			<?php foreach($fields AS $f) : ?>
 
 				<?php if (in_array($f, $keys)) : ?>
@@ -93,9 +93,7 @@ $showMessages = ! empty(JFactory::getApplication()->getMessageQueue());
 				<input type="hidden" name="returnurl" value="<?php echo $returnurl; ?>" />
 				<input type="hidden" name="<?php echo JFactory::getSession()->getFormToken();?>" value="1" />
 			</form>	
-
 		</div>
 	</div>		
-
 </div>
 <!-- ************************** END: conferenceplus ************************** -->

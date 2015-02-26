@@ -12,7 +12,7 @@
 // No direct access
 defined('_JEXEC') or die;
 
-$params 		= JComponentHelper::getParams('COM_CONFERENCEPLUS');
+$params 		= JComponentHelper::getParams('com_conferenceplus');
 $headerlevel    = $params->get('headerlevel', 2);
 
 $title = 'Thank you!';
