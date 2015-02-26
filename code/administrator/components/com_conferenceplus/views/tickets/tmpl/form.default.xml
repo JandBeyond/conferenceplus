@@ -16,6 +16,7 @@
         <header name="email" type="text" sortable="true" />
         <header name="ticketname" type="text" sortable="true" />
         <header name="partnerticket" type="text" sortable="true" />
+        <header name="created" type="text" sortable="true" />
     </headerset>
 
     <fieldset name="items">
@@ -35,6 +36,7 @@
                 />
         <field name="ticketname" type="text"/>
         <field name="partnerticket" type="text"/>
+        <field name="created" type="text"/>
 
     </fieldset>
 
