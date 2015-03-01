@@ -12,6 +12,10 @@
         <header name="name" type="fieldsearchable" sortable="true"
                 buttons="yes" buttonclass="btn" placeholder="COM_CONFERENCEPLUS_SEARCH_IN_NAME"
                 />
+        <header name="stime" type="text"/>
+        <header name="etime" type="text"/>
+        <header name="dayname" type="text"/>
+        <header name="slottype" type="text"/>
 
     </headerset>
 
@@ -22,6 +26,11 @@
                show_link="true"
                url="index.php?option=com_conferenceplus&amp;view=slot&amp;id=[ITEM:ID]"
                 />
+        <field name="stime" type="text"/>
+        <field name="etime" type="text"/>
+        <field name="dayname" type="text"/>
+        <field name="slottype" type="text"/>
+
     </fieldset>
 
 </form>
