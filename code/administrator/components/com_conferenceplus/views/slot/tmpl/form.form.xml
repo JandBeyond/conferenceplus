@@ -20,6 +20,9 @@
 			   size="150" label="COM_CONFERENCEPLUS_SLOTNAME"
 			   description="COM_CONFERENCEPLUS_SLOTNAME_DESC" required="true" />
 
+		<field name="slottype" type="conferenceplus.slottype" class="inputbox form-control"  labelClass="control-label"
+			   label="COM_CONFERENCEPLUS_SLOTTYPE" description="COM_CONFERENCEPLUS_SLOTTYPE_DESC"/>
+
 		<field name="description" type="textarea" labelClass="control-label"
 			   label="COM_CONFERENCEPLUS_SLOTDESCRIPTION" description="COM_CONFERENCEPLUS_SLOTDESCRIPTION_DESC"
 			   buttons="false" rows="5" cols="80"/>
