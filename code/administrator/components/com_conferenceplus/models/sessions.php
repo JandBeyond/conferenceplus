@@ -21,6 +21,11 @@ require_once 'default.php';
  */
 class ConferenceplusModelSessions extends ConferenceplusModelDefault
 {
+
+	protected $default_behaviors = array('enabled');
+
+	protected $programme = array();
+
 	/**
 	 * Ajust the query
 	 *
@@ -41,9 +46,175 @@ class ConferenceplusModelSessions extends ConferenceplusModelDefault
 			// Join categories
 			$query->join('INNER', '#__categories AS c ON c.id = catid')
 				->select($db->qn('c.title') . ' AS ' . $db->qn('categoryname'));
+
+			if (FOFPlatform::getInstance()->isFrontend())
+			{
+				// Join rooms/slots
+				$query->join('INNER', '#__conferenceplus_sessions_to_rooms_slots AS relation_rs ON relation_rs.session_id = session.conferenceplus_session_id')
+					->join('INNER', '#__conferenceplus_rooms AS r ON relation_rs.room_id = r.conferenceplus_room_id')
+					->join('INNER', '#__conferenceplus_slots AS s ON relation_rs.slot_id = s.conferenceplus_slot_id')
+					->join('INNER', '#__conferenceplus_days AS d ON s.day_id = d.conferenceplus_day_id')
+					->select($db->qn('r.conferenceplus_room_id') . ' AS ' . $db->qn('room_id'))
+					->select($db->qn('r.name') . ' AS ' . $db->qn('roomname'))
+					->select($db->qn('r.description') . ' AS ' . $db->qn('roomdesciption'))
+					->select($db->qn('s.conferenceplus_slot_id') . ' AS ' . $db->qn('slot_id'))
+					->select($db->qn('s.name') . ' AS ' . $db->qn('slotname'))
+					->select($db->qn('s.description') . ' AS ' . $db->qn('slotdesciption'))
+					->select($db->qn('s.stime') . ' AS ' . $db->qn('slotstime'))
+					->select($db->qn('s.stimeset') . ' AS ' . $db->qn('slotstimeset'))
+					->select($db->qn('s.etime') . ' AS ' . $db->qn('slotetime'))
+					->select($db->qn('s.etimeset') . ' AS ' . $db->qn('slotetimeset'))
+					->select($db->qn('d.name') . ' AS ' . $db->qn('dayname'))
+					->where($db->qn('s.enabled') . ' = 1')
+					->where($db->qn('d.enabled') . ' = 1')
+					->where($db->qn('r.enabled') . ' = 1')
+					->where($db->qn('session.event_id') . ' =' . $db->qn('d.event_id'))
+					->order('d.sdate, s.stime');
+			}
 		}
 
 		return $query;
+	}
+
+	/**
+	 * Adding more useful fields to the resultArray
+	 *
+	 * @param   array  &$resultArray  An array of objects, each row representing a record
+	 *
+	 * @return  void
+	 */
+	protected function onProcessList(&$resultArray)
+	{
+		if (FOFPlatform::getInstance()->isFrontend())
+		{
+			$speakers = $this->getAllSpeakers();
+
+			foreach ($resultArray AS &$result)
+			{
+				$speakerIds 	  = explode(',', $result->speaker_listids);
+				$assignedSpeakers = [];
+
+				if ( ! empty($speakerIds))
+				{
+					foreach ($speakerIds AS $sid)
+					{
+						if (array_key_exists($sid, $speakers))
+						{
+							$assignedSpeakers[] = $speakers[$sid];
+						}
+					}
+
+					$result->assignedSpeakers = $assignedSpeakers;
+				}
+			}
+		}
+	}
+
+	/**
+	 * Get the programme so that displaying it is simpler
+	 *
+	 * @param   integer  $eventId  The event id
+	 *
+	 * @return array
+	 */
+	public function getProgramme($eventId)
+	{
+		if (empty($this->programme))
+		{
+			$result = [];
+
+			$rooms  = $this->getRooms($eventId);
+			$slots  = $this->getSlots($eventId, true);
+
+			// Items are sorted be slot time
+			if ( ! empty($slots))
+			{
+				$dayname = $slots[0]->dayname;
+				$day = [];
+
+				$tba = new stdClass;
+				$tba->tba = 'TBA';
+
+				foreach ($slots AS $slot)
+				{
+					if ($slot->dayname != $dayname)
+					{
+						$dayname  = $slot->dayname;
+						$result[] = $day;
+						$day      = [];
+					}
+
+					$sessions = $this->getSessionBySlotId($slot->conferenceplus_slot_id);
+
+					$sessionsOrdered = [];
+
+					// We only need to check all sessions when slottype less 2, above are keynotes and such
+					if ($slot->slottype < 2)
+					{
+						foreach ($rooms AS $room)
+						{
+							$foundSession = false;
+
+							foreach ($sessions AS $session)
+							{
+								if ($room->conferenceplus_room_id == $session->room_id)
+								{
+									$sessionsOrdered[] = $session;
+									$foundSession = true;
+								}
+							}
+
+							if ( ! $foundSession)
+							{
+								$sessionsOrdered[] = $tba;
+							}
+						}
+					}
+
+					// This is a keynote so when have a speaker and a session we use the first array element
+					if ($slot->slottype == 2 && ! empty($sessions))
+					{
+						$sessionsOrdered[] = $sessions[0];
+					}
+
+					$slot->sessionsOrdered = $sessionsOrdered;
+
+					$day[] = $slot;
+				}
+
+				$result[] = $day;
+
+				$this->programme = $result;
+			}
+		}
+
+		return $this->programme;
+	}
+
+	/**
+	 * Get a session by slotId
+	 *
+	 * @param   integer  $slotId  the slot id
+	 *
+	 * @return array
+	 */
+	public function getSessionBySlotId($slotId)
+	{
+		$items  = $this->getItemList();
+		$result = [];
+
+		if (! empty($items) && 0 != (int) $slotId)
+		{
+			foreach ($items as $item)
+			{
+				if ($item->slot_id == $slotId)
+				{
+					$result[] = $item;
+				}
+			}
+		}
+
+		return $result;
 	}
 
 	/**
@@ -59,21 +230,39 @@ class ConferenceplusModelSessions extends ConferenceplusModelDefault
 	{
 		parent::onAfterGetItem($record);
 
-		$record->assignedRoomsSlots = [];
-
-		if ($this->_isNewRecord)
+		if (FOFPlatform::getInstance()->isBackend())
 		{
-			$event_id = JFactory::getApplication()->getUserState('com_conferenceplus.eventId');
+			if ( ! is_null($record))
+			{
+				$event_id = $record->event_id;
+
+				$record->assignedRoomsSlots = $this->getAssignedRoomsSlots($record->conferenceplus_session_id);
+
+				$record->rooms = $this->getRooms($event_id);
+				$record->slots = $this->getSlots($event_id);
+			}
 		}
-		else
+
+		if (FOFPlatform::getInstance()->isFrontend())
 		{
-			$event_id = $record->event_id;
+			$speakerIds = explode(',', $record->speaker_listids);
+			$assignedSpeakers = [];
 
-			$record->assignedRoomsSlots = $this->getAssignedRoomsSlots($record->conferenceplus_session_id);
+			if ( ! empty($speakerIds))
+			{
+				$speakers = $this->getAllSpeakers();
+
+				foreach ($speakerIds AS $sid)
+				{
+					if (array_key_exists($sid, $speakers))
+					{
+						$assignedSpeakers[] = $speakers[$sid];
+					}
+				}
+			}
+
+			$record->assignedSpeakers = $assignedSpeakers;
 		}
-
-		$record->rooms = $this->getRooms($event_id);
-		$record->slots = $this->getSlots($event_id);
 	}
 
 	/**
@@ -102,10 +291,11 @@ class ConferenceplusModelSessions extends ConferenceplusModelDefault
 	 * Get slots for an event
 	 *
 	 * @param   integer  $eventId  the event id
+	 * @param   bool     $all      if we need all slot set to true
 	 *
 	 * @return  mixed
 	 */
-	private function getSlots($eventId)
+	public function getSlots($eventId, $all=false)
 	{
 		$db    = $this->getDbo();
 		$query = $db->getQuery(true);
@@ -117,8 +307,12 @@ class ConferenceplusModelSessions extends ConferenceplusModelDefault
 			->where('d.event_id' . ' = ' . $db->q($eventId))
 			->where($db->qn('s.enabled') . ' = 1')
 			->where($db->qn('d.enabled') . ' = 1')
-			->where($db->qn('s.slottype') . ' < 3')
 			->order('d.sdate ASC');
+
+		if (! $all)
+		{
+			$query->where($db->qn('s.slottype') . ' < 3');
+		}
 
 		$db->setQuery($query);
 		$slots = $db->loadObjectList();
@@ -133,7 +327,7 @@ class ConferenceplusModelSessions extends ConferenceplusModelDefault
 	 *
 	 * @return  mixed
 	 */
-	private function getRooms($eventId)
+	public function getRooms($eventId)
 	{
 		$db    = $this->getDbo();
 		$query = $db->getQuery(true);
@@ -170,6 +364,32 @@ class ConferenceplusModelSessions extends ConferenceplusModelDefault
 			return $this->onBeforeSaveFrontend($data, $table);
 		}
 
+		return $this->onBeforeSaveBackend($data, $table);
+	}
+
+	/**
+	 * This method runs in frontend before the $data is saved to the $table. Return false to
+	 * stop saving.
+	 *
+	 * @param   array     &$data   The data to save
+	 * @param   FOFTable  &$table  The table to save the data to
+	 *
+	 * @return  boolean  Return false to prevent saving, true to allow it
+	 */
+	protected function onBeforeSaveBackend(&$data, &$table)
+	{
+		$speaker_lists = $table->speaker_listids;
+
+		$old_mainspeakers = explode(',', $speaker_lists);
+
+		if ($old_mainspeakers[0] != $data['mainspeakerid'])
+		{
+			$old_mainspeakers[0] = $data['mainspeakerid'];
+			$data['speaker_listids'] = implode(',', $old_mainspeakers);
+		}
+
+		$data['modified'] = JFactory::getDate()->toSql();
+
 		return true;
 	}
 
@@ -198,17 +418,6 @@ class ConferenceplusModelSessions extends ConferenceplusModelDefault
 
 			// At this point we should have a speaker id
 			$data['speaker_listids'] = $speakerId;
-		}
-		else
-		{
-			$speaker_lists = $table->speaker_listids;
-			$old_mainspeakers = explode(',', $speaker_lists);
-
-			if ($old_mainspeakers[0] != $data['mainspeaker'])
-			{
-				$old_mainspeakers[0] = $data['mainspeaker'];
-				$data['speaker_listids'] = implode(',', $old_mainspeakers);
-			}
 		}
 
 		$data['modified'] = JFactory::getDate()->toSql();
@@ -486,5 +695,25 @@ class ConferenceplusModelSessions extends ConferenceplusModelDefault
 		}
 
 		return false;
+	}
+
+	/**
+	 * Get a list of all speakers
+	 *
+	 * @return mixed
+	 */
+	private function getAllSpeakers()
+	{
+		$db = $this->getDbo();
+		$query = $db->getQuery(true);
+		$query->select('*')
+			->from('#__conferenceplus_speakers')
+			->where($db->qn('enabled') . ' = 1');
+
+		$db->setQuery($query);
+
+		$result = $db->loadAssocList('conferenceplus_speaker_id');
+
+		return $result;
 	}
 }

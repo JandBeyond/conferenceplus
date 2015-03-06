@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+    <layout title="COM_CONFERENCEPLUS_VIEW_PROGRAMME_TITLE">
+        <message>
+            <![CDATA[COM_CONFERENCEPLUS_VIEW_PROGRAMME_DESC]]>
+        </message>
+    </layout>
+    <state>
+        <name>COM_CONFERENCEPLUS_VIEW_PROGRAMME_TITLE</name>
+        <description>COM_CONFERENCEPLUS_VIEW_PROGRAMME_DESC</description>
+    </state>
+    <!-- Add fields to the request variables for the layout. -->
+    <fields name="request">
+        <fieldset name="request"
+                  addfieldpath="/libraries/conferenceplus/form/field">
+
+            <field name="event_id" type="conferenceplus.event"
+                   label="Select an Event"
+                   required="true"
+                   description=""
+                    />
+            <field name="tabid" type="text"
+                   label="Focus on tab #"
+                   required="true"
+                   description="tab id starts with 0 put only the number in the field"
+                    />
+        </fieldset>
+    </fields>
+
+</metadata>
