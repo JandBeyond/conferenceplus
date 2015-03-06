@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+    <layout title="COM_CONFERENCEPLUS_VIEW_SPEAKER_TITLE">
+        <message>
+            <![CDATA[COM_CONFERENCEPLUS_VIEW_SPEAKER_DESC]]>
+        </message>
+    </layout>
+    <state>
+        <name>COM_CONFERENCEPLUS_VIEW_SPEAKER_TITLE</name>
+        <description>COM_CONFERENCEPLUS_VIEW_SPEAKER_DESC</description>
+    </state>
+    <!-- Add fields to the request variables for the layout. -->
+    <fields name="request" addfieldpath="/libraries/conferenceplus/form/field">
+        <fieldset name="request">
+
+            <field name="event_id" type="conferenceplus.event"
+                   label="Select an Event"
+                   required="true"
+                   description=""
+                    />
+
+
+
+        </fieldset>
+
+    </fields>
+
+    <!-- Add fields to the parameters object for the layout. -->
+    <fields name="params">
+
+        <!-- Basic options. -->
+        <fieldset name="basic" label="Params">
+            <field name="filterspeaker" type="conferenceplus.speaker"
+                   label="Select Speakers" size="20" multiple="true"
+                   required="false"
+                   description="" class="input-xxlarge"
+                    />
+
+        </fieldset>
+    </fields>
+
+
+</metadata>
