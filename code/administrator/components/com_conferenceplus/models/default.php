@@ -144,4 +144,14 @@ class ConferenceplusModelDefault extends FOFModel
 
 		return $field;
 	}
+
+	/**
+	 * get the component configuration
+	 *
+	 * @return  object
+	 */
+	protected function getComponentConfiguration()
+	{
+		return JComponentHelper::getComponent('com_conferenceplus')->params;
+	}
 }
