@@ -63,6 +63,12 @@
 			<option value="20">COM_CONFERENCEPLUS_DELAY_20</option>
 		</field>
 
+		<field name="categorycolors" type="textarea" class="form-control"  labelClass="control-label"
+			   size="150" label="COM_CONFERENCEPLUS_CATEGORYCOLORS"
+			   description="COM_CONFERENCEPLUS_CATEGORYCOLORS_DESC"
+			   default="1:#787878,2:#232323"
+			   buttons="false" rows="5" cols="80"/>
+
 
 	</fieldset>
 
