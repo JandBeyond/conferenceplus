@@ -10,7 +10,7 @@ defined('_JEXEC') or die;
 
 $displayData 	= new stdClass;
 $form 			= $this->form;
-$params 		= JComponentHelper::getParams('COM_CONFERENCEPLUS');
+$params 		= JComponentHelper::getParams('com_conferenceplus');
 $keys 			= array_keys($form->getFieldset());
 
 $headerlevel    = $params->get('headerlevel', 2);
@@ -76,7 +76,7 @@ $showMessages = ! empty(JFactory::getApplication()->getMessageQueue());
 				<?php endforeach; ?>
 
 				<div class="form-actions">
-					<input type="submit" value="<?php echo JText::_('COM_CONFERENCEPLUS_SEND');?>" class="btn btn-primary" />
+					<input type="submit" value="<?php echo JText::_('COM_CONFERENCEPLUS_SEND');?>" class="btn btn-danger" />
 				</div>
 
 				<input type="hidden" name="option" value="com_conferenceplus" />

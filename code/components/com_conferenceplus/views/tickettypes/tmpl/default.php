@@ -23,12 +23,11 @@ $uri = JUri::base() . "index.php?option=com_conferenceplus&view=ticket&layout=pr
 
 	<?php echo "<h$headerlevel>" . $title . "</h$headerlevel>"; ?>
 
-	<?php echo JTExt::_('COM_CONFERENCEPLUS_BUY_TICKET_BEFORETICKETS') ?>
 	<div class="clearfix">
 	<?php foreach($this->items as $item) :?>
 		<a class="ticket<?php echo $item->partnerticket == "1" ? ' partner' : '';?><?php echo ' ttid' . $item->conferenceplus_tickettype_id;?>" href="<?php echo $uri . $item->conferenceplus_tickettype_id; ?>">
-
-		<div class="ticket">
+			<div class="ticket">
+				<div class="ticketicon"></div>
 				<p class="ticketname">
 					<?php echo $item->name; ?>
 				</p>
@@ -45,6 +44,8 @@ $uri = JUri::base() . "index.php?option=com_conferenceplus&view=ticket&layout=pr
 		</a>
 	<?php endforeach; ?>
 	</div>
+		<?php echo JTExt::_('COM_CONFERENCEPLUS_BUY_TICKET_BEFORETICKETS') ?>
+
 	<?php echo JTExt::_('COM_CONFERENCEPLUS_BUY_TICKET_AFTERTICKETS') ?>
 
 

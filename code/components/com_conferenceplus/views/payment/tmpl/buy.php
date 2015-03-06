@@ -13,26 +13,18 @@
 defined('_JEXEC') or die;
 
 $displayData 	= new stdClass;
-$params 		= JComponentHelper::getParams('COM_CONFERENCEPLUS');
+$params 		= JComponentHelper::getParams('com_conferenceplus');
 $headerlevel    = $params->get('headerlevel', 2);
 $baseLayoutPath = JPATH_ROOT . '/media/conferenceplus/layouts';
 
 $title = JText::_('COM_CONFERENCEPLUS_BUY_TITLE');
 $doc = JFactory::getDocument()->setTitle($title);
 
-// $title = JLayoutHelper::render('html.title', $displayData, $baseLayoutPath);
 $Itemid = Conferenceplus\Route\Helper::getItemid('');
 
 $tickettype = $this->item->ticketData->tickettype;
 $ticket     = $this->item->ticketData->ticket;
 $currency   = explode('|', $params->get('currency'))[0];
-
-if (0)
-{
-	echo "#<div style='text-align:left;font_size:1.2em;'><pre>";
-	print_r($this);
-	echo "</pre></div>#";
-}
 
 $processdata = json_decode($ticket->processdata, true);
 
@@ -80,10 +72,6 @@ $edit = JUri::base() . 'index.php?option=com_conferenceplus&view=ticket&task=edi
 			<?php echo $provider; ?>
 		<?php endforeach; ?>
 	</div>
-
-	<?php if (0) : ?>
-	<a href="<?php echo $edit; ?>">Edit</a>
-	<?php endif; ?>
 
 </div>
 <!-- ************************** END: conferenceplus ************************** -->
