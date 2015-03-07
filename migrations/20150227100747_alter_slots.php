@@ -17,7 +17,7 @@ class AlterSlots extends AbstractMigration
      */
     public function change()
     {
-        /*
+        
         $table = $this->table($this->tableName);
         $table->addColumn('stimeset', 'integer', array('after' => 'start','comment' => 'Is the start time set','null' => false))
             ->addColumn('stimeset', 'integer', array('after' => 'end','comment' => 'Is the start time set','null' => false))
@@ -25,6 +25,5 @@ class AlterSlots extends AbstractMigration
             ->renameColumn('end', 'etime')
             ->renameColumn('room_id', 'slottype',array('comment' => 'Type of session 0 = normal, 1 = span over rooms'))
             ->update();
-        */
     }
 }

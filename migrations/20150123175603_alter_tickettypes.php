@@ -17,10 +17,10 @@ class AlterTickettypes extends AbstractMigration
      */
     public function change()
     {
-        /*
+        
         $table = $this->table($this->tableName);
         $table->addColumn('productname', 'string', array('after' => 'name','comment' => 'The Name of the product, internal use'))
               ->update();
-        */
+        
     }
 }
