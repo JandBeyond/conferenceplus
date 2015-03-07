@@ -14,6 +14,11 @@ defined('_JEXEC') or die;
 
 require_once 'default.php';
 
+/**
+ * Class ConferenceplusModelPayments
+ *
+ * @since  0.0.1
+ */
 class ConferenceplusModelPayments extends ConferenceplusModelDefault
 {
 	/**
@@ -46,31 +51,6 @@ class ConferenceplusModelPayments extends ConferenceplusModelDefault
 	}
 
 	/**
-	 * This method runs before the $data is saved to the $table. Return false to
-	 * stop saving.
-	 *
-	 * @param   array     &$data   The data to save
-	 * @param   FOFTable  &$table  The table to save the data to
-	 *
-	 * @return  boolean  Return false to prevent saving, true to allow it
-	 */
-	protected function onBeforeSave(&$data, &$table)
-	{
-		if ( ! parent::onBeforeSave($data, $table))
-		{
-			return false;
-		}
-
-		if (FOFPlatform::getInstance()->isFrontend())
-		{
-			$processData = json_decode($table->processdata, true);
-			$ticket = $processData['ticket']['ticket'];
-			$data['name'] = $ticket['firstname'] . ' ' . $ticket['lastname'] . ', ' . $ticket['email'];
-		}
-
-		return true;
-	}
-	/**
 	 * This method runs after the data is saved to the $table.
 	 *
 	 * @param   FOFTable  &$table  The table which was saved
@@ -95,6 +75,8 @@ class ConferenceplusModelPayments extends ConferenceplusModelDefault
 
 		$ticketTableResult = $ticketTable->store();
 
+		$taskCreateResult = true;
+
 		if ($this->_isNewRecord)
 		{
 			$task = new Conferenceplus\Task\AfterPayment;
@@ -106,7 +88,9 @@ class ConferenceplusModelPayments extends ConferenceplusModelDefault
 	}
 
 	/**
-	 * @param $ticketData
+	 * get Payment providers
+	 *
+	 * @param   mixed  $ticketData  the ticketdata
 	 *
 	 * @return array
 	 */
@@ -135,18 +119,21 @@ class ConferenceplusModelPayments extends ConferenceplusModelDefault
 	/**
 	 * runs the callback from a payment provider
 	 *
-	 * @param $paymentMethod
+	 * @param   string  $paymentMethod  the paymentmethod
 	 *
 	 * @return bool
 	 */
 	public function runCallback($paymentMethod)
 	{
-		$rawDataPost = JRequest::get('POST', 2);
-		$rawDataGet = JRequest::get('GET', 2);
+		$POST = new FOFInput('POST');
+		$rawDataPost = $POST->getArray();
+
+		$GET = new FOFInput('GET');
+		$rawDataGet = $GET->getArray();
 
 		$data = array_merge($rawDataGet, $rawDataPost);
 
-		Conferenceplus\Helper::logData($data,'DEBUG');
+		Conferenceplus\Helper::logData($data, 'DEBUG');
 
 		// Some plugins result in an empty Itemid being added to the request
 		// data, screwing up the payment callback validation in some cases (e.g.PayPal).
@@ -158,7 +145,7 @@ class ConferenceplusModelPayments extends ConferenceplusModelDefault
 			}
 		}
 
-		$ticketId = array_key_exists('custom', $data) ? (int)$data['custom'] : -1;
+		$ticketId = array_key_exists('custom', $data) ? (int) $data['custom'] : - 1;
 
 		if ($ticketId < 1)
 		{
@@ -174,25 +161,28 @@ class ConferenceplusModelPayments extends ConferenceplusModelDefault
 
 		$results = $dispatcher->trigger('onPaymentCallback', array($paymentMethod, $data, $params));
 
-		foreach($results as $result)
+		foreach ($results as $result)
 		{
 			if ($result !== false)
 			{
 				$pluginData = json_decode($result, true);
 
-				// save payment
+				// Save payment
 				$saveData = [];
 				$saveData['processkey']  = $pluginData['processkey'];
 				$saveData['state']       = $pluginData['state'];
 				$saveData['processdata'] = $this->prepareProcessData($pluginData, $ticketData, $data);
+				$saveData['name']        = $ticketData->ticket->firstname . ' ' .
+											$ticketData->ticket->lastname . ', ' .
+											$ticketData->ticket->email;
 
-				Conferenceplus\Helper::logData($saveData,'DEBUG');
+				Conferenceplus\Helper::logData($saveData, 'DEBUG');
 
 				$result = parent::save($saveData);
 
 				$this->deleteTicketId();
 
-				Conferenceplus\Helper::logData($result ? 'SAVE SUCCESS' : 'SAVE FAIL','DEBUG');
+				Conferenceplus\Helper::logData($result ? 'SAVE SUCCESS' : 'SAVE FAIL', 'DEBUG');
 
 				return $result;
 			}
@@ -204,17 +194,18 @@ class ConferenceplusModelPayments extends ConferenceplusModelDefault
 	/**
 	 * merge data and json decode
 	 *
-	 * @param $data
-	 * @param $ticketData
+	 * @param   array  $pluginData  result data from the plugin
+	 * @param   mixed  $ticketData  ticketdata
+	 * @param   array  $ppvData     data from payment provider
 	 *
 	 * @return mixed|string
 	 */
-	public function prepareProcessData($data, $ticketData, $ppvData)
+	public function prepareProcessData($pluginData, $ticketData, $ppvData)
 	{
 		$mergedData = [];
-		$mergedData['paymentprovider'] = $data;
+		$mergedData['paymentprovider'] = $pluginData;
 		$mergedData['ticket']          = $ticketData;
-		$mergedData['ipn']             = $ppvData;
+		$mergedData['ipn']             = array_map('utf8_encode', $ppvData);
 
 		return json_encode($mergedData);
 	}
@@ -223,6 +214,7 @@ class ConferenceplusModelPayments extends ConferenceplusModelDefault
 	 * get a ticket id from the session
 	 *
 	 * @return mixed
+	 *
 	 * @throws Exception
 	 */
 	private function getTicketId()
@@ -234,6 +226,7 @@ class ConferenceplusModelPayments extends ConferenceplusModelDefault
 	 * delete ticket id save in session
 	 *
 	 * @return mixed
+	 *
 	 * @throws Exception
 	 */
 	private function deleteTicketId()
@@ -241,18 +234,15 @@ class ConferenceplusModelPayments extends ConferenceplusModelDefault
 		return JFactory::getApplication()->setUserState('com_conferenceplus.ticketId', null);
 	}
 
-
 	/**
 	 * get ticketdata based on a ticketId
 	 *
-	 * @param $ticketId
+	 * @param   integer  $ticketId  id of the ticket
 	 *
 	 * @return stdClass
 	 */
 	protected function getTicketData($ticketId = 0)
 	{
-
-
 		$ticketTable = FOFTable::getAnInstance('tickets');
 		$ticketTable->load($ticketId);
 		$tickettypeId = $ticketTable->tickettype_id;
@@ -270,7 +260,7 @@ class ConferenceplusModelPayments extends ConferenceplusModelDefault
 	/**
 	 * prepare params array set with ticket data
 	 *
-	 * @param $ticketData
+	 * @param   mixed  $ticketData  the ticketdata
 	 *
 	 * @return array
 	 */
