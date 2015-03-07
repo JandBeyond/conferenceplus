@@ -27,6 +27,28 @@ class ConferenceplusModelSessions extends ConferenceplusModelDefault
 	protected $programme = array();
 
 	/**
+	 * Method to auto-populate the model state.
+	 *
+	 * This method should only be called once per instantiation and is designed
+	 * to be called on the first call to the getState() method unless the model
+	 * configuration flag to ignore the request is set.
+	 *
+	 * @return  void
+	 *
+	 * @note    Calling getState in this method will result in recursion.
+	 * @since   12.2
+	 */
+	protected function populateState()
+	{
+		// Initialise variables.
+		$app = JFactory::getApplication();
+
+		// Load the filters.
+		$this->setState('filter.title', $this->getUserStateFromRequest('filter.title', 'title', ''));
+
+	}
+
+	/**
 	 * Ajust the query
 	 *
 	 * @param   boolean  $overrideLimits  Are we requested to override the set limits?
@@ -70,6 +92,17 @@ class ConferenceplusModelSessions extends ConferenceplusModelDefault
 					->where($db->qn('r.enabled') . ' = 1')
 					->where($db->qn('session.event_id') . ' =' . $db->qn('d.event_id'))
 					->order('d.sdate, s.stime');
+			}
+
+			// Filter
+			$filter = $this->getState('filter.title');
+
+			if ( ! empty($filter))
+			{
+				$qFilter = $db->q('%' . $filter . '%');
+				$query->where('( ' . $db->qn('session.title') . ' like ' . $qFilter . ') OR ('
+									. $db->qn('session.description') . ' like ' . $qFilter . ') OR ('
+									. $db->qn('c.title') . ' like ' . $qFilter . ')');
 			}
 		}
 

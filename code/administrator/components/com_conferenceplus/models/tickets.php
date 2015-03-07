@@ -18,6 +18,28 @@ class ConferenceplusModelTickets extends ConferenceplusModelDefault
 {
 
 	/**
+	 * Method to auto-populate the model state.
+	 *
+	 * This method should only be called once per instantiation and is designed
+	 * to be called on the first call to the getState() method unless the model
+	 * configuration flag to ignore the request is set.
+	 *
+	 * @return  void
+	 *
+	 * @note    Calling getState in this method will result in recursion.
+	 * @since   12.2
+	 */
+	protected function populateState()
+	{
+		// Initialise variables.
+		$app = JFactory::getApplication();
+
+		// Load the filters.
+		$this->setState('filter.title', $this->getUserStateFromRequest('filter.title', 'firstname', ''));
+
+	}
+
+	/**
 	 * Ajust the query
 	 *
 	 * @param   boolean  $overrideLimits  Are we requested to override the set limits?
@@ -37,15 +59,27 @@ class ConferenceplusModelTickets extends ConferenceplusModelDefault
 			// Join payments
 			$query->join('LEFT', '#__conferenceplus_payments AS p ON p.conferenceplus_payment_id = payment_id')
 				->select($db->qn('p.state') . ' AS ' . $db->qn('paymentstate'));
+
 			// Join tickettype
 			$query->join('INNER', '#__conferenceplus_tickettypes AS t ON t.conferenceplus_tickettype_id = tickettype_id')
 				->select($db->qn('t.productname') . ' AS ' . $db->qn('ticketname'))
 				->select($db->qn('t.partnerticket') . ' AS ' . $db->qn('partnerticket'));
+
+			// Filter
+			$filter = $this->getState('filter.title');
+
+			if ( ! empty($filter))
+			{
+				$qFilter = $db->q('%' . $filter . '%');
+				$query->where('( ' . $db->qn('payment_id') . ' like ' . $qFilter . ') OR ('
+					. $db->qn('firstname') . ' like ' . $qFilter . ') OR ('
+					. $db->qn('lastname') . ' like ' . $qFilter . ') OR ('
+					. $db->qn('email') . ' like ' . $qFilter . ')');
+			}
 		}
 
 		return $query;
 	}
-
 
 	/**
 	 * This method runs before the $data is saved to the $table. Return false to
@@ -161,9 +195,9 @@ class ConferenceplusModelTickets extends ConferenceplusModelDefault
 	/**
 	 * create a form field for asking the buyer some questions
 	 *
-	 * @param  string  $fieldname   the Fieldname
-	 * @param  string  $data        the options
-	 * @param  bool    $additional  if set to true add a 0 to the fieldname, needed when a question is asked twice
+	 * @param   string  $fieldname   the Fieldname
+	 * @param   string  $data        the options
+	 * @param   bool    $additional  if set to true add a 0 to the fieldname, needed when a question is asked twice
 	 *
 	 * @return SimpleXMLElement
 	 */
@@ -174,7 +208,7 @@ class ConferenceplusModelTickets extends ConferenceplusModelDefault
 		$field = new SimpleXMLElement('<field></field>');
 		$field->addAttribute('name', $targetfieldname);
 		$field->addAttribute('type', 'list');
-		$field->addAttribute('label', 'COM_CONFERENCEPLUS_'. strtoupper($fieldname));
+		$field->addAttribute('label', 'COM_CONFERENCEPLUS_' . strtoupper($fieldname));
 		$field->addAttribute('required', 'true');
 		$field->addAttribute('class', 'inputbox form-control');
 		$field->addAttribute('labelclass', 'control-label');
@@ -192,9 +226,15 @@ class ConferenceplusModelTickets extends ConferenceplusModelDefault
 		return $field;
 	}
 
+	/**
+	 * Get the tickettype
+	 *
+	 * @return  mixed
+	 *
+	 * @throws  Exception
+	 */
 	private function getTicketTypeId()
 	{
 		return JFactory::getApplication()->getUserState('com_conferenceplus.tickettypeId');
 	}
-
 }
