@@ -33,5 +33,5 @@ JFormHelper::addFieldPath(dirname(__FILE__) . '/form/field');
 //JHtml::addIncludePath(dirname(__FILE__) . '/html');
 
 // Load library language
-$lang = JFactory::getLanguage();
-$lang->load('lib_sample', JPATH_SITE);
+// $lang = JFactory::getLanguage();
+// $lang->load('lib_conferenceplus', __DIR__);
