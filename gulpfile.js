@@ -11,7 +11,7 @@ var sym             = require('gulp-sym');
 var media          = 'code/media/conferenceplus';
 var mediaCssOut    = media + '/css';
 var mediaJsOut     = media + '/js';
-var targetBase     = '/Users/deutz/work/mappedDocRoot/jab/15';
+var targetBase     = '/Users/deutz/work/mappedDocRoot/jab/mittwald';
 
 // Clean
 gulp.task('clean', function() {
@@ -49,6 +49,10 @@ gulp.task('mapping', function() {
         .pipe(sym(targetBase + '/' + dof, {force:true}));
 
     dof = 'plugins/user/conferenceplus';
+    gulp.src('code/' + dof)
+        .pipe(sym(targetBase + '/' + dof, {force:true}));
+
+    dof = 'plugins/payment';
     gulp.src('code/' + dof)
         .pipe(sym(targetBase + '/' + dof, {force:true}));
 
