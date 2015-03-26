@@ -14,8 +14,8 @@ defined('_JEXEC') or die;
 /**
  * Conferenceplus User plugin
  *
- * @package     CONFERENCEPLUS
- * @since       1.0
+ * @package  CONFERENCEPLUS
+ * @since    1.0
  */
 class PlgPaymentPaypal extends JPlugin
 {
@@ -31,13 +31,6 @@ class PlgPaymentPaypal extends JPlugin
 
 	private $paymentmethod = 'paypal';
 
-	public function __construct(&$subject, $config = array())
-	{
-		parent::__construct($subject, $config);
-
-
-	}
-
 	/**
 	 * checks if the configuration is valid, we need a merchant id at least
 	 *
@@ -51,7 +44,7 @@ class PlgPaymentPaypal extends JPlugin
 	/**
 	 * getter for the error log
 	 *
-	 * @param $paymentmethod
+	 * @param   string  $paymentmethod  the paymentmethod
 	 *
 	 * @return array
 	 */
@@ -68,7 +61,7 @@ class PlgPaymentPaypal extends JPlugin
 	/**
 	 * renders the payment form
 	 *
-	 * @param array $params
+	 * @param   array  $params  parameter
 	 *
 	 * @return string
 	 */
@@ -99,7 +92,7 @@ class PlgPaymentPaypal extends JPlugin
 		$displayData->net_amount  = 0;
 		$displayData->tax_amount  = 0;
 
-		foreach($params as $key => $value)
+		foreach ($params as $key => $value)
 		{
 			$displayData->$key = $value;
 		}
@@ -107,6 +100,15 @@ class PlgPaymentPaypal extends JPlugin
 		return JLayoutHelper::render('form', $displayData, $baseLayoutPath);
 	}
 
+	/**
+	 * process the classback from the payment provider
+	 *
+	 * @param   string  $paymentmethod  the paymentmethod
+	 * @param   array   $data           the data
+	 * @param   array   $params         Params
+	 *
+	 * @return bool|mixed|string
+	 */
 	public function onPaymentCallback($paymentmethod, $data, $params)
 	{
 		if ( ! $this->isConfigured())
@@ -122,7 +124,7 @@ class PlgPaymentPaypal extends JPlugin
 		// Check IPN data for validity (i.e. protect against fraud attempt)
 		$isValid = $this->isValidIPN($data);
 
-		if( ! $isValid)
+		if ( ! $isValid)
 		{
 			$this->errorLog[] = 'PayPal reports transaction as invalid';
 
@@ -133,13 +135,12 @@ class PlgPaymentPaypal extends JPlugin
 		$receiver_email = $data['receiver_email'];
 		$receiver_id = $data['receiver_id'];
 		$valid_id = $this->getMerchantID();
-		$isValid =
-			($receiver_email == $valid_id)
+		$isValid = ($receiver_email == $valid_id)
 			|| (strtolower($receiver_email) == strtolower($receiver_email))
 			|| ($receiver_id == $valid_id)
 			|| (strtolower($receiver_id) == strtolower($receiver_id));
 
-		if( ! $isValid)
+		if ( ! $isValid)
 		{
 			$this->errorLog[] = 'Merchant ID does not match receiver_email or receiver_id';
 
@@ -151,7 +152,7 @@ class PlgPaymentPaypal extends JPlugin
 		$currency    = strtoupper($params['currency']);
 		$isValid     = $mc_currency == $currency;
 
-		if( ! $isValid)
+		if ( ! $isValid)
 		{
 			$this->errorLog[] = "Invalid currency; expected $currency, got $mc_currency";
 
@@ -164,7 +165,7 @@ class PlgPaymentPaypal extends JPlugin
 		$mc_gross = floatval($data['mc_gross']);
 		$gross    = $params['net_amount'];
 
-		if($mc_gross > 0)
+		if ($mc_gross > 0)
 		{
 			// A positive value means "payment". The prices MUST match!
 			// Important: NEVER, EVER compare two floating point values for equality.
@@ -176,9 +177,9 @@ class PlgPaymentPaypal extends JPlugin
 			$isPartialRefund = ($gross + $mc_gross) > 0.01;
 		}
 
-		if(!$isValid)
+		if (!$isValid)
 		{
-			$this->errorLog[] = 'Paid amount does not match the subscription amount';
+			$this->errorLog[] = 'Paid amount does not match the ticket amount';
 
 			return false;
 		}
@@ -189,10 +190,18 @@ class PlgPaymentPaypal extends JPlugin
 	}
 
 
+	/**
+	 * Get the new state
+	 *
+	 * @param   string  $paymentStatus    Payment state
+	 * @param   bool    $isPartialRefund  is partial refund
+	 *
+	 * @return string
+	 */
 	private function getNewState($paymentStatus, $isPartialRefund=false)
 	{
 		// Check the payment_status
-		switch($paymentStatus)
+		switch ($paymentStatus)
 		{
 			case 'Canceled_Reversal':
 			case 'Completed':
@@ -214,9 +223,11 @@ class PlgPaymentPaypal extends JPlugin
 			default:
 				$newStatus = 'X';
 
-				// Partial refunds can only by issued by the merchant. In that case,
-				// we don't want the subscription to be cancelled. We have to let the
-				// merchant adjust its parameters if needed.
+				/*
+				 * Partial refunds can only by issued by the merchant. In that case,
+				 * we don't want the subscription to be cancelled. We have to let the
+				 * merchant adjust its parameters if needed.
+				 */
 				if ($isPartialRefund)
 				{
 					$newStatus = 'C';
@@ -230,6 +241,8 @@ class PlgPaymentPaypal extends JPlugin
 
 	/**
 	 * Gets the form action URL for the payment
+	 *
+	 * @return  string
 	 */
 	private function getPaymentURL()
 	{
@@ -238,6 +251,8 @@ class PlgPaymentPaypal extends JPlugin
 
 	/**
 	 * Gets the form action URL for the payment
+	 *
+	 * @return  string
 	 */
 	private function getHostname()
 	{
@@ -249,9 +264,10 @@ class PlgPaymentPaypal extends JPlugin
 		return 'www.paypal.com';
 	}
 
-
 	/**
 	 * Gets the PayPal Merchant ID (usually the email address)
+	 *
+	 * @return  string
 	 */
 	private function getMerchantID()
 	{
@@ -265,10 +281,12 @@ class PlgPaymentPaypal extends JPlugin
 
 	/**
 	 * Creates the callback URL based on the plugins configuration.
+	 *
+	 * @return  string
 	 */
-	private function getPostbackURL() {
-
-		$url = JURI::base().'index.php?option=com_conferenceplus&view=callback&type=payment&paymentmethod=paypal';
+	private function getPostbackURL()
+	{
+		$url = JURI::base() . 'index.php?option=com_conferenceplus&view=callback&type=payment&paymentmethod=paypal';
 
 		return $url;
 	}
@@ -276,20 +294,26 @@ class PlgPaymentPaypal extends JPlugin
 	/**
 	 * Validates the incoming data against PayPal's IPN to make sure this is not a
 	 * fraudelent request.
+	 *
+	 * @param   array  &$data  the Data
+	 *
+	 * @return  boolean
 	 */
 	private function isValidIPN(&$data)
 	{
 		$hostname = $this->getHostname();
 
-		$url = 'ssl://'.$hostname;
+		$url = 'ssl://' . $hostname;
 		$port = 443;
 
 		$req = 'cmd=_notify-validate';
-		foreach($data as $key => $value)
+
+		foreach ($data as $key => $value)
 		{
 			$value = urlencode($value);
 			$req .= "&$key=$value";
 		}
+
 		$header = '';
 		$header .= "POST /cgi-bin/webscr HTTP/1.1\r\n";
 		$header .= "Host: $hostname:$port\r\n";
@@ -297,20 +321,21 @@ class PlgPaymentPaypal extends JPlugin
 		$header .= "Content-Length: " . strlen($req) . "\r\n";
 		$header .= "Connection: Close\r\n\r\n";
 
-		$fp = fsockopen ($url, $port, $errno, $errstr, 30);
+		$fp = fsockopen($url, $port, $errno, $errstr, 30);
 
 		if (!$fp)
 		{
 			// HTTP ERROR
 			$this->errorLog[] = 'Could not open SSL connection to ' . $hostname . ':' . $port;
+
 			return false;
 		}
 
-		fputs ($fp, $header . $req);
+		fputs($fp, $header . $req);
 
 		while (!feof($fp))
 		{
-			$res = fgets ($fp, 1024);
+			$res = fgets($fp, 1024);
 
 			if (stristr($res, "VERIFIED"))
 			{
@@ -320,11 +345,12 @@ class PlgPaymentPaypal extends JPlugin
 			if (stristr($res, "INVALID"))
 			{
 				$this->errorLog[] = 'Connected to ' . $hostname . ':' . $port . '; returned data was "INVALID"';
+
 				return false;
 			}
 		}
 
-		fclose ($fp);
+		fclose($fp);
 	}
 
 	/**
