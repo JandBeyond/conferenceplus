@@ -10,11 +10,24 @@ defined('_JEXEC') or die;
 
 $displayData 	= new stdClass;
 $params 		= JComponentHelper::getParams('com_conferenceplus');
-
 $headerlevel    = $params->get('headerlevel', 2);
 
-$title = JText::_('COM_CONFERENCEPLUS_CONFIRM_BUY_TICKET_TITLE');
+
+if ($this->input->get('ft', 0) == 1)
+{
+	$title = JText::_('COM_CONFERENCEPLUS_CONFIRM_GOT_TICKET_TITLE');
+	$msg   = JText::_('COM_CONFERENCEPLUS_TICKET_CONFIRM_GOT_TICKET');
+	$tweet = '<a href="https://twitter.com/home?status=I%20have%20gotton%20my%20ticket%20for%20JandBeyond%2029-31%20May%20in%20Prague.%20See%20you%20there!%20%23joomla%20%23jab15%20http://jandbeyond.org">Share on Twitter with your friends</a>';
+}
+else
+{
+	$title = JText::_('COM_CONFERENCEPLUS_CONFIRM_BUY_TICKET_TITLE');
+	$msg   = JText::_('COM_CONFERENCEPLUS_TICKET_CONFIRM_BUY_TICKET');
+	$tweet = '<a href="https://twitter.com/home?status=I%20just%20bought%20my%20ticket%20for%20JandBeyond%2029-31%20May%20in%20Prague.%20See%20you%20there!%20%23joomla%20%23jab15%20http://jandbeyond.org">Share on Twitter with your friends</a>';
+}
+
 $doc = JFactory::getDocument()->setTitle($title);
+
 ?>
 
 <!-- ************************** START: conferenceplus ************************** -->
@@ -22,11 +35,11 @@ $doc = JFactory::getDocument()->setTitle($title);
 
 	<h<?php echo $headerlevel; ?>><?php echo $title; ?></h<?php echo $headerlevel; ?>>
 
-	<?php echo JText::_('COM_CONFERENCEPLUS_TICKET_CONFIRM_BUY_TICKET');?>
+	<?php echo $msg; ?>
 	
 	<br />
 	
-	<a href="https://twitter.com/home?status=I%20just%20bought%20my%20ticket%20for%20JandBeyond%2029-31%20May%20in%20Prague.%20See%20you%20there!%20%23joomla%20%23jab15%20http://jandbeyond.org">Share on Twitter with your friends</a>
+	<?php echo $tweet; ?>
 
 </div>
 <!-- ************************** END: conferenceplus ************************** -->

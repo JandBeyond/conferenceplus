@@ -28,6 +28,11 @@ $uri       = JUri::getInstance();
 $returnurl = base64_encode($uri->toString(['path', 'query', 'fragment']));
 
 $showMessages = ! empty(JFactory::getApplication()->getMessageQueue());
+
+$validCouponAvailable = $this->item->couponAvailable;
+
+$fields = array('firstname', 'lastname', 'email', 'ask4gender', 'ask4tshirtsize', 'ask4food', 'ask4food0');
+
 ?>
 
 <!-- ************************** START: conferenceplus ************************** -->
@@ -37,32 +42,34 @@ $showMessages = ! empty(JFactory::getApplication()->getMessageQueue());
 		echo "<h$headerlevel>" . $title . "</h$headerlevel>";
 		echo JText::_('COM_CONFERENCEPLUS_PREBUY_TICKET');
 	?>
+	<form action="index.php?option=com_conferenceplus&view=ticket&task=save&layout=buy&Itemid=<?php echo $Itemid;?>" method="post" id="adminForm" role="form">
 
-	<div class="selectedticket">
-		<?php echo JText::_('COM_CONFERENCEPLUS_PREBUY_TICKET_YOURSELECTION');?>
-		<dl>
-			<dt><?php echo JText::_('COM_CONFERENCEPLUS_TICKETTYPENAME');?></dt>
-			<dd><?php echo $this->item->ticketType->name;?></dd>
-			<dt><?php echo JText::_('COM_CONFERENCEPLUS_TICKETTYPEDESCRIPTION');?></dt>
-			<dd><?php echo $this->item->ticketType->description;?></dd>
-			<dt><?php echo JText::_('COM_CONFERENCEPLUS_TICKETTYPEFEE');?></dt>
-			<dd><?php echo $currency; ?> <?php echo number_format($this->item->ticketType->fee/100, 0, ',', '');?></dd>
-		</dl>
-	</div>
+		<div class="selectedticket">
+			<?php echo JText::_('COM_CONFERENCEPLUS_PREBUY_TICKET_YOURSELECTION');?>
+			<dl>
+				<dt><?php echo JText::_('COM_CONFERENCEPLUS_TICKETTYPENAME');?></dt>
+				<dd><?php echo $this->item->ticketType->productname;?></dd>
+				<dt><?php echo JText::_('COM_CONFERENCEPLUS_TICKETTYPEDESCRIPTION');?></dt>
+				<dd><?php echo $this->item->ticketType->description;?></dd>
+				<dt><?php echo JText::_('COM_CONFERENCEPLUS_TICKETTYPEFEE');?></dt>
+				<dd id="fee"><?php echo $currency; ?> <?php echo number_format($this->item->ticketType->fee/100, 0, ',', '');?></dd>
+			</dl>
+			<?php if ($validCouponAvailable) : ?>
+				<?php $displayData->couponCode = $this->item->couponCode; ?>
+				<?php $displayData->resultCouponCheck = $this->item->resultCouponCheck; ?>
+				<?php $displayData->tickettypeId = $this->item->ticketType->conferenceplus_tickettype_id; ?>
+				<?php echo JLayoutHelper::render('form.coupon', $displayData, $baseLayoutPath); ?>
+			<?php endif; ?>
+		</div>
 
-	<?php echo JText::_('COM_CONFERENCEPLUS_PREBUY_TICKET_PRETEXT');?>
+		<?php echo JText::_('COM_CONFERENCEPLUS_PREBUY_TICKET_PRETEXT');?>
 
-	<?php if ($showMessages) : ?>
-		<?php echo JLayoutHelper::render('html.messages', '', $baseLayoutPath); ?>
-	<?php endif; ?>
+		<?php if ($showMessages) : ?>
+			<?php echo JLayoutHelper::render('html.messages', '', $baseLayoutPath); ?>
+		<?php endif; ?>
 
-	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-		<div class="row">
-
-			<form action="index.php?option=com_conferenceplus&view=ticket&task=save&layout=buy&Itemid=<?php echo $Itemid;?>" method="post" id="adminForm" role="form">
-
-				<?php $fields = array('firstname', 'lastname', 'email', 'ask4gender', 'ask4tshirtsize', 'ask4food', 'ask4food0'); ?>
-
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+			<div class="row">
 				<?php foreach($fields AS $f) : ?>
 
 					<?php if (in_array($f, $keys)) : ?>
@@ -85,10 +92,10 @@ $showMessages = ! empty(JFactory::getApplication()->getMessageQueue());
 				<input type="hidden" name="layout" value="buy" />
 				<input type="hidden" name="returnurl" value="<?php echo $returnurl; ?>" />
 				<input type="hidden" name="<?php echo JFactory::getSession()->getFormToken();?>" value="1" />
-			</form>	
 
+			</div>
 		</div>
-	</div>		
+	</form>
 
 </div>
 <!-- ************************** END: conferenceplus ************************** -->

@@ -28,9 +28,6 @@ $currency   = explode('|', $params->get('currency'))[0];
 
 $processdata = json_decode($ticket->processdata, true);
 
-$edit = JUri::base() . 'index.php?option=com_conferenceplus&view=ticket&task=edit&id=' . $ticket->conferenceplus_ticket_id
-	                 . '&Itemid=' . $Itemid;
-
 ?>
 
 <!-- ************************** START: conferenceplus ************************** -->
@@ -44,7 +41,7 @@ $edit = JUri::base() . 'index.php?option=com_conferenceplus&view=ticket&task=edi
 		<?php echo JText::_('COM_CONFERENCEPLUS_BUY_TICKET_YOURSELECTION');?>
 		<dl>
 			<dt><?php echo JText::_('COM_CONFERENCEPLUS_TICKETTYPENAME');?></dt>
-			<dd><?php echo $tickettype->name;?></dd>
+			<dd><?php echo $tickettype->productname;?></dd>
 			<dt><?php echo JText::_('COM_CONFERENCEPLUS_TICKETTYPEDESCRIPTION');?></dt>
 			<dd><?php echo $tickettype->description;?></dd>
 			<dt><?php echo JText::_('COM_CONFERENCEPLUS_TICKETTYPEFEE');?></dt>
@@ -66,12 +63,30 @@ $edit = JUri::base() . 'index.php?option=com_conferenceplus&view=ticket&task=edi
 			<?php endforeach; ?>
 		</dl>
 	</div>
-	<?php echo JText::_('COM_CONFERENCEPLUS_PAYMENTPROVIDERS'); ?>
-	<div class="paymentproviders">
-		<?php foreach ($this->item->paymentProviders as $provider) :?>
-			<?php echo $provider; ?>
-		<?php endforeach; ?>
-	</div>
 
+	<?php if ($this->item->freeTicket) : ?>
+		<form action="index.php?option=com_conferenceplus&Itemid=<?php echo $Itemid;?>" method="post" id="adminForm" role="form">
+
+			<div class="form-actions">
+				<input type="submit" value="<?php echo JText::_('COM_CONFERENCEPLUS_GETYOURFREETICKET');?>" class="btn btn-success" />
+			</div>
+
+			<input type="hidden" name="option" value="com_conferenceplus" />
+			<input type="hidden" name="view" value="payment" />
+			<input type="hidden" name="task" value="save" />
+			<input type="hidden" name="layout" value="confirm" />
+			<input type="hidden" name="Itemid" value="<?php echo $Itemid; ?>" />
+			<input type="hidden" name="<?php echo JFactory::getSession()->getFormToken();?>" value="1" />
+		</form>
+
+	<?php else : ?>
+
+		<?php echo JText::_('COM_CONFERENCEPLUS_PAYMENTPROVIDERS'); ?>
+		<div class="paymentproviders">
+			<?php foreach ($this->item->paymentProviders as $provider) :?>
+				<?php echo $provider; ?>
+			<?php endforeach; ?>
+		</div>
+	<?php endif; ?>
 </div>
 <!-- ************************** END: conferenceplus ************************** -->

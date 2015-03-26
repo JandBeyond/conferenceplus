@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form
+        type="browse"
+        show_header="1"
+        show_filters="1"
+        show_pagination="1"
+        norows_placeholder="COM_CONFERENCEPLUS_COMMON_NORECORDS"
+        >
+    <headerset>
+        <header name="conferenceplus_coupon_id" type="rowselect" tdwidth="20" />
+        <header name="enabled" type="published" sortable="true" tdwidth="5%" />
+        <header name="Id" type="text" sortable="true" tdwidth="10%" />
+        <header name="Name" type="fieldsearchable" sortable="true"
+                buttons="yes" buttonclass="btn" placeholder="COM_CONFERENCEPLUS_SEARCH_IN_NAME"
+                />
+
+        <header name="Free ticket" type="text" sortable="true" tdwidth="5%" />
+        <header name="Fixed Fee" type="text" sortable="true" tdwidth="5%" />
+        <header name="Fixed Discount" type="text" sortable="true" tdwidth="5%" />
+        <header name="% Discount" type="text" sortable="true" tdwidth="5%" />
+        <header name="Used" type="text" sortable="true" tdwidth="5%" />
+        <header name="Assigned Temporary" type="text" sortable="true" tdwidth="5%" />
+    </headerset>
+
+    <fieldset name="items">
+        <field name="conferenceplus_coupon_id" type="selectrow"/>
+        <field name="enabled" type="published"/>
+        <field name="identifier" type="text"
+               show_link="true"
+               url="index.php?option=com_conferenceplus&amp;view=coupon&amp;id=[ITEM:ID]"
+                />
+        <field name="name" type="text"
+               show_link="true"
+               url="index.php?option=com_conferenceplus&amp;view=coupon&amp;id=[ITEM:ID]"
+                />
+
+        <field name="freeticket" type="text" />
+        <field name="fixed_fee" type="text" />
+        <field name="discount_fix" type="text" />
+        <field name="discount_percentaged" type="text" />
+        <field name="used" type="text" />
+        <field name="temp_assigned" type="text" />
+    </fieldset>
+
+</form>

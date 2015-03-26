@@ -97,7 +97,7 @@ class ConferenceplusModelTickets extends ConferenceplusModelDefault
 			return false;
 		}
 
-		$fields = ['ask4gender', 'ask4tshirtsize', 'ask4food', 'ask4food0'];
+		$fields = ['ask4gender', 'ask4tshirtsize', 'ask4food', 'ask4food0', 'coupon'];
 
 		$processdata = [];
 
@@ -109,6 +109,32 @@ class ConferenceplusModelTickets extends ConferenceplusModelDefault
 		$data['processdata'] = json_encode($processdata);
 
 		$data['tickettype_id'] = $this->getTicketTypeId();
+
+		return true;
+	}
+
+	/**
+	 * This method runs after the data is saved to the $table.
+	 *
+	 * @param   FOFTable  &$table  The table which was saved
+	 *
+	 * @return  boolean
+	 */
+	protected function onAfterSave(&$table)
+	{
+		if ( ! parent::onAfterSave($table))
+		{
+			return false;
+		}
+
+		// Check if we use a coupon
+		$data = json_decode($table->processdata, true);
+
+		if ($data['coupon'] != "")
+		{
+			$coupon = FOFModel::getAnInstance('coupons', 'ConferenceplusModel');
+			$coupon->setTemporaryUsed($data['coupon'], $table->conferenceplus_ticket_id);
+		}
 
 		return true;
 	}
@@ -145,6 +171,25 @@ class ConferenceplusModelTickets extends ConferenceplusModelDefault
 		$eventTable = $event->getTable();
 		$eventTable->load($event_id);
 		$params = $event->getEventParams($eventTable);
+
+		$coupon = FOFModel::getAnInstance('coupons', 'ConferenceplusModel');
+
+		$record->couponAvailable = $coupon->isAvailable($tickettypeId);
+
+		// If a coupon is submitted via url check if it is a valid one
+		$couponCode = $this->input->get('coupon', '');
+		$record->couponCode = $couponCode;
+		$record->resultCouponCheck = [];
+
+		if ( ! empty($couponCode))
+		{
+			$record->resultCouponCheck = $coupon->checkCouponAndTicket($couponCode, $tickettypeId);
+
+			if ($record->resultCouponCheck['returnType'] == 99)
+			{
+				$tickettypeTable->fee = $record->resultCouponCheck['discounted'];
+			}
+		}
 
 		$record->eventParams = $params;
 	}

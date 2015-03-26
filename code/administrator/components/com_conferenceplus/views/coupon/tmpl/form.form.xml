@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form
+		validate="true"
+		serverside_validate="true"
+		>
+	<fieldset name="basic_configuration"
+			  label="COM_CONFERENCEPLUS_GROUP_BASIC"
+			  description="COM_CONFERENCEPLUS_GROUP_BASIC_DESC"
+	>
+
+		<field name="enabled" type="list"
+			   label="JSTATUS" description="COM_CONFERENCEPLUS_FIELD_STATE_DESC"
+			   class="inputbox" size="1" default="1" >
+			<option value="1">JPUBLISHED</option>
+			<option value="0">JUNPUBLISHED</option>
+		</field>
+
+		<field name="identifier" type="text" class="inputbox form-control"  labelClass="control-label"
+			   size="150" label="COM_CONFERENCEPLUS_COUPONIDENTIFIER"
+			   description="COM_CONFERENCEPLUS_COUPONIDENTIFIER_DESC" required="true" />
+
+		<field name="name" type="text" class="inputbox form-control"  labelClass="control-label"
+		       size="150" label="COM_CONFERENCEPLUS_COUPONNAME"
+		       description="COM_CONFERENCEPLUS_COUPONNAME_DESC" required="true" />
+
+		<field name="description" type="textarea" labelClass="control-label"
+		       label="COM_CONFERENCEPLUS_COUPONDESCRIPTION" description="COM_CONFERENCEPLUS_COUPONDESCRIPTION_DESC"
+		       buttons="false" rows="5" cols="80"/>
+
+		<field name="sdate" type="calendar" class="inputbox form-control" default="1.1.2015"
+		       label="COM_CONFERENCEPLUS_COUPONTYPESTART" description="COM_CONFERENCEPLUS_COUPONTYPESTART_DESC" format="%d.%m.%Y" />
+
+		<field name="stimehh" type="list"
+		       label="COM_CONFERENCEPLUS_COUPONTYPESTIME_HH" description="COM_CONFERENCEPLUS_COUPONTYPESTIME_HH_DESC"
+		       class="input-mini" size="1" default="" >
+			<option value="">--</option>
+			<option value="00">0</option>
+			<option value="01">1</option>
+			<option value="02">2</option>
+			<option value="03">3</option>
+			<option value="04">4</option>
+			<option value="05">5</option>
+			<option value="06">6</option>
+			<option value="07">7</option>
+			<option value="08">8</option>
+			<option value="09">9</option>
+			<option value="10">10</option>
+			<option value="11">11</option>
+			<option value="12">12</option>
+			<option value="13">13</option>
+			<option value="14">14</option>
+			<option value="15">15</option>
+			<option value="16">16</option>
+			<option value="17">17</option>
+			<option value="18">18</option>
+			<option value="19">19</option>
+			<option value="20">20</option>
+			<option value="21">21</option>
+			<option value="22">22</option>
+			<option value="23">23</option>
+		</field>
+
+		<field name="stimemm" type="list"
+		       label="COM_CONFERENCEPLUS_COUPONTYPESTIME_MM" description="COM_CONFERENCEPLUS_COUPONTYPESTIME_MM_DESC"
+		       class="input-mini" size="1" default="" >
+			<option value="">--</option>
+			<option value="00">0</option>
+			<option value="15">15</option>
+			<option value="30">30</option>
+			<option value="45">45</option>
+		</field>
+
+		<field name="edate" type="calendar" class="inputbox form-control" default="1.1.2015"
+		       label="COM_CONFERENCEPLUS_COUPONTYPEEND" description="COM_CONFERENCEPLUS_COUPONTYPEEND_DESC" format="%d.%m.%Y" />
+
+		<field name="etimehh" type="list"
+		       label="COM_CONFERENCEPLUS_COUPONTYPEETIME_HH" description="COM_CONFERENCEPLUS_COUPONTYPEETIME_HH_DESC"
+		       class="input-mini" size="1" default="" >
+			<option value="">--</option>
+			<option value="00">0</option>
+			<option value="01">1</option>
+			<option value="02">2</option>
+			<option value="03">3</option>
+			<option value="04">4</option>
+			<option value="05">5</option>
+			<option value="06">6</option>
+			<option value="07">7</option>
+			<option value="08">8</option>
+			<option value="09">9</option>
+			<option value="10">10</option>
+			<option value="11">11</option>
+			<option value="12">12</option>
+			<option value="13">13</option>
+			<option value="14">14</option>
+			<option value="15">15</option>
+			<option value="16">16</option>
+			<option value="17">17</option>
+			<option value="18">18</option>
+			<option value="19">19</option>
+			<option value="20">20</option>
+			<option value="21">21</option>
+			<option value="22">22</option>
+			<option value="23">23</option>
+		</field>
+
+		<field name="etimemm" type="list"
+		       label="COM_CONFERENCEPLUS_COUPONTYPEETIME_MM" description="COM_CONFERENCEPLUS_COUPONTYPEETIME_MM_DESC"
+		       class="input-mini" size="1" default="" >
+			<option value="">--</option>
+			<option value="00">0</option>
+			<option value="15">15</option>
+			<option value="30">30</option>
+			<option value="45">45</option>
+		</field>
+
+		<field name="number_valid_items" type="text" class="inputbox form-control"  labelClass="control-label"
+		       size="15" label="COM_CONFERENCEPLUS_NUMBER_VALID_ITEMS" default="0"
+		       description="COM_CONFERENCEPLUS_NUMBER_VALID_ITEMS_DESC" required="true" />
+
+
+		<field name="freeticket" type="list"
+			   label="COM_CONFERENCEPLUS_FREETICKET" 
+			   description="COM_CONFERENCEPLUS_FREETICKET_DESC"
+			   class="inputbox" size="1" default="0" >
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+
+		<field name="fixed_fee" type="text" class="inputbox form-control"  labelClass="control-label"
+		       size="15" label="COM_CONFERENCEPLUS_FIXED_FEE" default="0"
+		       description="COM_CONFERENCEPLUS_FIXED_FEE_DESC" />
+
+		<field name="discount_fix" type="text" class="inputbox form-control"  labelClass="control-label"
+		       size="15" label="COM_CONFERENCEPLUS_DISCOUNT_FIX" default="0"
+		       description="COM_CONFERENCEPLUS_DISCOUNT_FIX_DESC" />
+
+		<field name="discount_percentaged" type="text" class="inputbox form-control"  	labelClass="control-label"
+		       size="15" label="COM_CONFERENCEPLUS_DISCOUNT_PERCENTAGED" default="0"
+		       description="COM_CONFERENCEPLUS_DISCOUNT_PERCENTAGED_DESC" />
+
+
+	</fieldset>
+
+</form>

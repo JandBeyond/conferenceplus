@@ -21,6 +21,7 @@ require_once 'default.php';
  */
 class ConferenceplusModelPayments extends ConferenceplusModelDefault
 {
+
 	/**
 	 * This method runs after an item has been gotten from the database in a read
 	 * operation. You can modify it before it's returned to the MVC triad for
@@ -41,12 +42,17 @@ class ConferenceplusModelPayments extends ConferenceplusModelDefault
 			return;
 		}
 
-		$ticketData = $this->getTicketData($ticketId);
+		$ticketData       = $this->getTicketData($ticketId);
+		$paymentProviders = [];
+		$freeTicket       = $ticketData->tickettype->fee == 0;
 
-		$record->ticketData     = $ticketData;
+		if ( ! $freeTicket)
+		{
+			$paymentProviders = $this->getPaymentProviders($ticketData);
+		}
 
-		$paymentProviders = $this->getPaymentProviders($ticketData);
-
+		$record->ticketData       = $ticketData;
+		$record->freeTicket       = $freeTicket;
 		$record->paymentProviders = $paymentProviders;
 	}
 
@@ -82,6 +88,15 @@ class ConferenceplusModelPayments extends ConferenceplusModelDefault
 			$task = new Conferenceplus\Task\AfterPayment;
 
 			$taskCreateResult = $task->create($table);
+		}
+
+		// Check if we use a coupon
+		$data = json_decode($ticketTable->processdata, true);
+
+		if ($data['coupon'] != "")
+		{
+			$coupon = FOFModel::getAnInstance('coupons', 'ConferenceplusModel');
+			$coupon->setUsed($ticketId, $table->conferenceplus_payment_id);
 		}
 
 		return ($ticketTableResult && $taskCreateResult);
@@ -241,7 +256,7 @@ class ConferenceplusModelPayments extends ConferenceplusModelDefault
 	 *
 	 * @return stdClass
 	 */
-	protected function getTicketData($ticketId = 0)
+	public function getTicketData($ticketId = 0)
 	{
 		$ticketTable = FOFTable::getAnInstance('tickets');
 		$ticketTable->load($ticketId);
@@ -249,6 +264,15 @@ class ConferenceplusModelPayments extends ConferenceplusModelDefault
 
 		$tickettypeTable = FOFTable::getAnInstance('tickettypes');
 		$tickettypeTable->load($tickettypeId);
+
+		// Check if we use a coupon
+		$data = json_decode($ticketTable->processdata, true);
+
+		if ($data['coupon'] != "")
+		{
+			$coupon = FOFModel::getAnInstance('coupons', 'ConferenceplusModel');
+			$tickettypeTable->fee = $coupon->getTicketDiscountedFee($ticketTable, $tickettypeTable->fee);
+		}
 
 		$ticketData             = new stdClass;
 		$ticketData->ticket     = $ticketTable;
