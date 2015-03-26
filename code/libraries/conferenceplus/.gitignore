@@ -26,6 +26,9 @@ Desktop.ini
 *~.nib
 *~
 
+vendor/
+composer.phar
+
 # Never ignore
 !.gitignore
 !index.html
