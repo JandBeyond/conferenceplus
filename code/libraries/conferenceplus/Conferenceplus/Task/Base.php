@@ -5,39 +5,36 @@
  * @package    Conferenceplus
  * @author     Robert Deutz <rdeutz@googlemail.com>
  *
- * @copyright  2014 JandBeyond
+ * @copyright  2015 JandBeyond
  * @license    GNU General Public License version 2 or later
  **/
 
 namespace Conferenceplus\Task;
 
 /**
- * Class Base
+ * interface Base
  *
  * @package  Conferenceplus\Task
- * @since    1.0
+ * @since    0.0.1
  */
-class Base
+interface Base
 {
-
 	/**
 	 * Create a task
 	 *
-	 * @param $data
+	 * @param   array  $data  the data to process
 	 *
+	 * @return bool
 	 */
-	public function createTask($data)
-	{
-
-
-	}
+	public function create($data);
 
 	/**
-	 * @param  $data
+	 * Process the task
 	 *
+	 * @param   integer  $taskId  the id of the task
+	 *
+	 * @return bool|void
 	 */
-	protected function validateData($data)
-	{
+	public function process($taskId);
 
-	}
 }

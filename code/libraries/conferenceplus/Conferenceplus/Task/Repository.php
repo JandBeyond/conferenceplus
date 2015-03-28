@@ -28,7 +28,10 @@ class Repository
 	 */
 	public function __construct()
 	{
-		$this->table = \FOFTable::getAnInstance('tasks');
+		// That's needed to find the correct table
+		$config['input']['option'] = 'com_conferenceplus';
+
+		$this->table = \FOFTable::getAnInstance('tasks', 'JTable', $config);
 	}
 
 	/**
@@ -44,6 +47,9 @@ class Repository
 		{
 			$this->table->load($id);
 			$this->isNew = false;
+
+			// Decode Process data
+			$this->table->processdata = json_decode($this->table->processdata, true);
 		}
 
 		return $this->table;
@@ -59,6 +65,7 @@ class Repository
 		if ($this->isNew)
 		{
 			$this->table->created = JFactory::getDate()->toSql();
+
 			if (trim($this->table->name) == '')
 			{
 				$this->table->name = 'UNDEFINED';

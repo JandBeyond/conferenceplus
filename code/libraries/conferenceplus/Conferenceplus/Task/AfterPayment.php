@@ -17,28 +17,63 @@ namespace Conferenceplus\Task;
  * @package  Conferenceplus\Task
  * @since    1.0
  */
-class AfterPayment extends Base
+class AfterPayment extends BaseTask
 {
+
 	/**
-	 * Create a task
+	 * run before the task will be created and allow to modify
+	 * the data that will be saved as processdata
 	 *
-	 * @param   FofTable  $firstname  the firstname
+	 * @param   mixed  &$data  the paymentdata
 	 *
-	 * @return  boolean true on success
+	 * @return  mixed  same we got
 	 */
-	public function create($paymentTable)
+	public function onBeforeCreate(&$data)
 	{
-		$taskRepository = new Repository;
+		$data = ['payment_id'  => $data->conferenceplus_payment_id,
+					'processdata' => $data->processdata,
+					'processkey'  => $data->processkey ];
 
-		$task = $taskRepository->getItem();
+		return true;
+	}
 
-		$data = ['payment_id'  => $paymentTable->conferenceplus_payment_id,
-		         'processdata' => $paymentTable->processdata,
-				 'processkey'  => $paymentTable->processkey ];
+	/**
+	 * run before the task is executed
+	 *
+	 * @param   mixed  $task  task data
+	 *
+	 * @return bool
+	 */
+	public function onBeforeDoProcess($task)
+	{
+		// Check if payment state is C == completed
+		$state = $task->processdata['processdata']['paymentprovider']['state'];
 
-		$task->processdata = json_encode($data);
-		$task->name        = 'AfterPayment';
+		if ($state != 'C')
+		{
+			return false;
+		}
 
-		return $task->store();
+		return true;
+	}
+
+	/**
+	 * Do the work
+	 *
+	 * @param   Repository  $task  task data
+	 *
+	 * @return bool
+	 */
+	protected function doProcess($task)
+	{
+		// 1) Create the InvoiceHandle task
+		$ih = new InvoiceHandling($this->config);
+		$taskCreateResult1  = $ih->create($task->processdata);
+
+		// 2) Create Attendee(s)
+		$ca = new CreateAttendees($this->config);
+		$taskCreateResult2  = $ca->create($task->processdata);
+
+		return $taskCreateResult1 && $taskCreateResult2;
 	}
 }
