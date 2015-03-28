@@ -19,6 +19,7 @@ class ConferenceplusInvoices extends AbstractMigration
             ->addColumn('created', 'datetime', ['comment' => 'Entry created'])
             ->addColumn('modified', 'datetime', ['comment' => 'Last modification'])
             ->addColumn('enabled', 'integer', ['comment' => 'makes it available'])
+            ->addColumn('hash', 'string', ['comment' => 'used to allow people to change the address'])
             ->addIndex(['conferenceplus_invoice_id'], ['unique' => true])
             ->addIndex(['identifier'], ['unique' => true])
             ->create();

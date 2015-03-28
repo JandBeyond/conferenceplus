@@ -24,6 +24,8 @@ class ConferenceplusEmailtemplates extends AbstractMigration
             ->addColumn('modified', 'datetime', ['comment' => 'Last modification'])
             ->addColumn('enabled', 'integer', ['comment' => 'makes the item available'])
             ->addColumn('event_id', 'integer', ['comment' => 'realtion to an event'])
+            ->addColumn('taskname', 'string', ['comment' => 'Task name optional'])
+            ->addColumn('language', 'string', ['comment' => 'Language'])
             ->addIndex(['conferenceplus_emailtemplate_id'], ['unique' => true])
             ->create();
     }
