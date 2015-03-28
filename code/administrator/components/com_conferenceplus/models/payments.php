@@ -70,8 +70,8 @@ class ConferenceplusModelPayments extends ConferenceplusModelDefault
 			return false;
 		}
 
-		$processData = json_decode($table->processdata, true);
-		$ticketId = $processData['ticket']['ticket']['conferenceplus_ticket_id'];
+		$table->processdata = json_decode($table->processdata, true);
+		$ticketId = $table->processdata['ticket']['ticket']['conferenceplus_ticket_id'];
 
 		$ticketTable = FOFTable::getAnInstance('tickets');
 		$ticketTable->load($ticketId);
@@ -260,15 +260,16 @@ class ConferenceplusModelPayments extends ConferenceplusModelDefault
 	{
 		$ticketTable = FOFTable::getAnInstance('tickets');
 		$ticketTable->load($ticketId);
+
+		// Decode json and save in in the object so that it will be not handled as string when encoding later
+		$ticketTable->processdata = json_decode($ticketTable->processdata, true);
 		$tickettypeId = $ticketTable->tickettype_id;
 
 		$tickettypeTable = FOFTable::getAnInstance('tickettypes');
 		$tickettypeTable->load($tickettypeId);
 
 		// Check if we use a coupon
-		$data = json_decode($ticketTable->processdata, true);
-
-		if ($data['coupon'] != "")
+		if ($ticketTable->processdata['coupon'] != "")
 		{
 			$coupon = FOFModel::getAnInstance('coupons', 'ConferenceplusModel');
 			$tickettypeTable->fee = $coupon->getTicketDiscountedFee($ticketTable, $tickettypeTable->fee);

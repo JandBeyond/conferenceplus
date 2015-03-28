@@ -26,7 +26,7 @@ $tickettype = $this->item->ticketData->tickettype;
 $ticket     = $this->item->ticketData->ticket;
 $currency   = explode('|', $params->get('currency'))[0];
 
-$processdata = json_decode($ticket->processdata, true);
+$processdata = $ticket->processdata;
 
 ?>
 

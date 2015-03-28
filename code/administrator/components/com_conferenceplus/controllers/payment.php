@@ -78,9 +78,9 @@ class ConferenceplusControllerPayment extends FOFController
 		$tickettypeTable = FOFTable::getAnInstance('tickettypes');
 		$tickettypeTable->load($tickettypeId);
 
-		$data = json_decode($ticketTable->processdata, true);
+		$ticketTable->processdata = json_decode($ticketTable->processdata, true);
 
-		if ($data['coupon'] != "")
+		if ($ticketTable->processdata['coupon'] != "")
 		{
 			$coupon = FOFModel::getAnInstance('coupons', 'ConferenceplusModel');
 			$fee = $coupon->getTicketDiscountedFee($ticketTable, $tickettypeTable->fee);
@@ -115,8 +115,8 @@ class ConferenceplusControllerPayment extends FOFController
 		// Save payment
 		$saveData = [];
 		$saveData['processkey']  = 'FREETICKET' . time();
-		$saveData['state']       = 'C';
-		$saveData['processdata'] = $model->prepareProcessData('INTERNAL', $ticketData, $data);
+		$fakePluginData          = ['processkey' => 'INTERNAL', 'state' => 'C'];
+		$saveData['processdata'] = $model->prepareProcessData($fakePluginData, $ticketData, []);
 		$saveData['name']        = $ticketData->ticket->firstname . ' ' .
 									$ticketData->ticket->lastname . ', ' .
 									$ticketData->ticket->email;

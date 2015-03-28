@@ -638,11 +638,9 @@ class ConferenceplusModelCoupons extends ConferenceplusModelDefault
 	public function getTicketDiscountedFee($ticket, $fee)
 	{
 		// Check if we use a coupon
-		$data = json_decode($ticket->processdata, true);
-
-		if ($data['coupon'] != "")
+		if ($ticket->processdata['coupon'] != "")
 		{
-			$coupon = $this->getCouponByIdentifier($data['coupon']);
+			$coupon = $this->getCouponByIdentifier($ticket->processdata['coupon']);
 			$fee = $this->calculateDiscountedFee($coupon, $fee);
 		}
 
