@@ -172,7 +172,7 @@ class ConferenceplusModelSpeakers extends ConferenceplusModelDefault
 		{
 			$task = new Conferenceplus\Task\ConfirmEmail;
 
-			if ( ! $task->create($table->firstname, $table->lastname, $table->email, $table->event_id))
+			if ( ! $task->create($table))
 			{
 				return false;
 			}
