@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form
+		validate="true"
+		serverside_validate="true"
+		>
+	<fieldset name="basic_configuration"
+			  label="COM_CONFERENCEPLUS_GROUP_BASIC"
+			  description="COM_CONFERENCEPLUS_GROUP_BASIC_DESC"
+	>
+
+		<field name="identifier" type="text" class="inputbox form-control"  labelClass="control-label"
+			   size="150" label="COM_CONFERENCEPLUS_INVOICEIDENTIFIER"
+			   description="COM_CONFERENCEPLUS_INVOICEIDENTIFIER_DESC" required="true" />
+
+		<field name="hash" type="text" class="inputbox form-control"  labelClass="control-label"
+		       size="150" label="COM_CONFERENCEPLUS_INVOICEHASH"
+		       description="COM_CONFERENCEPLUS_INVOICEHASH_DESC" required="true" />
+
+		<field name="address" type="text" class="inputbox form-control"  labelClass="control-label"
+			   size="150" label="COM_CONFERENCEPLUS_ADDRESS"
+			   description="COM_CONFERENCEPLUS_ADDRESS_DESC" required="true" />
+
+	</fieldset>
+
+</form>

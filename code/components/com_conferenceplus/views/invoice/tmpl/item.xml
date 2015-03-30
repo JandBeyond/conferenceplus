@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+    <layout title="COM_CONFERENCEPLUS_VIEW_INVOICEDEFAULT_TITLE">
+        <message>
+            <![CDATA[COM_CONFERENCEPLUS_VIEW_INVOICEDEFAULT_DESC]]>
+        </message>
+    </layout>
+    <state>
+        <name>COM_CONFERENCEPLUS_VIEW_INVOICEDEFAULT_TITLE</name>
+        <description>COM_CONFERENCEPLUS_VIEW_INVOICEDEFAULT_DESC</description>
+    </state>
+</metadata>
