@@ -16,7 +16,7 @@ $keys 			= array_keys($form->getFieldset());
 $headerlevel    = $params->get('headerlevel', 2);
 
 $title = JText::_('COM_CONFERENCEPLUS_PREBUY_TITLE');
-$doc = JFactory::getDocument()->setTitle($title);
+JFactory::getDocument()->setTitle($title);
 
 $baseLayoutPath = JPATH_ROOT . '/media/conferenceplus/layouts';
 
@@ -31,7 +31,7 @@ $showMessages = ! empty(JFactory::getApplication()->getMessageQueue());
 
 $validCouponAvailable = $this->item->couponAvailable;
 
-$fields = array('firstname', 'lastname', 'email', 'ask4gender', 'ask4tshirtsize', 'ask4food', 'ask4food0');
+$fields = array('firstname', 'lastname', 'email', 'ask4gender', 'ask4tshirtsize', 'ask4food', 'ask4food0', 'invoiceaddress');
 
 ?>
 
