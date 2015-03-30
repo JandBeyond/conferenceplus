@@ -35,7 +35,11 @@ class Helper
 		{
 			case "call4papers":
 				$result = $app->getMenu()
-								->getItems('link', 'index.php?option=com_conferenceplus&view=sessions&layout=call4papers', true);
+					->getItems('link', 'index.php?option=com_conferenceplus&view=sessions&layout=call4papers', true);
+				break;
+			case "invoice":
+				$result = $app->getMenu()
+					->getItems('link', 'index.php?option=com_conferenceplus&view=invoice', true);
 				break;
 
 		}
@@ -44,5 +48,4 @@ class Helper
 
 		return $result;
 	}
-
 }
