@@ -97,7 +97,7 @@ class ConferenceplusModelTickets extends ConferenceplusModelDefault
 			return false;
 		}
 
-		$fields = ['ask4gender', 'ask4tshirtsize', 'ask4food', 'ask4food0', 'coupon'];
+		$fields = ['ask4gender', 'ask4tshirtsize', 'ask4food', 'ask4food0', 'coupon', 'invoiceaddress'];
 
 		$processdata = [];
 

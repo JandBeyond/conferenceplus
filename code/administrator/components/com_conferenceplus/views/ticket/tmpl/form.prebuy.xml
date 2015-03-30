@@ -21,7 +21,9 @@
 			   size="150" label="COM_CONFERENCEPLUS_EMAIL"
 			   description="COM_CONFERENCEPLUS_EMAIL_DESC" required="true" />
 
-
+		<field name="invoiceaddress" type="textarea" class="inputbox form-control"  labelclass="control-label"
+			   rows="5" col="50" label="COM_CONFERENCEPLUS_INVOICEADDRESS"
+			   description="COM_CONFERENCEPLUS_INVOICEADDRESS_DESC" required="false" />
 
 	</fieldset>
 
