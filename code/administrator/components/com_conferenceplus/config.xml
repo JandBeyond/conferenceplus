@@ -18,6 +18,10 @@
 			<option value="5">h5</option>
 		</field>
 
+		<field name="baseurl" type="text" class="form-control"  labelClass="control-label"
+			   size="150" label="COM_CONFERENCEPLUS_BASEURL"
+			   description="COM_CONFERENCEPLUS_BASEURL_DESC" />
+
 		<field name="defaultfromname" type="text" class="form-control"  labelClass="control-label"
 		       size="150" label="COM_CONFERENCEPLUS_DEFAULTFROMNAME"
 		       description="COM_CONFERENCEPLUS_DEFAULTFROMNAME_DESC" />
