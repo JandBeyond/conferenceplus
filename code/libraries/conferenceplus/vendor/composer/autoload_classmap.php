@@ -6,12 +6,18 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'Conferenceplus\\Date\\Helper' => $baseDir . '/Conferenceplus/Date/Helper.php',
-    'Conferenceplus\\Helper' => $baseDir . '/Conferenceplus/Helper.php',
-    'Conferenceplus\\Registration\\UserRegistration' => $baseDir . '/Conferenceplus/Registration/UserRegistration.php',
-    'Conferenceplus\\Route\\Helper' => $baseDir . '/Conferenceplus/Route/Helper.php',
-    'Conferenceplus\\Task\\Base' => $baseDir . '/Conferenceplus/Task/Base.php',
-    'Conferenceplus\\Task\\ConfirmEmail' => $baseDir . '/Conferenceplus/Task/ConfirmEmail.php',
-    'Conferenceplus\\Task\\Repository' => $baseDir . '/Conferenceplus/Task/Repository.php',
-    'Conferenceplus\\Upload\\Handler' => $baseDir . '/Conferenceplus/Upload/Handler.php',
+    'Datamatrix' => $vendorDir . '/tecnick.com/tcpdf/include/barcodes/datamatrix.php',
+    'PDF417' => $vendorDir . '/tecnick.com/tcpdf/include/barcodes/pdf417.php',
+    'QRcode' => $vendorDir . '/tecnick.com/tcpdf/include/barcodes/qrcode.php',
+    'TCPDF' => $vendorDir . '/tecnick.com/tcpdf/tcpdf.php',
+    'TCPDF2DBarcode' => $vendorDir . '/tecnick.com/tcpdf/tcpdf_barcodes_2d.php',
+    'TCPDFBarcode' => $vendorDir . '/tecnick.com/tcpdf/tcpdf_barcodes_1d.php',
+    'TCPDF_COLORS' => $vendorDir . '/tecnick.com/tcpdf/include/tcpdf_colors.php',
+    'TCPDF_FILTERS' => $vendorDir . '/tecnick.com/tcpdf/include/tcpdf_filters.php',
+    'TCPDF_FONTS' => $vendorDir . '/tecnick.com/tcpdf/include/tcpdf_fonts.php',
+    'TCPDF_FONT_DATA' => $vendorDir . '/tecnick.com/tcpdf/include/tcpdf_font_data.php',
+    'TCPDF_IMAGES' => $vendorDir . '/tecnick.com/tcpdf/include/tcpdf_images.php',
+    'TCPDF_IMPORT' => $vendorDir . '/tecnick.com/tcpdf/tcpdf_import.php',
+    'TCPDF_PARSER' => $vendorDir . '/tecnick.com/tcpdf/tcpdf_parser.php',
+    'TCPDF_STATIC' => $vendorDir . '/tecnick.com/tcpdf/include/tcpdf_static.php',
 );
