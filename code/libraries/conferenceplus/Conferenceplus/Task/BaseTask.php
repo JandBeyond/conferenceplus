@@ -194,13 +194,24 @@ abstract class BaseTask implements Base
 	 */
 	protected function doProcess($task)
 	{
-		$data = $this->decodeProcessdata($task);
-
 		// @TODO: implement in child class
 
 		return true;
 	}
 
+	/**
+	 * Fire up the next needed task if there are any
+	 *
+	 * @param   \JTable  $task  taskdata
+	 *
+	 * @return bool
+	 */
+	protected function instantiateNextTasks($task)
+	{
+		// @TODO: implement in child class
+
+		return true;
+	}
 
 	/**
 	 * get component parameters
@@ -210,19 +221,5 @@ abstract class BaseTask implements Base
 	protected function getComponentParams()
 	{
 		return \JComponentHelper::getComponent('com_conferenceplus')->params;
-	}
-
-	/**
-	 * decode the processdata json into an array
-	 *
-	 * @param   \JTable  $task  taskdata
-	 *
-	 * @return mixed
-	 */
-	protected function decodeProcessdata($task)
-	{
-		$data = json_decode($task->processdata, true);
-
-		return $data;
 	}
 }

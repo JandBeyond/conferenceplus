@@ -25,11 +25,6 @@ abstract class BaseEmail extends BaseTask
 	public $emailTemplate = null;
 
 	/*
-	 * array of placeholders
-	 */
-	public $placeHolders = array('firstname' => 'firstname', 'lastname' => 'lastname', 'created' => 'created');
-
-	/*
 	 * Mailer
  	 */
 	protected $mailer = null;
@@ -62,7 +57,7 @@ abstract class BaseEmail extends BaseTask
 	 */
 	protected function doProcess($task)
 	{
-		$data = $this->decodeProcessdata($task);
+		$data = $task->processdata;
 
 		$mailfrom = $this->application->get('mailfrom');
 		$fromname = $this->application->get('fromname');
@@ -82,8 +77,8 @@ abstract class BaseEmail extends BaseTask
 		return $this->mailer->sendMail(
 									$mailfrom,
 									$fromname,
-									$data['contactemail'],
-									$this->getTextFromTemplate($data, 'title'),
+									$data['email'],
+									$this->getTextFromTemplate($data, 'subject'),
 									$this->getTextFromTemplate($data, 'html'),
 									true
 		);
@@ -123,7 +118,8 @@ abstract class BaseEmail extends BaseTask
 
 			$query->select('*')
 					->from('#__conferenceplus_emailtemplates')
-					->where($this->db->qn('') . ' =' . $this->db->q($this->taskname));
+					->where($this->db->qn('taskname') . ' =' . $this->db->q($this->taskname))
+					->where($this->db->qn('enabled') . ' = 1');
 
 			$this->db->setQuery($query);
 			$this->emailTemplate = $this->db->loadObject();
@@ -142,11 +138,11 @@ abstract class BaseEmail extends BaseTask
 	 */
 	protected function replacePlaceHolders($text, $data)
 	{
-		foreach ($this->placeHolders as $placeHolder => $valueName)
+		foreach ($data as $placeHolder => $value)
 		{
-			if (array_key_exists($valueName, $data))
+			if (is_string($value))
 			{
-				$text = str_replace($placeHolder, $data[$valueName], $text);
+				$text = str_replace('{' . $placeHolder . '}', $value, $text);
 			}
 		}
 

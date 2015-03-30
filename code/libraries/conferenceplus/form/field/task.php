@@ -32,10 +32,8 @@ class ConferenceplusFormFieldTask extends JFormFieldList
 		$options = array();
 
 		$options[] = JHtml::_('select.option', 0, '- Select -');
-		$options[] = JHtml::_('select.option', 'AfterPayment', 'AfterPayment');
 		$options[] = JHtml::_('select.option', 'ConfirmEmail', 'ConfirmEmail');
-		$options[] = JHtml::_('select.option', 'CreateAttendees', 'CreateAttendees');
-		$options[] = JHtml::_('select.option', 'InvoiceHandling', 'InvoiceHandling');
+		$options[] = JHtml::_('select.option', 'SendInvoice', 'SendInvoice');
 
 		// Merge any additional options in the XML definition.
 		$options = array_merge(parent::getOptions(), $options);

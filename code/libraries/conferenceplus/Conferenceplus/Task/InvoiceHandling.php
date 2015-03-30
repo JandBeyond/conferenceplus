@@ -19,6 +19,35 @@ namespace Conferenceplus\Task;
  */
 class InvoiceHandling extends BaseTask
 {
+
+	/**
+	 * run before the task is executed
+	 *
+	 * @param   mixed  &$task  task data
+	 *
+	 * @return bool
+	 */
+	public function onBeforeDoProcess(&$task)
+	{
+		// We need to make sure that we have addressdata
+		if ( ! array_key_exists('invoiceaddress', $task->processdata))
+		{
+			$ticket = $task->processdata['processdata']['ticket']['ticket'];
+
+			if (isset($ticket['processdata']['invoiceaddress']))
+			{
+				$task->processdata['invoiceaddress'] = $ticket['processdata']['invoiceaddress'];
+			}
+			else
+			{
+				// Only needed for old data
+				$task->processdata['invoiceaddress'] = $ticket['firstname'] . ' ' . $ticket['lastname'];
+			}
+		}
+
+		return true;
+	}
+
 	/**
 	 * Do the work
 	 *
@@ -30,7 +59,7 @@ class InvoiceHandling extends BaseTask
 	{
 		// 1st check is if we need to send an invoice at all
 		// for INTERNAL Tickets it isn't needed
-		if ($task->processdata['processdata']['paymentprovider'] == 'INTERNAL')
+		if ($task->processdata['processdata']['paymentprovider']['processkey'] == 'INTERNAL')
 		{
 			// DONE
 			return true;
@@ -38,44 +67,83 @@ class InvoiceHandling extends BaseTask
 
 		$tickettype = $task->processdata['processdata']['ticket']['tickettype'];
 
-		$iNo = $this->getInvoiceNumber($tickettype['event_id']);
+		$result = $this->createInvoice($tickettype['event_id'], $task);
 
-		if ( ! $this->createInvoice($iNo, $task))
+		if ($result === false)
 		{
 			return false;
 		}
 
-		$rp = new RenderPdf($this->config);
+		$task->processdata['invoice_id']   = $result['id'];
+		$task->processdata['invoice_hash'] = $result['hash'];
 
-		return $rp->create($task->processdata);
+		return $this->instantiateNextTasks($task);
+	}
+
+	/**
+	 * Fire up the next needed task if there are any
+	 *
+	 * @param   \JTable  $task  taskdata
+	 *
+	 * @return bool
+	 */
+	protected function instantiateNextTasks($task)
+	{
+		$next = new RenderPdfInvoice($this->config);
+
+		return $next->create($task->processdata);
 	}
 
 	/**
 	 * Create a row in the invoice table
 	 *
-	 * @param   string  $iNo   invoice number
-	 * @param   mixed   $task  task
+	 * @param   integer  $eventId  the event id
+	 * @param   mixed    $task     task
 	 *
 	 * @return bool
 	 */
-	private function createInvoice($iNo, $task)
+	private function createInvoice($eventId, $task)
 	{
 		// That's needed to find the correct table
 		$config['input']['option'] = 'com_conferenceplus';
 
 		$invoiceTable = \FOFTable::getAnInstance('invoice', 'JTable', $config);
+		$payment_id   = $task->processdata['payment_id'];
+
+		// Try to load if we have an existing invoice
+		$key = ['payment_id' => $payment_id];
+		$isNew = ! $invoiceTable->load($key);
+
+		if ($isNew)
+		{
+			$iNo = $this->getInvoiceNumber($eventId);
+		}
 
 		$invoiceTable->payment_id = $task->processdata['payment_id'];
-		$invoiceTable->identifier = $iNo;
 		$invoiceTable->data       = json_encode($task->processdata);
-		$invoiceTable->created    = $this->date->getInstance()->toSql();
+
+		if ($isNew)
+		{
+			$invoiceTable->created    = $this->date->getInstance()->toSql();
+			$invoiceTable->identifier = $iNo;
+		}
+		else
+		{
+			$invoiceTable->modified = $this->date->getInstance()->toSql();
+		}
+
 		$invoiceTable->hash       = base_convert(time(), 10, 32);
+		$invoiceTable->address    = $task->processdata['invoiceaddress'];
 
-		$ticket = $task->processdata['processdata']['ticket']['ticket'];
+		if (! $invoiceTable->store())
+		{
+			return false;
+		}
 
-		$invoiceTable->address    = $ticket['firstname'] . ' ' . $ticket['lastname'];
+		// We need to pause a bit so that the hash is uniq
+		sleep(1);
 
-		return $invoiceTable->store();
+		return ['id' => $invoiceTable->conferenceplus_invoice_id, 'hash' => $invoiceTable->hash];
 	}
 
 	/**
