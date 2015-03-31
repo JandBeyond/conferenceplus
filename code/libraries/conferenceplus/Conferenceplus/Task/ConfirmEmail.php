@@ -19,5 +19,17 @@ namespace Conferenceplus\Task;
  */
 class ConfirmEmail extends BaseEmail
 {
+	/**
+	 * run before the task is executed
+	 *
+	 * @param   mixed  $task  task data
+	 *
+	 * @return bool
+	 */
+	public function onBeforeDoProcess($task)
+	{
+		// We need to implement the process
 
+		return false;
+	}
 }
