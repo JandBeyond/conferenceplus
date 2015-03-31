@@ -83,7 +83,14 @@ class RenderPdfInvoice extends RenderPdf
 		$date = $this->date->getInstance($ticket['created']);
 
 		$data['date']           = $date->format('d. F Y');
-		$data['productname']    = $tickettype['productname'];
+
+		$data['productname'] = $tickettype['name'];
+
+		if (isset($tickettype['productname']))
+		{
+			$data['productname']    = $tickettype['productname'];
+		}
+
 		$data['productdesc']    = $tickettype['description'];
 		$data['totalfee'] 		= $tickettype['fee'];
 		$data['productfee'] 	= $tickettype['fee'];
@@ -91,16 +98,19 @@ class RenderPdfInvoice extends RenderPdf
 		$data['taxfee'] 		= '0';
 		$vat 					= $tickettype['vat'];
 
+		$currency = $this->config['cpconf']->get('currency');
+		$currency = explode('|', $currency)[0];
+
 		if ($vat != 0)
 		{
 			// Needs calculation
 			$data['productfee'] = $data['totalfee'] * 100 / (100 + $vat);
-			$data['taxfee']		= ($data['totalfee'] - $data['productfee']) / 100;
+			$data['taxfee']		= $currency . ' ' . ($data['totalfee'] - $data['productfee']) / 100;
 			$data['tax'] 		= $vat . '% MwSt/Vat';
 		}
 
-		$data['productfee'] = round($data['productfee'] / 100, 2);
-		$data['totalfee'] 	= round($data['totalfee'] / 100, 2);
+		$data['productfee'] = $currency . ' ' . number_format(round($data['productfee'] / 100, 2), 2, ',', '.');
+		$data['totalfee'] 	= $currency . ' ' . number_format(round($data['totalfee'] / 100, 2), 2, ',', '.');
 
 		$data['note'] 		= 'Already payed, thanks (REF: ' . $processkey . ')';
 
