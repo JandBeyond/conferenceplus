@@ -73,6 +73,17 @@
 			   default="1:#787878,2:#232323"
 			   buttons="false" rows="5" cols="80"/>
 
+        <field name="tweetgot" type="textarea" class="form-control"  labelClass="control-label"
+               size="150" label="COM_CONFERENCEPLUS_TWEETGOT"
+               description="COM_CONFERENCEPLUS_TWEETGOT_DESC"
+               default="I have gotton my ticket for JandBeyond 29-31 May in Prague. See you there! #joomla #jab15 http://jandbeyond.org"
+               buttons="false" rows="5" cols="80"/>
+
+        <field name="tweetbuy" type="textarea" class="form-control"  labelClass="control-label"
+               size="150" label="COM_CONFERENCEPLUS_TWEETBUY"
+               description="COM_CONFERENCEPLUS_TWEETBUY_DESC"
+               default="I just bought my ticket for JandBeyond 29-31 May in Prague. See you there! #joomla #jab15 http://jandbeyond.org"
+               buttons="false" rows="5" cols="80"/>
 
 	</fieldset>
 
