@@ -1,11 +1,11 @@
 <?php
 
 $displayData 	= new stdClass;
-$params 		= JComponentHelper::getParams('COM_CONFERENCEPLUS');
+$params 		= JComponentHelper::getParams('com_conferenceplus');
 
 $headerlevel    = $params->get('headerlevel', 2);
 
-$title = 'Select a ticket';
+$title = JTExt::_('COM_CONFERENCEPLUS_SELECT_TICKET_TITLE');
 
 $doc = JFactory::getDocument()->setTitle($title);
 
@@ -38,7 +38,7 @@ $uri = JUri::base() . "index.php?option=com_conferenceplus&view=ticket&layout=pr
 					<?php echo $currency; ?> <?php echo number_format($item->fee/100, 0, ',', ''); ?>
 				</p>
 				<p class="call2action">
-					<?php echo JTExt::_('COM_CONFERENCEPLUS_SELECT_TICKET') ?>
+					<?php echo JTExt::_('COM_CONFERENCEPLUS_SELECT_TICKET'); ?>
 				</p>
 			</div>
 		</a>
@@ -51,7 +51,7 @@ $uri = JUri::base() . "index.php?option=com_conferenceplus&view=ticket&layout=pr
 
 <?php else : ?>
 
-	<p>We are sorry but the ticket shop is closed</p>
+	<?php echo JText::_('COM_CONFERENCEPLUS_SHOP_CLOSED'); ?>
 
 <?php endif; ?>
 
