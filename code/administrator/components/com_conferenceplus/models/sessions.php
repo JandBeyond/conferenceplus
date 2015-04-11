@@ -21,9 +21,6 @@ require_once 'default.php';
  */
 class ConferenceplusModelSessions extends ConferenceplusModelDefault
 {
-
-	protected $default_behaviors = array('enabled');
-
 	protected $programme = array();
 
 	/**
