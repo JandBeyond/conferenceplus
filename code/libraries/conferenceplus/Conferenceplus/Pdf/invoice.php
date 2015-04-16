@@ -149,7 +149,7 @@ class Invoice extends Base
 	</table>
 	<p>{note}</p>
 </div>
-<p>Best Regards</p>
+<p>Best Regards / Viele Grüße</p>
 <p>JAB e.V.</p>
 </body>
 </html>

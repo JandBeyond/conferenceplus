@@ -21,9 +21,6 @@ require_once 'default.php';
  */
 class ConferenceplusModelSpeakers extends ConferenceplusModelDefault
 {
-
-	protected $default_behaviors = array('enabled');
-
 	/**
 	 * Ajust the query
 	 *
@@ -77,7 +74,6 @@ class ConferenceplusModelSpeakers extends ConferenceplusModelDefault
 			$record->assignedSessions = $this->getSessionsForASpeaker($record->conferenceplus_speaker_id);
 		}
 	}
-
 
 	/**
 	 * get the sessions for a speaker

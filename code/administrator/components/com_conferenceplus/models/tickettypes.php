@@ -34,6 +34,35 @@ class ConferenceplusModelTickettypes extends ConferenceplusModelDefault
 		parent::__construct($config);
 	}
 
+
+	/**
+	 * Ajust the query
+	 *
+	 * @param   boolean  $overrideLimits  Are we requested to override the set limits?
+	 *
+	 * @return  JDatabaseQuery
+	 */
+	public function buildQuery($overrideLimits = false)
+	{
+		$query = parent::buildQuery($overrideLimits);
+
+		// Get the current date
+		$now = (new JDate())->toSql();
+
+		$db    = $this->getDbo();
+
+		$formName = $this->getState('form_name');
+
+		if ($formName == 'form.default' && FOFPlatform::getInstance()->isFrontend())
+		{
+			$query->where($db->qn('start') . ' <= ' . $db->q($now))
+					->where($db->qn('end') . ' >= ' . $db->q($now));
+		}
+
+		return $query;
+	}
+
+
 	/**
 	 * check if a certain tickettype is valid
 	 *

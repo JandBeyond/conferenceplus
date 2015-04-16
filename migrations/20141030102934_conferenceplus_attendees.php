@@ -4,7 +4,7 @@ use Phinx\Migration\AbstractMigration;
 
 class conferenceplusAttendees extends AbstractMigration
 {
-    protected $tableName = 'bt12_conferenceplus_attendees';
+    protected $tableName = 'conferenceplus_attendees';
 
     /**
      * Migrate Up.

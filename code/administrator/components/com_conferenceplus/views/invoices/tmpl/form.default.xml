@@ -9,11 +9,13 @@
     <headerset>
         <header name="conferenceplus_invoice_id" type="rowselect" tdwidth="20" />
 
-
-        <header name="Name" type="fieldsearchable" sortable="true"
+        <header name="Invoice No" type="fieldsearchable" sortable="true"
                 buttons="yes" buttonclass="btn" placeholder="COM_CONFERENCEPLUS_SEARCH_IN_NAME"
                 />
-
+        <header name="firstname" type="text"/>
+        <header name="lastname" type="text"/>
+        <header name="email" type="text"/>
+        <header name="address" type="text"/>
         <header name="hash" type="text" tdwidth="10%" />
     </headerset>
 
@@ -24,6 +26,10 @@
                show_link="true"
                url="index.php?option=com_conferenceplus&amp;view=invoice&amp;id=[ITEM:ID]"
                 />
+        <field name="firstname" type="text" />
+        <field name="lastname" type="text" />
+        <field name="email" type="text" />
+        <field name="address" type="text" />
         <field name="hash" type="text" />
     </fieldset>
 

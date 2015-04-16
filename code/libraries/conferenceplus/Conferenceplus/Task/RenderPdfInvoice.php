@@ -97,6 +97,7 @@ class RenderPdfInvoice extends RenderPdf
 			$data['productfee'] = $data['totalfee'] * 100 / (100 + $vat);
 			$data['taxfee']		= ($data['totalfee'] - $data['productfee']) / 100;
 			$data['tax'] 		= $vat . '% MwSt/Vat';
+			$data['taxfee']     = round($data['taxfee'], 2);
 		}
 
 		$data['productfee'] = round($data['productfee'] / 100, 2);

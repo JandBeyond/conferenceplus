@@ -216,11 +216,11 @@ class ConferenceplusFormFieldMediaupload extends JFormField
 
 		$html[] = $actiondiv;
 		$html[] = '  <div class="btn btn-primary fileinput-button">';
-		$html[] = '    <i class="glyphicon glyphicon-plus"></i>';
+		$html[] = '    <i class="glyphicon glyphicon-plus"><span>+</span></i>';
 		$html[] = '    <input id="file' . $this->id . '" type="file" name="files[]" >';
 		$html[] = '  </div>';
 		$html[] = '  <button class="btn btn-danger" onclick="return Conferenceplus.Upload.remove(\'' . $this->id . '\')">';
-		$html[] = '    <i class="glyphicon glyphicon-remove"></i>';
+		$html[] = '    <i class="glyphicon glyphicon-remove"><span>-</span></i>';
 		$html[] = '  </button>';
 		$html[] = '</div> <!-- actions -->';
 

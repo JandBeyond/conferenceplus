@@ -31,14 +31,14 @@ $returnurl = base64_encode($uri->toString(['path', 'query', 'fragment']));
 
 $script ='
 
-	$(document).ready(function() {
-		$("#speaker_listtext-lbl").parent().hide();
-	    $("input[name$=\'speaker_multiple\']").click(function() {
+	jQuery(document).ready(function() {
+		jQuery("#speaker_listtext-lbl").parent().hide();
+	    jQuery("input[name$=\'speaker_multiple\']").click(function() {
 	        var test = $(this).val();
 			if (test == 0) {
-		        $("#speaker_listtext-lbl").parent().hide();
+		        jQuery("#speaker_listtext-lbl").parent().hide();
 			} else {
-				$("#speaker_listtext-lbl").parent().show();
+				jQuery("#speaker_listtext-lbl").parent().show();
 			}
 				
 	    });

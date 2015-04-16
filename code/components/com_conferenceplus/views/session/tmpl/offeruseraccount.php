@@ -15,7 +15,8 @@ defined('_JEXEC') or die;
 $params 		= JComponentHelper::getParams('com_conferenceplus');
 $headerlevel    = $params->get('headerlevel', 2);
 
-$title = 'Thank you! But Wait ...';
+$title = JText::_('COM_CONFERENCEPLUS_SUBMIT_SESSION_THANKYOU_OFFER2CREATEAACCOUNT_TITLE');
+
 $doc = JFactory::getDocument()->setTitle($title);
 
 $Itemid = Conferenceplus\Route\Helper::getItemid();

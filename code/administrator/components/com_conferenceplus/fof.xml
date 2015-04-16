@@ -17,6 +17,9 @@
         <table name="coupon">
             <tablealias>coupon</tablealias>
         </table>
+        <table name="invoice">
+            <tablealias>invoice</tablealias>
+        </table>
     </common>
 
     <!-- Component back-end options -->

@@ -4,7 +4,7 @@ use Phinx\Migration\AbstractMigration;
 
 class AlterSlots extends AbstractMigration
 {
-    protected $tableName = 'bt12_conferenceplus_slots';
+    protected $tableName = 'conferenceplus_slots';
 
     /**
      * Change Method.
@@ -19,11 +19,11 @@ class AlterSlots extends AbstractMigration
     {
         
         $table = $this->table($this->tableName);
-        $table->addColumn('stimeset', 'integer', array('after' => 'start','comment' => 'Is the start time set','null' => false))
-            ->addColumn('stimeset', 'integer', array('after' => 'end','comment' => 'Is the start time set','null' => false))
-            ->renameColumn('start', 'stime')
+        $table->renameColumn('start', 'stime')
             ->renameColumn('end', 'etime')
             ->renameColumn('room_id', 'slottype',array('comment' => 'Type of session 0 = normal, 1 = span over rooms'))
+            ->addColumn('stimeset', 'integer', array('after' => 'stime','comment' => 'Is the start time set','null' => false))
+            ->addColumn('etimeset', 'integer', array('after' => 'etime','comment' => 'Is the start time set','null' => false))
             ->update();
     }
 }
