@@ -53,7 +53,7 @@ class ConferenceplusModelTickettypes extends ConferenceplusModelDefault
 
 		$formName = $this->getState('form_name');
 
-		if ($formName == 'form.default')
+		if ($formName == 'form.default' && FOFPlatform::getInstance()->isFrontend())
 		{
 			$query->where($db->qn('start') . ' <= ' . $db->q($now))
 					->where($db->qn('end') . ' >= ' . $db->q($now));
