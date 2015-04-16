@@ -4,7 +4,7 @@ use Phinx\Migration\AbstractMigration;
 
 class conferenceplusMessages extends AbstractMigration
 {
-    protected $tableName = 'bt12_conferenceplus_messages';
+    protected $tableName = 'conferenceplus_messages';
 
     /**
      * Migrate Up.
