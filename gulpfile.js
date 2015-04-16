@@ -44,9 +44,26 @@ gulp.task('mapping', function() {
     gulp.src('code/' + dof)
         .pipe(sym(targetBase + '/' + dof, {force:true}));
 
+    dof = 'language/de-DE/de-DE.com_conferenceplus.ini';
+    gulp.src('code/' + dof)
+        .pipe(sym(targetBase + '/' + dof, {force:true})); 
+
+    dof = 'administrator/language/de-DE/de-DE.com_conferenceplus.ini';
+    gulp.src('code/' + dof)
+        .pipe(sym(targetBase + '/' + dof, {force:true})); 
+
+    dof = 'administrator/language/de-DE/de-DE.com_conferenceplus.sys.ini';
+    gulp.src('code/' + dof)
+        .pipe(sym(targetBase + '/' + dof, {force:true}));
+
+
     dof = 'libraries/conferenceplus';
     gulp.src('code/' + dof)
         .pipe(sym(targetBase + '/' + dof, {force:true}));
+
+    dof = 'conferenceplus.xml';
+    gulp.src('code/libraries/conferenceplus/' + dof)
+        .pipe(sym(targetBase + '/administrator/manifests/libraries/' + dof, {force:true}));
 
     dof = 'plugins/user/conferenceplus';
     gulp.src('code/' + dof)
@@ -63,6 +80,10 @@ gulp.task('mapping', function() {
     dof = 'language/en-GB/en-GB.plg_user_conferenceplus.ini';
     gulp.src('code/plugins/user/conferenceplus/' + dof)
         .pipe(sym(targetBase + '/administrator/' + dof, {force:true}));
+
+    dof = 'cli/conferenceplus_taskrunner.php';
+    gulp.src('code/' + dof)
+        .pipe(sym(targetBase + '/' + dof, {force:true}));
 
 });
 
