@@ -106,6 +106,8 @@ class ConferenceplusModelTickets extends ConferenceplusModelDefault
 			$processdata[$field] = array_key_exists($field, $data) ? $data[$field] : '';
 		}
 
+		$data['tickettype_id'] = $this->getTicketTypeId();
+
 		// We need to check here again if a coupon is valid and remove it from the data to save if not
 		if (array_key_exists('coupon', $data) && $data['coupon'] != "")
 		{
@@ -116,8 +118,6 @@ class ConferenceplusModelTickets extends ConferenceplusModelDefault
 		}
 
 		$data['processdata'] = json_encode($processdata);
-
-		$data['tickettype_id'] = $this->getTicketTypeId();
 
 		return true;
 	}
