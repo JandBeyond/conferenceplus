@@ -97,13 +97,22 @@ class ConferenceplusModelTickets extends ConferenceplusModelDefault
 			return false;
 		}
 
-		$fields = ['ask4gender', 'ask4tshirtsize', 'ask4food', 'ask4food0', 'coupon', 'invoiceaddress'];
+		$fields = ['ask4gender', 'ask4tshirtsize', 'ask4food', 'ask4food0', 'invoiceaddress'];
 
 		$processdata = [];
 
 		foreach ($fields as $field)
 		{
 			$processdata[$field] = array_key_exists($field, $data) ? $data[$field] : '';
+		}
+
+		// We need to check here again if a coupon is valid and remove it from the data to save if not
+		if (array_key_exists('coupon', $data) && $data['coupon'] != "")
+		{
+			$coupon = FOFModel::getAnInstance('coupons', 'ConferenceplusModel');
+
+			$resultCouponCheck 		= $coupon->checkCouponAndTicket($data['coupon'], $data['tickettype_id']);
+			$processdata['coupon'] 	= $resultCouponCheck['returnType'] == 99 ? $data['coupon'] : '';
 		}
 
 		$data['processdata'] = json_encode($processdata);
