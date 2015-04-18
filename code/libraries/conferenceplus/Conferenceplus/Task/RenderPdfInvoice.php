@@ -86,6 +86,7 @@ class RenderPdfInvoice extends RenderPdf
 
 		$data['productname'] = $tickettype['name'];
 
+		// Needed because first version hadn't a productname can be removed after JAB15
 		if (isset($tickettype['productname']))
 		{
 			$data['productname']    = $tickettype['productname'];
