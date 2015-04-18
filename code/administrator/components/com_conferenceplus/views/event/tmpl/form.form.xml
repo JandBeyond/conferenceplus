@@ -159,6 +159,17 @@
 			<option value="0">JNO</option>
 		</field>
 
+		<field name="tweetgot" type="textarea" class="form-control"  labelClass="control-label"
+			   size="150" label="COM_CONFERENCEPLUS_TWEETGOT"
+			   description="COM_CONFERENCEPLUS_TWEETGOT_DESC"
+			   default="I just got my ticket for JandBeyond 29-31 May in Prague. See you there! %23joomla %23jab15 http://jandbeyond.org"
+			   buttons="false" rows="5" cols="80"/>
+
+		<field name="tweetbuy" type="textarea" class="form-control"  labelClass="control-label"
+			   size="150" label="COM_CONFERENCEPLUS_TWEETBUY"
+			   description="COM_CONFERENCEPLUS_TWEETBUY_DESC"
+			   default="I just bought my ticket for JandBeyond 29-31 May in Prague. See you there! %23joomla %23jab15 http://jandbeyond.org"
+			   buttons="false" rows="5" cols="80"/>
 
 	</fieldset>
 

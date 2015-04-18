@@ -11,8 +11,10 @@ defined('_JEXEC') or die;
 $displayData 	= new stdClass;
 $params 		= JComponentHelper::getParams('com_conferenceplus');
 $headerlevel    = $params->get('headerlevel', 2);
-$tweetgot    = $params->get('tweetgot');
-$tweetbuy   = $params->get('tweetbuy');
+
+
+$tweetgot = $this->item->eventParams['tweetgot'];
+$tweetbuy = $this->item->eventParams['tweetbuy'];
 
 $freeticket = $this->input->get('ft', 0) == 1;
 

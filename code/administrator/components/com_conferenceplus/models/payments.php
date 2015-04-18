@@ -54,6 +54,14 @@ class ConferenceplusModelPayments extends ConferenceplusModelDefault
 		$record->ticketData       = $ticketData;
 		$record->freeTicket       = $freeTicket;
 		$record->paymentProviders = $paymentProviders;
+
+		$event_id = $ticketData->tickettype->event_id;
+
+		$event = FOFModel::getAnInstance('events', 'ConferenceplusModel');
+		$event->setId($event_id);
+		$eventTable = $event->getTable();
+		$eventTable->load($event_id);
+		$record->eventParams = $event->getEventParams($eventTable);
 	}
 
 	/**
