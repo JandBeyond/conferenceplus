@@ -5,3 +5,5 @@
 !.gitignore
 !index.html
 !index.php
+!.htaccess
+!web.config
