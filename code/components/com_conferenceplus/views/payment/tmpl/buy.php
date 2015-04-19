@@ -45,7 +45,11 @@ $processdata = $ticket->processdata;
 			<dt><?php echo JText::_('COM_CONFERENCEPLUS_TICKETTYPEDESCRIPTION');?></dt>
 			<dd><?php echo $tickettype->description;?></dd>
 			<dt><?php echo JText::_('COM_CONFERENCEPLUS_TICKETTYPEFEE');?></dt>
-			<dd><?php echo $currency; ?> <?php echo number_format($tickettype->fee/100, 0, ',', '');?></dd>
+			<dd>
+				<?php $displayData->fee = $tickettype->fee; ?>
+				<?php $displayData->vat = $tickettype->vat; ?>
+				<?php echo JLayoutHelper::render('html.fee', $displayData, $baseLayoutPath); ?>
+			</dd>
 			<dt><?php echo JText::_('COM_CONFERENCEPLUS_FIRSTNAME');?></dt>
 			<dd><?php echo $ticket->firstname;?></dd>
 			<dt><?php echo JText::_('COM_CONFERENCEPLUS_LASTNAME');?></dt>
@@ -61,6 +65,11 @@ $processdata = $ticket->processdata;
 					<dd><?php echo JText::_($processdata[$field]);?></dd>
 				<?php endif; ?>
 			<?php endforeach; ?>
+
+			<?php if ($tickettype->fee != 0) : ?>
+				<dt><?php echo JText::_('COM_CONFERENCEPLUS_INVOICEADDRESS');?></dt>
+				<dd><?php echo nl2br($processdata['invoiceaddress']);?></dd>
+			<?php endif; ?>
 		</dl>
 	</div>
 

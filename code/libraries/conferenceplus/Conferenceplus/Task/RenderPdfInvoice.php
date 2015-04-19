@@ -11,6 +11,8 @@
 
 namespace Conferenceplus\Task;
 
+use Conferenceplus\Composer\Number as Number;
+
 /**
  * Class RenderPdfInvoice
  *
@@ -95,26 +97,24 @@ class RenderPdfInvoice extends RenderPdf
 		$data['productdesc']    = $tickettype['description'];
 		$data['totalfee'] 		= $tickettype['fee'];
 		$data['productfee'] 	= $tickettype['fee'];
-		$data['tax'] 			= '0% MwSt/Vat';
+		$data['tax'] 			= \JText::sprintf('COM_CONFERENCEPLUS_INVOICEVAT', '0%' );
 		$data['taxfee'] 		= '0';
 		$vat 					= $tickettype['vat'];
 
-		$currency = $this->config['cpconf']->get('currency');
-		$currency = explode('|', $currency)[0];
+		$numberComposer = new Number(['params' => $this->config['cpconf']]);
 
 		if ($vat != 0)
 		{
 			// Needs calculation
 			$data['productfee'] = $data['totalfee'] * 100 / (100 + $vat);
-			$data['taxfee']		= $currency . ' ' . ($data['totalfee'] - $data['productfee']) / 100;
-			$data['tax'] 		= $vat . '% MwSt/Vat';
-			$data['taxfee']     = round($data['taxfee'], 2);
+			$data['taxfee']		= $numberComposer->money(($data['totalfee'] - $data['productfee']) / 100);
+			$data['tax'] 		= \JText::sprintf('COM_CONFERENCEPLUS_INVOICEVAT', $vat . '%' );
 		}
 
-		$data['productfee'] = $currency . ' ' . number_format(round($data['productfee'] / 100, 2), 2, ',', '.');
-		$data['totalfee'] 	= $currency . ' ' . number_format(round($data['totalfee'] / 100, 2), 2, ',', '.');
+		$data['productfee'] = $numberComposer->money($data['productfee'] / 100);
+		$data['totalfee'] 	= $numberComposer->money($data['totalfee'] / 100);
 
-		$data['note'] 		= 'Already payed, thanks (REF: ' . $processkey . ')';
+		$data['note'] 		= \JText::sprintf('COM_CONFERENCEPLUS_INVOICENOTE', $processkey);
 
 		$data['basename'] 	= $invoiceTable->hash;
 		$data['email'] 	    = $ticket['email'];

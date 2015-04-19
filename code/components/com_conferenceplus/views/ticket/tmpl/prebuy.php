@@ -52,7 +52,11 @@ $fields = array('firstname', 'lastname', 'email', 'ask4gender', 'ask4tshirtsize'
 				<dt><?php echo JText::_('COM_CONFERENCEPLUS_TICKETTYPEDESCRIPTION');?></dt>
 				<dd><?php echo $this->item->ticketType->description;?></dd>
 				<dt><?php echo JText::_('COM_CONFERENCEPLUS_TICKETTYPEFEE');?></dt>
-				<dd id="fee"><?php echo $currency; ?> <?php echo number_format($this->item->ticketType->fee/100, 0, ',', '');?></dd>
+				<dd id="fee">
+					<?php $displayData->fee = $this->item->ticketType->fee; ?>
+					<?php $displayData->vat = $this->item->ticketType->vat; ?>
+					<?php echo JLayoutHelper::render('html.fee', $displayData, $baseLayoutPath); ?>
+				</dd>
 			</dl>
 			<?php if ($validCouponAvailable) : ?>
 				<?php $displayData->couponCode = $this->item->couponCode; ?>

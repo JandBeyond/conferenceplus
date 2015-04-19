@@ -42,6 +42,21 @@
 			<option value="€|Euro|EUR">€|Euro|EUR</option>
 		</field>
 
+		<field name="numbers" type="list"
+			   label="COM_CONFERENCEPLUS_NUMBERS"
+			   description="COM_CONFERENCEPLUS_NUMBERS_DESC"
+			   default="0"
+				>
+			<option value="0">Value Currency | decimal == ,| 1000 == .)  eg.   1.145,67 €</option>
+			<option value="1">Value Currency | decimal == ,| 1000 == "") eg.   1145,67 €</option>
+			<option value="2">Value Currency | decimal == .| 1000 == ,)  eg.   1,145.67 €</option>
+			<option value="3">Value Currency | decimal == .| 1000 == "") eg.   1145.67 €</option>
+			<option value="4">Currency Value | decimal == ,| 1000 == .)  eg. € 1.145,67</option>
+			<option value="5">Currency Value | decimal == ,| 1000 == "") eg. € 1145,67</option>
+			<option value="6">Currency Value | decimal == .| 1000 == ,)  eg. € 1,145.67</option>
+			<option value="7">Currency Value | decimal == .| 1000 == "") eg. € 1145.67</option>
+		</field>
+
 		<field name="uploadfolder" type="folderlist" class="form-control"  labelClass="control-label"
 			default="" label="COM_CONFERENCEPLUS_UPLOADFOLDER" description="COM_CONFERENCEPLUS_UPLOADFOLDER_DESC"
 			directory="images" hide_none="true" />

@@ -35,3 +35,12 @@ JFormHelper::addFieldPath(dirname(__FILE__) . '/form/field');
 // Load library language
 // $lang = JFactory::getLanguage();
 // $lang->load('lib_conferenceplus', __DIR__);
+
+// load admin lang file
+$jlang = JFactory::getLanguage();
+$jlang->load('com_conferenceplus.sys', JPATH_ADMINISTRATOR, 'en-GB', true);
+$jlang->load('com_conferenceplus.sys', JPATH_ADMINISTRATOR, $jlang->getDefault(), true);
+$jlang->load('com_conferenceplus.sys', JPATH_ADMINISTRATOR, null, true);
+$jlang->load('com_conferenceplus', JPATH_ADMINISTRATOR, 'en-GB', true);
+$jlang->load('com_conferenceplus', JPATH_ADMINISTRATOR, $jlang->getDefault(), true);
+$jlang->load('com_conferenceplus', JPATH_ADMINISTRATOR, null, true);
