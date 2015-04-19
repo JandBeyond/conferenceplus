@@ -85,6 +85,10 @@ gulp.task('mapping', function() {
     gulp.src('code/' + dof)
         .pipe(sym(targetBase + '/' + dof, {force:true}));
 
+    dof = 'cli/conferenceplus_cleanup.php';
+    gulp.src('code/' + dof)
+        .pipe(sym(targetBase + '/' + dof, {force:true}));
+
 });
 
 var mediaScripts1 = [
