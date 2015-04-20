@@ -54,7 +54,7 @@ class ConferenceplusControllerTicket extends FOFController
 		{
 			$model = $this->getThisModel();
 
-			// we need to check if save was successful
+			// We need to check if save was successful
 			if ( ! empty($model->_errors))
 			{
 				return true;
@@ -74,5 +74,4 @@ class ConferenceplusControllerTicket extends FOFController
 
 		return true;
 	}
-
 }
