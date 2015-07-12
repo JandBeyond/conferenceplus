@@ -77,7 +77,7 @@ $fields = ['enabled','identifier','name','description',
 	</div>
 
 	<input type="hidden" value="com_conferenceplus" name="option">
-	<input type="hidden" value="coupon" name="view">
+	<input type="hidden" value="invoice" name="view">
 	<input type="hidden" value="" name="task">
 	<input type="hidden" value="<?php echo $this->item->conferenceplus_coupon_id; ?>" name="conferenceplus_coupon_id">
 	<?php echo JHtml::_('form.token'); ?>
