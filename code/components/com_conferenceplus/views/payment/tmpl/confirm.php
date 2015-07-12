@@ -22,13 +22,13 @@ if ($freeticket)
 {
 	$title = JText::_('COM_CONFERENCEPLUS_CONFIRM_GOT_TICKET_TITLE');
 	$msg   = JText::_('COM_CONFERENCEPLUS_TICKET_CONFIRM_GOT_TICKET');
-	$tweet = '<a target="_blank" href="https://twitter.com/home?status=' . $tweetgot . '">'. JText::_('COM_CONFERENCEPLUS_CONFIRM_BUY_TICKET_TWEET') . '</a>';
+	$tweet = '<a target="_blank" href="https://twitter.com/home?status=' . $tweetgot . '">' . JText::_('COM_CONFERENCEPLUS_CONFIRM_BUY_TICKET_TWEET') . '</a>';
 }
 else
 {
 	$title = JText::_('COM_CONFERENCEPLUS_CONFIRM_BUY_TICKET_TITLE');
 	$msg   = JText::_('COM_CONFERENCEPLUS_TICKET_CONFIRM_BUY_TICKET');
-	$tweet = '<a target="_blank" href="https://twitter.com/home?status=' . $tweetbuy . '">'. JText::_('COM_CONFERENCEPLUS_CONFIRM_BUY_TICKET_TWEET') . '</a>';
+	$tweet = '<a target="_blank" href="https://twitter.com/home?status=' . $tweetbuy . '">' . JText::_('COM_CONFERENCEPLUS_CONFIRM_BUY_TICKET_TWEET') . '</a>';
 }
 
 $doc = JFactory::getDocument()->setTitle($title);
