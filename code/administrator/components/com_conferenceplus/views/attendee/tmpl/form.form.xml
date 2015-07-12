@@ -15,6 +15,18 @@
 			<option value="0">JUNPUBLISHED</option>
 		</field>
 
+		<field name="firstname" type="text" class="inputbox form-control"  labelClass="control-label"
+			   size="150" label="COM_CONFERENCEPLUS_SPEAKERFIRSTNAME"
+			   description="COM_CONFERENCEPLUS_SPEAKERFIRSTNAME_DESC" required="true" />
+
+		<field name="lastname" type="text" class="inputbox form-control"  labelClass="control-label"
+			   size="150" label="COM_CONFERENCEPLUS_SPEAKERLASTNAME"
+			   description="COM_CONFERENCEPLUS_SPEAKERLASTNAME_DESC" required="true" />
+
+		<field name="email" type="text" class="inputbox form-control"  labelClass="control-label"
+			   size="150" label="COM_CONFERENCEPLUS_SPEAKEREMAIL"
+			   description="COM_CONFERENCEPLUS_SPEAKEREMAIL_DESC" required="true" />
+
 
 	</fieldset>
 

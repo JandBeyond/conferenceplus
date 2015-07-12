@@ -8,6 +8,9 @@
             <field name="locked_on">checked_out_time</field>
         </table>
         <!-- Table options for a specific table -->
+        <table name="attendee">
+            <tablealias>attendee</tablealias>
+        </table>
         <table name="session">
             <tablealias>session</tablealias>
         </table>
