@@ -42,7 +42,6 @@ class ConferenceplusModelSessions extends ConferenceplusModelDefault
 
 		// Load the filters.
 		$this->setState('filter.title', $this->getUserStateFromRequest('filter.title', 'title', ''));
-
 	}
 
 	/**
@@ -230,7 +229,7 @@ class ConferenceplusModelSessions extends ConferenceplusModelDefault
 	 */
 	public function getSessionBySlotId($slotId)
 	{
-		$items  = $this->getItemList();
+		$items  = $this->getItemList(true);
 		$result = [];
 
 		if (! empty($items) && 0 != (int) $slotId)
