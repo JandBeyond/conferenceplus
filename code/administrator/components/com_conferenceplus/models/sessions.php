@@ -336,7 +336,7 @@ class ConferenceplusModelSessions extends ConferenceplusModelDefault
 			->where('d.event_id' . ' = ' . $db->q($eventId))
 			->where($db->qn('s.enabled') . ' = 1')
 			->where($db->qn('d.enabled') . ' = 1')
-			->order('d.sdate ASC');
+			->order('d.sdate ASC, s.stime ASC');
 
 		if (! $all)
 		{
