@@ -33,9 +33,9 @@ $roomsCount = count($this->rooms);
 				<table class="table table-bordered">
 					<thead>
 						<tr>
-							<th class="col-md-2">Time</th>
+							<th class="span2"><?php echo JText::_('COM_CONFERENCEPLUS_TIME'); ?></th>
 							<?php foreach ($this->rooms as $room) : ?>
-								<th class="col-md-2">
+								<th class="span2">
 									<?php echo $room->name; ?>
 								</th>
 							<?php endforeach; ?>
