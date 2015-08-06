@@ -77,7 +77,7 @@ class Ticket extends Base
 			<p><span style="font-size:32pt;padding-top: 0;margin-top: 0;font-weight:bold;">J and Beyond</span><br /><br />
 			<span style="font-weight:normal;font-size:8pt">Verein zur Förderung freier Content Management Systeme</span></p>
 
-			<div style="font-weight:bold;">Dein Ticket für den Joomladay in Hamburg:</div>
+			<div style="font-weight:bold;">Dein Ticket für den JoomlaDay&trade; Deutschland 2015 in Hamburg:</div>
 			<br />
 			<table>
 				<tr style="width:35%">
@@ -90,7 +90,7 @@ class Ticket extends Base
 				</tr>
 				<tr>
 					<td>
-						Ticket-Type:
+						Ticket-Typ:
 					</td>
 					<td>
 						{ticket_type}
@@ -133,7 +133,7 @@ class Ticket extends Base
 		IBAN: DE38 3905 0000 0000 0137 71<br/>
 		SWIFT/BIC: AACSDE33XXX<br/>
 		<br/>
-		USt-IdNr.DE277018347<br/>
+		USt-IdNr. DE277018347<br/>
 		</td>
 	</tr>
 </table>
@@ -149,7 +149,8 @@ class Ticket extends Base
 				<table style="margin: 5px;">
 					<tr>
 						<td style="text-align:center;font-size:12px;height:15mm">
-							<strong>Joomladay Hamburg 2015</strong>
+							<strong>JoomlaDay&trade; Deutschland 2015</strong><br/>
+							18. - 19.09.2015 in Hamburg
 						</td>
 					</tr>
 					<tr>
@@ -169,7 +170,7 @@ class Ticket extends Base
 </div>
 <br />
 <br />
-<div style="font-weight:bold;">Dieses Ticket bitte zur Veranstaltung mitbringen</div>
+<div style="font-weight:bold;">Dieses Ticket bitte zur Veranstaltung mitbringen!</div>
 
 
 

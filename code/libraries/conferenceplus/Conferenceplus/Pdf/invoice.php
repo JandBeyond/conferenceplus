@@ -99,7 +99,7 @@ class Invoice extends Base
 		IBAN: DE38 3905 0000 0000 0137 71<br/>
 		SWIFT/BIC: AACSDE33XXX<br/>
 		<br/>
-		USt-IdNr.DE277018347<br/>
+		USt-IdNr. DE277018347<br/>
 		</td>
 	</tr>
 </table>
