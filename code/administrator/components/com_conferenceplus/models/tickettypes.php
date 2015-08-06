@@ -44,6 +44,8 @@ class ConferenceplusModelTickettypes extends ConferenceplusModelDefault
 	 */
 	public function buildQuery($overrideLimits = false)
 	{
+		$this->blacklistFilters('start');
+
 		$query = parent::buildQuery($overrideLimits);
 
 		// Get the current date
