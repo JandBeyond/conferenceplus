@@ -149,7 +149,7 @@ class Ticket extends Base
 				<table style="margin: 5px;">
 					<tr>
 						<td style="text-align:center;font-size:12px;height:15mm">
-							<strong>JoomlaDay&trade; Deutschland 2015</strong><br/>
+							<strong>JoomlaDay&trade; Deutschland 2015</strong><br />
 							18. - 19.09.2015 in Hamburg
 						</td>
 					</tr>
