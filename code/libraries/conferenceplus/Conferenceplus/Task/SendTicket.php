@@ -32,6 +32,11 @@ class SendTicket extends BaseEmail
 		$name = 'Ticket';
 		$this->mailer->addAttachment($filename, $name);
 
-		return false;
+		$ticket = $task->processdata['processdata']['ticket']['ticket'];
+
+		$task->processdata['firstname'] = $ticket['firstname'];
+		$task->processdata['lastname']  = $ticket['lastname'];
+
+		return true;
 	}
 }

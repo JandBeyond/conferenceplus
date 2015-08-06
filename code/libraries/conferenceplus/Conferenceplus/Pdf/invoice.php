@@ -45,7 +45,6 @@ class Invoice extends Base
 		return $fullpath;
 	}
 
-
 	/**
 	 * Get the text to render
 	 *

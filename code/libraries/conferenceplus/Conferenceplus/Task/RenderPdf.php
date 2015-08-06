@@ -39,7 +39,10 @@ abstract class RenderPdf extends BaseTask
 		}
 		else
 		{
-			$this->pdf = new \Conferenceplus\Pdf\Invoice($this->config);
+			$class = ucwords(substr(get_class($this), strlen(get_class())));
+			$class = '\Conferenceplus\Pdf\\' . $class;
+
+			$this->pdf = new $class($this->config);
 		}
 	}
 

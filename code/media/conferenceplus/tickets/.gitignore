@@ -1,0 +1,9 @@
+# ignore all
+*
+
+# Never ignore
+!.gitignore
+!index.html
+!index.php
+!.htaccess
+!web.config

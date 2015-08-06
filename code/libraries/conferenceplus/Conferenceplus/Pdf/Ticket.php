@@ -58,7 +58,7 @@ class Ticket extends Base
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
 <head>
-	<title>{invoice_number}</title>
+	<title>{ticket_number}</title>
 
 <style type="text/css">
 	body {font-family:helvetica;font-size: 10pt;}
@@ -73,14 +73,47 @@ class Ticket extends Base
 
 <table style="width:100%;">
 	<tr>
-		<td style="width:60%">
+		<td style="width:60%;vertical-align:top">
 			<p><span style="font-size:32pt;padding-top: 0;margin-top: 0;font-weight:bold;">J and Beyond</span><br /><br />
 			<span style="font-weight:normal;font-size:8pt">Verein zur Förderung freier Content Management Systeme</span></p>
+
+			<div style="font-weight:bold;">Dein Ticket für den Joomladay in Hamburg:</div>
 			<br />
-			<p style="font-size:8pt">JAB · c/o Robert Deutz · Brüsseler Ring 67 · 52074 Aachen</p>
-			<div class="adrblock">
-				{addressblock}
-			</div>
+			<table>
+				<tr style="width:35%">
+					<td>
+						Ticket-Nr.:
+					</td>
+					<td>
+						{ticket_number}
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Ticket-Type:
+					</td>
+					<td>
+						{ticket_type}
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Essenspräferenz:&nbsp;&nbsp;&nbsp;
+					</td>
+					<td>
+						{food}
+					</td>
+				</tr>
+				<tr>
+					<td>
+						T-Shirt Größe:
+					</td>
+					<td>
+						{tshirtsize}
+					</td>
+				</tr>
+			</table>
+
 		</td>
 
 		<td style="width:38%;font-size: 8pt;">
@@ -104,53 +137,42 @@ class Ticket extends Base
 		</td>
 	</tr>
 </table>
-<br /><br /><br /><br />
-<table style="width:100%;">
-	<tr>
-		<td style="width:60%">
-			<div style="font-weight:bold;">Invoice/Rechnung: {invoice_number}</div>
-		</td>
-		<td style="width:38%;">
-			<div style="text-align: right;">{date}</div>
-		</td>
-	</tr>
-</table>
 
-<br />
+<hr />
 
-<div style="margin-top:10px">
+<p>&nbsp;</p>
 
-	<table style="border:2px solid #555;width:100%;padding: 5px 5px 5px 5px;">
+<div>
+	<table style="width:85mm;height:49mm;border:1px solid #000;">
 		<tr>
-			<th style="width:84%;font-weight:bold;border:1px solid #555;">Description/Beschreibung</th>
-			<th style="width:15%;font-weight:bold;border:1px solid #555;">Fee/Betrag</th>
-		</tr>
-
-		<tr>
-			<td style="padding: 5px 5px 5px 5px;border:1px solid #555;">
-				{productname}<br />{productdesc}
+			<td>
+				<table style="margin: 5px;">
+					<tr>
+						<td style="text-align:center;font-size:12px;height:15mm">
+							<strong>Joomladay Hamburg 2015</strong>
+						</td>
+					</tr>
+					<tr>
+						<td style="text-align:center; font-size:14px;height:20mm">
+							<strong>{name}</strong>
+						</td>
+					</tr>
+					<tr>
+						<td style="text-align:center;height:10mm">
+							{ticket_type}<br />{ticket_number} / {tshirtsize}
+						</td>
+					</tr>
+				</table>
 			</td>
-			<td style="padding: 5px 5px 5px 5px;border:1px solid #555;text-align:right">
-				{productfee}
-			</td>
-		</tr>
-		<tr>
-			<td style="padding: 5px 5px 5px 5px;border:1px solid #555;text-align:right">Subtotal</td>
-			<td style="padding: 5px 5px 5px 5px;border:1px solid #555;text-align:right">{productfee}</td>
-		</tr>
-		<tr>
-			<td style="padding: 5px 5px 5px 5px;border:1px solid #555;text-align:right">{tax}</td>
-			<td style="padding: 5px 5px 5px 5px;border:1px solid #555;text-align:right">{taxfee}</td>
-		</tr>
-		<tr>
-			<td style="padding: 5px 5px 5px 5px;border:1px solid #555;text-align:right"><strong>Total</strong></td>
-			<td style="padding: 5px 5px 5px 5px;border:1px solid #555;text-align:right"><strong>{totalfee}</strong></td>
 		</tr>
 	</table>
-	<p>{note}</p>
 </div>
-<p>Best Regards / Viele Grüße</p>
-<p>JAB e.V.</p>
+<br />
+<br />
+<div style="font-weight:bold;">Dieses Ticket bitte zur Veranstaltung mitbringen</div>
+
+
+
 </body>
 </html>
 EOD;
