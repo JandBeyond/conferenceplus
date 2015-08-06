@@ -18,6 +18,7 @@
                 />
         <header name="email" sortable="true"/>
         <header name="gender" sortable="true"/>
+        <header name="tshirtsize" sortable="true"/>
         <header name="food" sortable="true"/>
         <header name="partner" sortable="true"/>
     </headerset>
@@ -38,6 +39,7 @@
                 />
         <field name="email" type="text"/>
         <field name="gender" type="text"/>
+        <field name="tshirtsize" type="text"/>
         <field name="food" type="text"/>
         <field name="partner" type="text"/>
     </fieldset>
