@@ -43,7 +43,7 @@ $Itemid = Conferenceplus\Route\Helper::getItemid();
 		</div>
 
 	<?php if ( ! empty($item->assignedSessions)) : ?>
-		<h<?php echo $shl1; ?>>Speaker's Sessions</h<?php echo $shl1; ?>>
+		<h<?php echo $shl1; ?>><?php echo JText::_('COM_CONFERENCEPLUS_SPEAKERS_SESSIONS'); ?></h<?php echo $shl1; ?>>
 
 		<div class="row clearfix">
 			<ul class="speakerssessions">
@@ -54,7 +54,7 @@ $Itemid = Conferenceplus\Route\Helper::getItemid();
 							. '&return=' . $this->input->getBase64('return', '')
 				?>
 				<li>
-					<strong><?php echo $session->dayname; ?>&nbsp;-&nbsp;Room: <?php echo $session->roomname; ?></strong><br />
+					<strong><?php echo $session->dayname; ?>&nbsp;-&nbsp;<?php echo JText::_('COM_CONFERENCEPLUS_ROOM'); ?>&nbsp;<?php echo $session->roomname; ?></strong><br />
 					<?php echo substr($session->stime, 0, 5); ?>&nbsp; - &nbsp;<?php echo substr($session->etime, 0, 5); ?>
 					: <a href="<?php echo $link; ?>"><?php echo $session->title; ?></a>
 				</li>
@@ -65,7 +65,7 @@ $Itemid = Conferenceplus\Route\Helper::getItemid();
 
 	<?php if ($return != '') : ?>
 	<div class="backlink">
-		<a href="<?php echo $return; ?>" class="btn btn-primary">Back to Programme</a>
+		<a href="<?php echo $return; ?>" class="btn btn-primary"><?php echo JText::_('COM_CONFERENCEPLUS_BACK_TO_PROGRAMME'); ?></a>
 	</div>
 	<?php endif; ?>
 </div>
