@@ -32,9 +32,9 @@ $Itemid = Conferenceplus\Route\Helper::getItemid();
 		<div class="row clearfix">
 			<div class="span3">
 				<?php if (file_exists(JPATH_SITE . $base . '/' . $item->imagefile)) : ?>
-					<img class="speakerimage img-responsive img-thumbnail" src="<?php echo $base . '/' . $item->imagefile; ?>"/>
+					<img class="speakerimage img-responsive img-thumbnail" src="<?php echo $base . '/' . $item->imagefile; ?>" />
 				<?php else : ?>
-					placeholder
+				<img class="speakerimage img-responsive img-thumbnail" src="http://placehold.it/300x300" />
 				<?php endif; ?>
 			</div>
 			<div class="span5">
