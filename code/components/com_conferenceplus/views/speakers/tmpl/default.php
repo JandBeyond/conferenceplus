@@ -53,9 +53,9 @@ $odd = $itemcount % 2 != 0;
 			?>
 				<div class="row clearfix">
 			<?php endif; ?>
-			<div class="col-md-6 speakersblock <?php echo $leftCol ? 'leftcol': 'rightcol';?>">
+			<div class="span4 speakersblock">
 				<div class="col-md-6 image">
-					<img src="<?php echo $base . '/' . $item->imagefile; ?>" class="img-responsive" />
+					<img src="<?php echo $base . '/' . $item->imagefile; ?>" class="img-responsive maxheight" />
 				</div>
 				<div class="col-md-6 info">
 					<span class="speakername"><?php echo $item->firstname . ' ' . $item->lastname; ?><br /></span>
@@ -64,7 +64,7 @@ $odd = $itemcount % 2 != 0;
 						$speakerLink = 'index.php?option=com_conferenceplus&view=speaker&id='
 							. $item->conferenceplus_speaker_id . '&Itemid=' . $Itemid;
 					?>
-					<a href="<?php echo $speakerLink; ?>">More about <?php echo $item->firstname; ?></a>
+					<a href="<?php echo $speakerLink; ?>"><?php echo JText::_('COM_CONFERENCEPLUS_SPEAKERS_MORE_ABOUT'); ?> <?php echo $item->firstname; ?> <?php echo $item->lastname; ?></a>
 				</div>
 			</div>
 			<?php if ($i % 2 != 0)	: ?>

@@ -30,14 +30,14 @@ $Itemid = Conferenceplus\Route\Helper::getItemid();
 	<h<?php echo $headerlevel; ?>><?php echo $title; ?></h<?php echo $headerlevel; ?>>
 
 		<div class="row clearfix">
-			<div class="col-md-6">
+			<div class="span3">
 				<?php if (file_exists(JPATH_SITE . $base . '/' . $item->imagefile)) : ?>
 					<img class="speakerimage img-responsive img-thumbnail" src="<?php echo $base . '/' . $item->imagefile; ?>"/>
 				<?php else : ?>
 					placeholder
 				<?php endif; ?>
 			</div>
-			<div class="col-md-6">
+			<div class="span5">
 				<?php echo nl2br($item->bio); ?>
 			</div>
 		</div>
