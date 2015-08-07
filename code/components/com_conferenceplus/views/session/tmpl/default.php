@@ -31,7 +31,7 @@ $return    = base64_decode($this->input->getBase64('return', ''));
 	<?php if (! empty($item->assignedSpeakers)) : ?>
 		<?php foreach ($item->assignedSpeakers AS $speaker) : ?>
 			<h<?php echo $shl1; ?> class="speakertitle">
-				Speaker:
+				<?php echo JText::_('COM_CONFERENCEPLUS_SPEAKER'); ?>:
 				<span>
 					<?php echo $speaker['firstname'] . ' ' . $speaker['lastname']; ?>
 				</span>
@@ -54,7 +54,7 @@ $return    = base64_decode($this->input->getBase64('return', ''));
 
 	<?php if ($return != '') : ?>
 	<div class="backlink">
-		<a href="<?php echo $return; ?>" class="btn btn-primary">Back to Programme</a>
+		<a href="<?php echo $return; ?>" class="btn btn-primary"><?php echo JText::_('COM_CONFERENCEPLUS_BACK_TO_PROGRAMME'); ?></a>
 	</div>
 	<?php endif; ?>
 </div>
