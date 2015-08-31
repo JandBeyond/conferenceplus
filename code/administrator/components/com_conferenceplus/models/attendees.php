@@ -38,7 +38,8 @@ class ConferenceplusModelAttendees extends ConferenceplusModelDefault
 				->join('INNER', '#__conferenceplus_payments AS pay ON pay.conferenceplus_payment_id = t.payment_id')
 				->select($db->qn('tt.productname'))
 				->select($db->qn('pay.state'))
-				->select($db->qn('pay.processkey'));
+				->select($db->qn('pay.processkey'))
+				->select($db->qn('pay.processdata'));
 		}
 
 		return $query;
@@ -63,7 +64,19 @@ class ConferenceplusModelAttendees extends ConferenceplusModelDefault
 				$result->gender = JText::_($result->gender);
 				$result->food   = JText::_($result->food);
 				$result->num    = $limitstart + $key;
-				$result->free   = strpos($result->processkey, 'FREETICKET') === false ? JText::_('JNO') : JText::_('JYES');
+
+				$result->free = strpos($result->processkey, 'FREETICKET') !== false ? JText::_('JYES') : JText::_('JNO');
+
+				$coupon = '';
+				$processdata = json_decode($result->processdata, true);
+
+				if (isset($processdata['ticket']['ticket']['processdata']['coupon'])
+					&& trim($processdata['ticket']['ticket']['processdata']['coupon']) != '')
+				{
+					$coupon = ' (' . $processdata['ticket']['ticket']['processdata']['coupon'] . ')';
+				}
+
+				$result->free = $result->free . $coupon;
 			}
 		}
 	}
