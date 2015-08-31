@@ -35,7 +35,10 @@ class ConferenceplusModelAttendees extends ConferenceplusModelDefault
 			// Join category
 			$query->join('INNER', '#__conferenceplus_tickets AS t ON t.conferenceplus_ticket_id = attendee.ticket_id')
 				->join('INNER', '#__conferenceplus_tickettypes AS tt ON tt.conferenceplus_tickettype_id = t.tickettype_id')
-				->select($db->qn('tt.productname'));
+				->join('INNER', '#__conferenceplus_payments AS pay ON pay.conferenceplus_payment_id = t.payment_id')
+				->select($db->qn('tt.productname'))
+				->select($db->qn('pay.state'))
+				->select($db->qn('pay.processkey'));
 		}
 
 		return $query;
@@ -60,6 +63,7 @@ class ConferenceplusModelAttendees extends ConferenceplusModelDefault
 				$result->gender = JText::_($result->gender);
 				$result->food   = JText::_($result->food);
 				$result->num    = $limitstart + $key;
+				$result->free   = strpos($result->processkey, 'FREETICKET') === false ? JText::_('JNO') : JText::_('JYES');
 			}
 		}
 	}

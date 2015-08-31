@@ -20,6 +20,8 @@
         <header name="gender" sortable="true"/>
         <header name="tshirtsize" sortable="true"/>
         <header name="food" sortable="true"/>
+        <header name="productname" sortable="true"/>
+        <header name="free" sortable="false"/>
         <header name="partner" sortable="true"/>
     </headerset>
 
@@ -41,6 +43,8 @@
         <field name="gender" type="text"/>
         <field name="tshirtsize" type="text"/>
         <field name="food" type="text"/>
+        <field name="productname" type="text"/>
+        <field name="free" type="text"/>
         <field name="partner" type="text"/>
     </fieldset>
 
