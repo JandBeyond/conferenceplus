@@ -35,7 +35,8 @@ class ConferenceplusFormFieldEvent extends JFormFieldList
 		$query	= $db->getQuery(true);
 
 		$query->select('a.name as text, a.conferenceplus_event_id as value')
-			->from('#__conferenceplus_events AS a');
+			->from('#__conferenceplus_events AS a')
+			->where('enabled = 1');
 
 		$db->setQuery($query);
 		$options = $db->loadObjectList();
