@@ -11,17 +11,38 @@
         <table name="attendee">
             <tablealias>attendee</tablealias>
         </table>
-        <table name="session">
-            <tablealias>session</tablealias>
+        <table name="awardcategory">
+            <tablealias>awc</tablealias>
         </table>
-        <table name="slot">
-            <tablealias>slot</tablealias>
+        <table name="awardnomination">
+            <tablealias>awn</tablealias>
         </table>
         <table name="coupon">
             <tablealias>coupon</tablealias>
         </table>
+        <table name="day">
+            <tablealias>day</tablealias>
+        </table>
+        <table name="emailtemplate">
+            <tablealias>et</tablealias>
+        </table>
         <table name="invoice">
             <tablealias>invoice</tablealias>
+        </table>
+        <table name="room">
+            <tablealias>room</tablealias>
+        </table>
+        <table name="session">
+            <tablealias>session</tablealias>
+        </table>
+        <table name="sessiontype">
+            <tablealias>st</tablealias>
+        </table>
+        <table name="slot">
+            <tablealias>slot</tablealias>
+        </table>
+        <table name="tickettype">
+            <tablealias>tt</tablealias>
         </table>
     </common>
 

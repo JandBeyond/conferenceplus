@@ -13,6 +13,7 @@
                 buttons="yes" buttonclass="btn" placeholder="COM_CONFERENCEPLUS_SEARCH_IN_NAME"
                 />
         <header name="description" type="text" sortable="false"/>
+        <header name="Event" type="text" sortable="true" />
     </headerset>
 
     <fieldset name="items">
@@ -23,6 +24,7 @@
                url="index.php?option=com_conferenceplus&amp;view=emailtemplate&amp;id=[ITEM:ID]"
                 />
         <field name="description" type="text"/>
+        <field name="eventname" type="text"/>
     </fieldset>
 
 </form>

@@ -61,9 +61,14 @@ class ConferenceplusModelTickets extends ConferenceplusModelDefault
 				->select($db->qn('p.state') . ' AS ' . $db->qn('paymentstate'));
 
 			// Join tickettype
-			$query->join('INNER', '#__conferenceplus_tickettypes AS t ON t.conferenceplus_tickettype_id = tickettype_id')
-				->select($db->qn('t.productname') . ' AS ' . $db->qn('ticketname'))
-				->select($db->qn('t.partnerticket') . ' AS ' . $db->qn('partnerticket'));
+			$query->join('INNER', '#__conferenceplus_tickettypes AS tt ON tt.conferenceplus_tickettype_id = tickettype_id')
+				->select($db->qn('tt.productname') . ' AS ' . $db->qn('ticketname'))
+				->select($db->qn('tt.partnerticket') . ' AS ' . $db->qn('partnerticket'));
+
+			// Join events
+			$query->join('INNER', '#__conferenceplus_events AS e ON e.conferenceplus_event_id = tt.event_id');
+
+			$query->where($db->qn('e.enabled') . ' = 1');
 
 			// Filter
 			$filter = $this->getState('filter.title');

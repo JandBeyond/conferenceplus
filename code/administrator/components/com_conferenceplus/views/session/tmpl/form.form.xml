@@ -53,8 +53,8 @@
 		       description="COM_CONFERENCEPLUS_SESSIONVIDEO_DESC"
 		       buttons="false" rows="5" cols="80"/>
 
-			<field name="event_id" type="conferenceplus.event" class="inputbox form-control"  labelClass="control-label"
-			       label="COM_CONFERENCEPLUS_EVENTTITLE" />
+		<field name="event_id" type="conferenceplus.event" class="inputbox form-control"  labelClass="control-label"
+			   label="COM_CONFERENCEPLUS_EVENTTITLE" />
 
 	</fieldset>
 

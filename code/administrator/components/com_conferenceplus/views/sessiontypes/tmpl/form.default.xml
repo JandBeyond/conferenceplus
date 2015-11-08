@@ -12,6 +12,7 @@
         <header name="name" type="fieldsearchable" sortable="true"
                 buttons="yes" buttonclass="btn" placeholder="COM_CONFERENCEPLUS_SEARCH_IN_NAME"
                 />
+        <header name="Event" type="text" sortable="true" />
     </headerset>
 
     <fieldset name="items">
@@ -21,6 +22,7 @@
                show_link="true"
                url="index.php?option=com_conferenceplus&amp;view=sessiontype&amp;id=[ITEM:ID]"
                 />
+        <field name="eventname" type="text"/>
     </fieldset>
 
 </form>

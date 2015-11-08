@@ -55,10 +55,19 @@ class ConferenceplusModelTickettypes extends ConferenceplusModelDefault
 
 		$formName = $this->getState('form_name');
 
-		if ($formName == 'form.default' && FOFPlatform::getInstance()->isFrontend())
+		if ($formName == 'form.default')
 		{
-			$query->where($db->qn('start') . ' <= ' . $db->q($now))
-					->where($db->qn('end') . ' >= ' . $db->q($now));
+			// Join events
+			$query->join('INNER', '#__conferenceplus_events AS e ON e.conferenceplus_event_id = tt.event_id');
+
+			$query->where($db->qn('e.enabled') . ' = 1');
+
+			if (FOFPlatform::getInstance()->isFrontend())
+			{
+				$query->where($db->qn('tt.start') . ' <= ' . $db->q($now))
+						->where($db->qn('tt.end') . ' >= ' . $db->q($now));
+
+			}
 		}
 
 		return $query;

@@ -14,6 +14,7 @@
         <header name="firstname" type="text" sortable="true" />
         <header name="lastname" type="text" sortable="true" />
         <header name="email" type="text" sortable="true" />
+        <header name="Event" type="text" sortable="true" />
     </headerset>
 
     <fieldset name="items">
@@ -22,6 +23,7 @@
         <field name="firstname" type="text" />
         <field name="lastname" type="text" />
         <field name="email" type="text" />
+        <field name="eventname" type="text"/>
     </fieldset>
 
 </form>

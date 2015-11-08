@@ -65,13 +65,19 @@ class ConferenceplusModelSessions extends ConferenceplusModelDefault
 			$query->join('INNER', '#__categories AS c ON c.id = catid')
 				->select($db->qn('c.title') . ' AS ' . $db->qn('categoryname'));
 
+			$query->select('e.name AS eventname');
+
+			// Join events
+			$query->join('INNER', '#__conferenceplus_events AS e ON e.conferenceplus_event_id = session.event_id');
+
+			$query->where($db->qn('e.enabled') . ' = 1');
+
 			if (FOFPlatform::getInstance()->isFrontend())
 			{
 				// Join rooms/slots
 				$query->join('INNER', '#__conferenceplus_sessions_to_rooms_slots AS relation_rs ON relation_rs.session_id = session.conferenceplus_session_id')
 					->join('INNER', '#__conferenceplus_rooms AS r ON relation_rs.room_id = r.conferenceplus_room_id')
 					->join('INNER', '#__conferenceplus_slots AS s ON relation_rs.slot_id = s.conferenceplus_slot_id')
-					->join('INNER', '#__conferenceplus_days AS d ON s.day_id = d.conferenceplus_day_id')
 					->select($db->qn('r.conferenceplus_room_id') . ' AS ' . $db->qn('room_id'))
 					->select($db->qn('r.name') . ' AS ' . $db->qn('roomname'))
 					->select($db->qn('r.description') . ' AS ' . $db->qn('roomdesciption'))
@@ -82,11 +88,11 @@ class ConferenceplusModelSessions extends ConferenceplusModelDefault
 					->select($db->qn('s.stimeset') . ' AS ' . $db->qn('slotstimeset'))
 					->select($db->qn('s.etime') . ' AS ' . $db->qn('slotetime'))
 					->select($db->qn('s.etimeset') . ' AS ' . $db->qn('slotetimeset'))
-					->select($db->qn('d.name') . ' AS ' . $db->qn('dayname'))
+					->select($db->qn('day.name') . ' AS ' . $db->qn('dayname'))
 					->where($db->qn('s.enabled') . ' = 1')
-					->where($db->qn('d.enabled') . ' = 1')
+					->where($db->qn('day.enabled') . ' = 1')
 					->where($db->qn('r.enabled') . ' = 1')
-					->where($db->qn('session.event_id') . ' =' . $db->qn('d.event_id'))
+					->where($db->qn('session.event_id') . ' =' . $db->qn('day.event_id'))
 					->order('d.sdate, s.stime');
 			}
 

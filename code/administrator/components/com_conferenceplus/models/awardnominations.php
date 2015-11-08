@@ -33,9 +33,16 @@ class ConferenceplusModelAwardnominations extends ConferenceplusModelDefault
 
 		if ($formName == 'form.default')
 		{
+			$query->select('e.name AS eventname');
+
 			// Join category
-			$query->join('INNER', '#__conferenceplus_awardcategories AS c ON c.conferenceplus_awardcategory_id = awardcategory_id')
-				->select($db->qn('c.name') . ' AS ' . $db->qn('category'));
+			$query->join('INNER', '#__conferenceplus_awardcategories AS awc ON awc.conferenceplus_awardcategory_id = awn.awardcategory_id')
+				->select($db->qn('awc.name') . ' AS ' . $db->qn('category'));
+
+			// Join events
+			$query->join('INNER', '#__conferenceplus_events AS e ON e.conferenceplus_event_id = awc.event_id');
+
+			$query->where($db->qn('e.enabled') . ' = 1');
 		}
 
 		return $query;

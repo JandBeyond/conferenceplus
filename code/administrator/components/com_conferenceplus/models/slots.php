@@ -41,8 +41,17 @@ class ConferenceplusModelSlots extends ConferenceplusModelDefault
 		if ($formName == 'form.default')
 		{
 			// Join days
-			$query->join('INNER', '#__conferenceplus_days AS d ON slot.day_id = d.conferenceplus_day_id')
-				->select($db->qn('d.name') . ' AS ' . $db->qn('dayname'));
+			$query->join('INNER', '#__conferenceplus_days AS day ON slot.day_id = day.conferenceplus_day_id')
+				->select($db->qn('day.name') . ' AS ' . $db->qn('dayname'));
+
+			$query->select('e.name AS eventname');
+
+			// Join events
+			$query->join('INNER', '#__conferenceplus_events AS e ON e.conferenceplus_event_id = day.event_id');
+
+			$query->where($db->qn('e.enabled') . ' = 1');
+
+
 		}
 
 		return $query;

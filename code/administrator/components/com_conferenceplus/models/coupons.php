@@ -40,6 +40,29 @@ class ConferenceplusModelCoupons extends ConferenceplusModelDefault
 	}
 
 	/**
+	 * Ajust the query
+	 *
+	 * @param   boolean  $overrideLimits  Are we requested to override the set limits?
+	 *
+	 * @return  JDatabaseQuery
+	 */
+	public function buildQuery($overrideLimits = false)
+	{
+		$query = parent::buildQuery($overrideLimits);
+
+		$db    = $this->getDbo();
+
+		$formName = $this->getState('form_name');
+
+		if ($formName == 'form.default')
+		{
+			// @TODO: join and filter
+		}
+
+		return $query;
+	}
+
+	/**
 	 * Check the avaliblity of coupons for a tickettype
 	 *
 	 * @param   integer  $tickettypeId  the tickettype id
