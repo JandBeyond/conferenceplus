@@ -11,7 +11,7 @@ var sym             = require('gulp-sym');
 var media          = 'code/media/conferenceplus';
 var mediaCssOut    = media + '/css';
 var mediaJsOut     = media + '/js';
-var targetBase     = '/Users/deutz/work/mappedDocRoot/jab/jd15de';
+var targetBase     = '/Users/deutz/work/mappedDocRoot/jab/16';
 
 // Clean
 gulp.task('clean', function() {
