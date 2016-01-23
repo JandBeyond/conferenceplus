@@ -6,4 +6,5 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'ForceUTF8\\' => array($vendorDir . '/neitanod/forceutf8/src'),
 );

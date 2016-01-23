@@ -6,5 +6,8 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Symfony\\Component\\HttpFoundation\\' => array($vendorDir . '/symfony/http-foundation'),
+    'Symfony\\Component\\Finder\\' => array($vendorDir . '/symfony/finder'),
+    'MarcusJaschen\\Collmex\\' => array($vendorDir . '/mjaschen/collmex/src'),
     'Conferenceplus\\' => array($baseDir . '/Conferenceplus'),
 );
