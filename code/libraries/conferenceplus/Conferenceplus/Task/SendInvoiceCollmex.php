@@ -17,7 +17,7 @@ namespace Conferenceplus\Task;
  * @package  Conferenceplus\Task
  * @since    0.0.1
  */
-class SendInvoice extends BaseEmail
+class SendInvoiceCollmex extends BaseEmail
 {
 	/**
 	 * run before the task is executed
@@ -56,41 +56,5 @@ class SendInvoice extends BaseEmail
 													. '&h=' . $task->processdata['invoice_hash'];
 
 		return true;
-	}
-
-	/**
-	 * Do what we need to do
-	 *
-	 * @param   \JTable  $task  taskdata
-	 *
-	 * @return bool
-	 */
-	protected function doProcess($task)
-	{
-		$data = $task->processdata;
-
-		$mailfrom = $this->application->get('mailfrom');
-		$fromname = $this->application->get('fromname');
-
-		$et = $this->getEmailTemplate();
-
-		if (trim($et->from_email) != "")
-		{
-			$mailfrom = $et->from_email;
-		}
-
-		if (trim($et->from_name) != "")
-		{
-			$fromname = $et->from_name;
-		}
-
-		return $this->mailer->sendMail(
-			$mailfrom,
-			$fromname,
-			'ad@asysta.de',
-			$this->getTextFromTemplate($data, 'subject'),
-			$this->getTextFromTemplate($data, 'html'),
-			true
-		);
 	}
 }

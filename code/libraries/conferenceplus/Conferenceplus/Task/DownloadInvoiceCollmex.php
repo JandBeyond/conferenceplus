@@ -12,12 +12,12 @@
 namespace Conferenceplus\Task;
 
 /**
- * Class DownloadInvoiceCollmex
+ * Class InvoiceHandling
  *
  * @package  Conferenceplus\Task
  * @since    0.0.1
  */
-class DownloadInvoiceCollmex extends BaseTask
+class InvoiceHandling extends BaseTask
 {
 
 	/**
@@ -72,9 +72,9 @@ class DownloadInvoiceCollmex extends BaseTask
 	 */
 	protected function instantiateNextTasks($task)
 	{
-		if ($this->config->get('invoicehandeling') == 1)
+		if ($this->config->get('') == 1)
 		{
-			$next = new InvoiceHandlingCollmex($this->config);
+			$next = new SendInvoiceCollmex($this->config);
 
 			return $next->create($task->processdata);
 		}

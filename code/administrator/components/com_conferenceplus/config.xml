@@ -90,6 +90,34 @@
 
 	</fieldset>
 
+	<fieldset
+		name="invoice"
+		label="COM_CONFERENCEPLUS_INVOICE"
+		description="COM_CONFERENCEPLUS_INVOICE_DESC">
+
+		<field name="invoicehandeling" type="list"
+		       label="COM_CONFERENCEPLUS_INVOICEHANDELING"
+		       description="COM_CONFERENCEPLUS_INVOICEHANDELING_DESC"
+		       default="0"
+				>
+			<option value="0">COM_CONFERENCEPLUS_INVOICEINTERNAL</option>
+			<option value="1">COM_CONFERENCEPLUS_INVOICE_COLLMEX</option>
+		</field>
+
+		<field name="collmexclientnumber" type="text" class="form-control"  labelClass="control-label"
+			   size="150" label="COM_CONFERENCEPLUS_COLLMEXCLIENTNUMBER"
+			   description="COM_CONFERENCEPLUS_COLLMEXCLIENTNUMBER_DESC" />
+
+
+		<field name="collmexuser" type="text" class="form-control"  labelClass="control-label"
+			   size="150" label="COM_CONFERENCEPLUS_COLLMEXUSER"
+			   description="COM_CONFERENCEPLUS_COLLMEXUSER_DESC" />
+
+		<field name="collmexpass" type="text" class="form-control"  labelClass="control-label"
+			   size="150" label="COM_CONFERENCEPLUS_COLLMEXPASS"
+			   description="COM_CONFERENCEPLUS_COLLMEXPASS_DESC" />
+
+	</fieldset>
 
 	<fieldset name="permissions"
 		label="COM_CONFERENCEPLUS_PERMISSIONS_COMPONENT"
