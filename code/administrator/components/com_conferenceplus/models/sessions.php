@@ -54,7 +54,6 @@ class ConferenceplusModelSessions extends ConferenceplusModelDefault
 	public function buildQuery($overrideLimits = false)
 	{
 		$query = parent::buildQuery($overrideLimits);
-
 		$db    = $this->getDbo();
 
 		$formName = $this->getState('form_name');
@@ -120,22 +119,33 @@ class ConferenceplusModelSessions extends ConferenceplusModelDefault
 	 */
 	protected function onProcessList(&$resultArray)
 	{
-		if (FOFPlatform::getInstance()->isFrontend())
+		$params   = JComponentHelper::getParams('com_conferenceplus');
+
+		if ((FOFPlatform::getInstance()->isBackend() && $params->get('sessionselectionmethod') == 0)
+			|| FOFPlatform::getInstance()->isFrontend()
+			)
 		{
 			$speakers = $this->getAllSpeakers();
 
 			foreach ($resultArray AS &$result)
 			{
-				$speakerIds 	  = explode(',', $result->speaker_listids);
-				$assignedSpeakers = [];
+				$speakerIds 	     = explode(',', $result->speaker_listids);
+				$assignedSpeakers    = [];
+				$result->mainspeaker = '';
 
 				if ( ! empty($speakerIds))
 				{
-					foreach ($speakerIds AS $sid)
+					foreach ($speakerIds AS $key => $sid)
 					{
 						if (array_key_exists($sid, $speakers))
 						{
-							$assignedSpeakers[] = $speakers[$sid];
+							$assignedSpeakers[]  = $speakers[$sid];
+
+							// Only for the main speaker
+							if ($key == 0 && $params->get('sessionselectionmethod') == 0)
+							{
+								$result->mainspeaker = $speakers[$sid]['firstname'] . ' ' . $speakers[$sid]['lastname'];
+							}
 						}
 					}
 
@@ -650,7 +660,7 @@ class ConferenceplusModelSessions extends ConferenceplusModelDefault
 		$formName = $this->getState('form_name');
 		$params   = JComponentHelper::getParams('com_conferenceplus');
 
-		if ($formName == 'form.default')
+		if (FOFPlatform::getInstance()->isFrontend() && $formName == 'form.default')
 		{
 			return;
 		}
@@ -664,12 +674,9 @@ class ConferenceplusModelSessions extends ConferenceplusModelDefault
 		{
 			if ($params->get('sessionselectionmethod') == 1)
 			{
-				$form->setFieldAttribute('mainspeakerid', 'type', 'hidden');
+				$form->removeField('mainspeaker');
+				$form->removeHeader('mainspeaker');
 			}
-
-			$mainspeakerid = explode(",", $data['speaker_listids'])[0];
-
-			$data['mainspeakerid'] = $mainspeakerid;
 		}
 
 		if (FOFPlatform::getInstance()->isFrontend())

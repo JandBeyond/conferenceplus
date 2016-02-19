@@ -12,6 +12,7 @@
         <header name="title" type="fieldsearchable" sortable="true"
                 buttons="yes" buttonclass="btn" placeholder="COM_CONFERENCEPLUS_SEARCH"
                 />
+        <header name="mainspeaker" type="text" />
         <header name="description" type="text" />
         <header name="category" type="text" />
     </headerset>
@@ -23,6 +24,7 @@
                show_link="true"
                url="index.php?option=com_conferenceplus&amp;view=session&amp;id=[ITEM:ID]"
                 />
+        <field name="mainspeaker" type="text" />
         <field name="description" type="text" />
         <field name="categoryname" type="text" />
     </fieldset>
