@@ -51,13 +51,6 @@ class ConferenceplusFormFieldSpeaker extends JFormFieldList
 
 		$options = array();
 
-		$obj = new StdClass;
-
-		$obj->text  = JText::_('CON_CONFERENCEPLUS_SELECTSPEAKER');
-		$obj->value = 0;
-		$options[]  = $obj;
-		unset($obj);
-
 		foreach($results as $result)
 		{
 			$text  = $result->firstname . ' ' . $result->lastname;
