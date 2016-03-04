@@ -68,7 +68,21 @@ $processdata = $ticket->processdata;
 
 			<?php if ($tickettype->fee != 0) : ?>
 				<dt><?php echo JText::_('COM_CONFERENCEPLUS_INVOICEADDRESS');?></dt>
-				<dd><?php echo nl2br($processdata['invoiceaddress']);?></dd>
+				<dd>
+					<?php if (trim($processdata['invoicecompany']) == "") : ?>
+						<?php echo $ticket->firstname . ' ' . $ticket->lastname;?>
+					<?php else : ?>
+						<?php echo $processdata['invoicecompany'];?>
+					<?php endif; ?>
+					<br />
+					<?php echo $processdata['invoicestreet'];?><br />
+					<?php if (trim($processdata['invoiceline2']) != "") : ?>
+						<?php echo $processdata['invoiceline2'];?><br />
+					<?php endif; ?>
+					<?php echo $processdata['invoicepcode'] . ' ' . $processdata['invoicecity'];?><br />
+					<?php $ctext = \Conferenceplus\Helper::getCountryTextById($processdata['invoicecountry']); ?>
+					<?php echo $ctext;?>
+				</dd>
 			<?php endif; ?>
 		</dl>
 	</div>
