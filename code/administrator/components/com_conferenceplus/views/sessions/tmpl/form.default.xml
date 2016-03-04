@@ -15,6 +15,10 @@
         <header name="mainspeaker" type="text" />
         <header name="description" type="text" />
         <header name="category" type="text" />
+        <header name="eventname" type="fieldselectable" sortable="true"
+                source_class="Conferenceplus\Filter\Events"
+                source_method="getItems" source_format="optionsobject"
+        />
     </headerset>
 
     <fieldset name="items">
@@ -27,6 +31,7 @@
         <field name="mainspeaker" type="text" />
         <field name="description" type="text" />
         <field name="categoryname" type="text" />
+        <field name="eventname" type="text" />
     </fieldset>
 
 </form>

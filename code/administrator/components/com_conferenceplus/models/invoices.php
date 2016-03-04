@@ -16,6 +16,23 @@ require_once 'default.php';
 
 class ConferenceplusModelInvoices extends ConferenceplusModelDefault
 {
+	/**
+	 * Method to auto-populate the model state.
+	 *
+	 * This method should only be called once per instantiation and is designed
+	 * to be called on the first call to the getState() method unless the model
+	 * configuration flag to ignore the request is set.
+	 *
+	 * @return  void
+	 *
+	 * @note    Calling getState in this method will result in recursion.
+	 * @since   12.2
+	 */
+	protected function populateState()
+	{
+		// Load the filters.
+		$this->setState('filter.event_id', $this->getUserStateFromRequest('filter.invoices.event_id', 'eventname', ''));
+	}
 
 	/**
 	 * Ajust the query
@@ -42,6 +59,13 @@ class ConferenceplusModelInvoices extends ConferenceplusModelDefault
 			$query->join('INNER', '#__conferenceplus_tickets AS t ON t.payment_id = invoice.payment_id')
 				->select('t.firstname, t.lastname, t.email');
 
+			// Join tickettype
+			$query->join('INNER', '#__conferenceplus_tickettypes AS tt ON tt.conferenceplus_tickettype_id = tickettype_id');
+
+			// Join events
+			$query->join('INNER', '#__conferenceplus_events AS e ON e.conferenceplus_event_id = tt.event_id')
+				->select('e.name as eventname');
+
 			// Filter
 			$filter = $this->getState('filter.identifier');
 
@@ -52,6 +76,13 @@ class ConferenceplusModelInvoices extends ConferenceplusModelDefault
 					. $db->qn('t.firstname') . ' like ' . $qFilter . ') OR ('
 					. $db->qn('t.lastname') . ' like ' . $qFilter . ') OR ('
 					. $db->qn('t.email') . ' like ' . $qFilter . ')');
+			}
+
+			$filterevent_id = $this->getState('filter.event_id');
+
+			if ( ! empty($filterevent_id))
+			{
+				$query->where($db->qn('e.conferenceplus_event_id') . ' = ' . $db->q($filterevent_id));
 			}
 		}
 

@@ -8,20 +8,28 @@
         >
     <headerset>
         <header name="conferenceplus_ticket_id" type="rowselect" tdwidth="20" />
-        <header name="paymentstate" type="text" sortable="true" />
+        <header name="paymentstate" type="fieldselectable" sortable="true"
+                source_class="Conferenceplus\Filter\Paymentstate"
+                source_method="getStates" source_format="optionsobject"
+                searchfieldname="p.state"
+        />
         <header name="firstname" type="fieldsearchable" sortable="true"
                 buttons="yes" buttonclass="btn" placeholder="COM_CONFERENCEPLUS_SEARCH_IN_NAME"
                 />
         <header name="lastname" type="text" sortable="true" />
         <header name="email" type="text" sortable="true" />
-        <header name="ticketname" type="text" sortable="true" />
+        <header name="ticketname" type="text" sortable="true" searchfieldname="tt.productname"/>
         <header name="partnerticket" type="text" sortable="true" />
+        <header name="eventname" type="fieldselectable" sortable="true"
+                source_class="Conferenceplus\Filter\Events"
+                source_method="getItems" source_format="optionsobject"
+        />
         <header name="created" type="text" sortable="true" />
     </headerset>
 
     <fieldset name="items">
         <field name="conferenceplus_ticket_id" type="selectrow"/>
-        <field name="paymentstate" type="text"/>
+        <field name="paymentstate" type="text" />
         <field name="firstname" type="text"
                show_link="true"
                url="index.php?option=com_conferenceplus&amp;view=ticket&amp;id=[ITEM:ID]"
@@ -36,8 +44,8 @@
                 />
         <field name="ticketname" type="text"/>
         <field name="partnerticket" type="text"/>
+        <field name="eventname" type="text" />
         <field name="created" type="text"/>
-
     </fieldset>
 
 </form>

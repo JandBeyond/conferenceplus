@@ -37,11 +37,9 @@ class ConferenceplusModelSessions extends ConferenceplusModelDefault
 	 */
 	protected function populateState()
 	{
-		// Initialise variables.
-		$app = JFactory::getApplication();
-
 		// Load the filters.
 		$this->setState('filter.title', $this->getUserStateFromRequest('filter.title', 'title', ''));
+		$this->setState('filter.event_id', $this->getUserStateFromRequest('filter.sessions.event_id', 'eventname', ''));
 	}
 
 	/**
@@ -64,12 +62,10 @@ class ConferenceplusModelSessions extends ConferenceplusModelDefault
 			$query->join('INNER', '#__categories AS c ON c.id = catid')
 				->select($db->qn('c.title') . ' AS ' . $db->qn('categoryname'));
 
-			$query->select('e.name AS eventname');
-
 			// Join events
-			$query->join('INNER', '#__conferenceplus_events AS e ON e.conferenceplus_event_id = session.event_id');
-
-			$query->where($db->qn('e.enabled') . ' = 1');
+			$query->join('INNER', '#__conferenceplus_events AS e ON e.conferenceplus_event_id = session.event_id')
+				->select('e.name AS eventname')
+				->where($db->qn('e.enabled') . ' = 1');
 
 			if (FOFPlatform::getInstance()->isFrontend())
 			{
@@ -104,6 +100,13 @@ class ConferenceplusModelSessions extends ConferenceplusModelDefault
 				$query->where('( ' . $db->qn('session.title') . ' like ' . $qFilter . ') OR ('
 									. $db->qn('session.description') . ' like ' . $qFilter . ') OR ('
 									. $db->qn('c.title') . ' like ' . $qFilter . ')');
+			}
+
+			$filterevent_id = $this->getState('filter.event_id');
+
+			if ( ! empty($filterevent_id))
+			{
+				$query->where($db->qn('e.conferenceplus_event_id') . ' = ' . $db->q($filterevent_id));
 			}
 		}
 
@@ -285,6 +288,8 @@ class ConferenceplusModelSessions extends ConferenceplusModelDefault
 
 				$record->rooms = $this->getRooms($event_id);
 				$record->slots = $this->getSlots($event_id);
+
+				$record->speaker_listids = explode(',', $record->speaker_listids);
 			}
 		}
 
@@ -423,17 +428,26 @@ class ConferenceplusModelSessions extends ConferenceplusModelDefault
 	 */
 	protected function onBeforeSaveBackend(&$data, &$table)
 	{
-		$speaker_lists = $table->speaker_listids;
-
-		$old_mainspeakers = explode(',', $speaker_lists);
-
-		if ($old_mainspeakers[0] != $data['mainspeakerid'])
-		{
-			$old_mainspeakers[0] = $data['mainspeakerid'];
-			$data['speaker_listids'] = implode(',', $old_mainspeakers);
-		}
+//		$speaker_lists = $table->speaker_listids;
+//
+//		$old_mainspeakers = explode(',', $speaker_lists);
+//
+//		if ($old_mainspeakers[0] != $data['mainspeakerid'])
+//		{
+//			$old_mainspeakers[0] = $data['mainspeakerid'];
+//			$data['speaker_listids'] = implode(',', $old_mainspeakers);
+//		}
 
 		$data['modified'] = JFactory::getDate()->toSql();
+
+		$data['speaker_multiple'] = 0;
+
+		if (is_array($data['speaker_listids']) && count($data['speaker_listids']) > 1)
+		{
+			$data['speaker_multiple'] = 1;
+		}
+
+		$data['speaker_listids'] = implode(',', $data['speaker_listids']);
 
 		return true;
 	}

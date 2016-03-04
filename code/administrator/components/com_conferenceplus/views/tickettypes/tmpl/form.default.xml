@@ -12,6 +12,10 @@
         <header name="productname" type="fieldsearchable" sortable="true"
                 buttons="yes" buttonclass="btn" placeholder="COM_CONFERENCEPLUS_SEARCH_IN_NAME"
                 />
+        <header name="eventname" type="fieldselectable" sortable="true"
+                source_class="Conferenceplus\Filter\Events"
+                source_method="getItems" source_format="optionsobject"
+        />
 
     </headerset>
 
@@ -22,6 +26,7 @@
                show_link="true"
                url="index.php?option=com_conferenceplus&amp;view=tickettype&amp;id=[ITEM:ID]"
                 />
+        <field name="eventname" type="text" />
     </fieldset>
 
 </form>

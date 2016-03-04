@@ -12,7 +12,10 @@
         <header name="name" type="fieldsearchable" sortable="true"
                 buttons="yes" buttonclass="btn" placeholder="COM_CONFERENCEPLUS_SEARCH_IN_NAME"
                 />
-        <header name="Event" type="text" sortable="true"/>
+        <header name="eventname" type="fieldselectable" sortable="true"
+                source_class="Conferenceplus\Filter\Events"
+                source_method="getItems" source_format="optionsobject"
+        />
     </headerset>
 
     <fieldset name="items">

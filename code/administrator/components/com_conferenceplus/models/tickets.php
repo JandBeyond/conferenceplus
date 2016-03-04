@@ -31,12 +31,12 @@ class ConferenceplusModelTickets extends ConferenceplusModelDefault
 	 */
 	protected function populateState()
 	{
-		// Initialise variables.
-		$app = JFactory::getApplication();
-
 		// Load the filters.
 		$this->setState('filter.title', $this->getUserStateFromRequest('filter.title', 'firstname', ''));
-
+		$this->setState('filter.paymentstate',
+			$this->getUserStateFromRequest('filter.ticket.paymentstate', 'paymentstate', ''));
+		$this->setState('filter.event_id',
+			$this->getUserStateFromRequest('filter.ticket.event_id', 'eventname', ''));
 	}
 
 	/**
@@ -66,20 +66,34 @@ class ConferenceplusModelTickets extends ConferenceplusModelDefault
 				->select($db->qn('tt.partnerticket') . ' AS ' . $db->qn('partnerticket'));
 
 			// Join events
-			$query->join('INNER', '#__conferenceplus_events AS e ON e.conferenceplus_event_id = tt.event_id');
-
-			$query->where($db->qn('e.enabled') . ' = 1');
+			$query->join('INNER', '#__conferenceplus_events AS e ON e.conferenceplus_event_id = tt.event_id')
+				->select('e.name as eventname')
+				->where($db->qn('e.enabled') . ' = 1');
 
 			// Filter
-			$filter = $this->getState('filter.title');
+			$filtertitle = $this->getState('filter.title');
 
-			if ( ! empty($filter))
+			if ( ! empty($filtertitle))
 			{
-				$qFilter = $db->q('%' . $filter . '%');
+				$qFilter = $db->q('%' . $filtertitle . '%');
 				$query->where('( ' . $db->qn('payment_id') . ' like ' . $qFilter . ') OR ('
 					. $db->qn('firstname') . ' like ' . $qFilter . ') OR ('
 					. $db->qn('lastname') . ' like ' . $qFilter . ') OR ('
 					. $db->qn('email') . ' like ' . $qFilter . ')');
+			}
+
+			$filterpaymentstate = $this->getState('filter.paymentstate');
+
+			if ( ! empty($filterpaymentstate))
+			{
+				$query->where($db->qn('p.state') . ' = ' . $db->q($filterpaymentstate));
+			}
+
+			$filterevent_id = $this->getState('filter.event_id');
+
+			if ( ! empty($filterevent_id))
+			{
+				$query->where($db->qn('e.conferenceplus_event_id') . ' = ' . $db->q($filterevent_id));
 			}
 		}
 
@@ -102,7 +116,9 @@ class ConferenceplusModelTickets extends ConferenceplusModelDefault
 			return false;
 		}
 
-		$fields = ['ask4gender', 'ask4tshirtsize', 'ask4food', 'ask4food0', 'invoiceaddress'];
+		$fields = ['ask4gender', 'ask4tshirtsize', 'ask4food', 'ask4food0', 'invoiceaddress', 'invoicecompany',
+					'invoicestreet', 'invoiceline2', 'invoicepcode', 'invoicecity', 'invoicecountry'
+				];
 
 		$processdata = [];
 

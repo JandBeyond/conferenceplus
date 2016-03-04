@@ -12,7 +12,12 @@
         <header name="name" type="fieldsearchable" sortable="true"
                 buttons="yes" buttonclass="btn" placeholder="COM_CONFERENCEPLUS_SEARCH_IN_NAME"
                 />
-        <header name="Event" type="text" sortable="true" />
+        <header name="maxseats" type="text"/>
+        <header name="location" type="text"/>
+        <header name="eventname" type="fieldselectable" sortable="true"
+                source_class="Conferenceplus\Filter\Events"
+                source_method="getItems" source_format="optionsobject"
+        />
     </headerset>
 
     <fieldset name="items">
@@ -22,6 +27,8 @@
                show_link="true"
                url="index.php?option=com_conferenceplus&amp;view=room&amp;id=[ITEM:ID]"
                 />
+        <field name="maxseats" type="text"/>
+        <field name="location" type="text"/>
         <field name="eventname" type="text"/>
     </fieldset>
 

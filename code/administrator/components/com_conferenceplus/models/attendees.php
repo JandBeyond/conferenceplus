@@ -17,6 +17,24 @@ require_once 'default.php';
 class ConferenceplusModelAttendees extends ConferenceplusModelDefault
 {
 	/**
+	 * Method to auto-populate the model state.
+	 *
+	 * This method should only be called once per instantiation and is designed
+	 * to be called on the first call to the getState() method unless the model
+	 * configuration flag to ignore the request is set.
+	 *
+	 * @return  void
+	 *
+	 * @note    Calling getState in this method will result in recursion.
+	 * @since   12.2
+	 */
+	protected function populateState()
+	{
+		// Load the filters.
+		$this->setState('filter.event_id', $this->getUserStateFromRequest('filter.attendees.event_id', 'eventname', ''));
+	}
+
+	/**
 	 * Ajust the query
 	 *
 	 * @param   boolean  $overrideLimits  Are we requested to override the set limits?
@@ -32,14 +50,25 @@ class ConferenceplusModelAttendees extends ConferenceplusModelDefault
 
 		if ($formName == 'form.default')
 		{
-			// Join category
+			// Joins
 			$query->join('INNER', '#__conferenceplus_tickets AS t ON t.conferenceplus_ticket_id = attendee.ticket_id')
 				->join('INNER', '#__conferenceplus_tickettypes AS tt ON tt.conferenceplus_tickettype_id = t.tickettype_id')
 				->join('INNER', '#__conferenceplus_payments AS pay ON pay.conferenceplus_payment_id = t.payment_id')
+				->join('INNER', '#__conferenceplus_events AS e ON e.conferenceplus_event_id = tt.event_id')
 				->select($db->qn('tt.productname'))
 				->select($db->qn('pay.state'))
 				->select($db->qn('pay.processkey'))
-				->select($db->qn('pay.processdata'));
+				->select($db->qn('pay.processdata'))
+				->select($db->qn('e.name') . 'AS eventname')
+				->where('e.enabled = 1');
+
+			// Filter
+			$filterevent_id = $this->getState('filter.event_id');
+
+			if ( ! empty($filterevent_id))
+			{
+				$query->where($db->qn('e.conferenceplus_event_id') . ' = ' . $db->q($filterevent_id));
+			}
 		}
 
 		return $query;

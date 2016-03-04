@@ -14,7 +14,10 @@
         <header name="firstname" type="text" sortable="true" />
         <header name="lastname" type="text" sortable="true" />
         <header name="email" type="text" sortable="true" />
-        <header name="Event" type="text" sortable="true" />
+        <header name="eventname" type="fieldselectable" sortable="true"
+                source_class="Conferenceplus\Filter\Events"
+                source_method="getItems" source_format="optionsobject"
+        />
     </headerset>
 
     <fieldset name="items">

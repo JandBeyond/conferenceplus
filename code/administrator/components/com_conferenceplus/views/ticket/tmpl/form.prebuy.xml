@@ -25,6 +25,29 @@
 			   rows="5" col="50" label="COM_CONFERENCEPLUS_INVOICEADDRESS"
 			   description="COM_CONFERENCEPLUS_INVOICEADDRESS_DESC" required="false" />
 
+		<field name="invoicecompany" type="text" class="inputbox form-control"  labelclass="control-label"
+			   size="150" label="COM_CONFERENCEPLUS_INVOICECOMPANY"
+			   description="COM_CONFERENCEPLUS_INVOICECOMPANY_DESC" required="false" />
+
+		<field name="invoicestreet" type="text" class="inputbox form-control"  labelclass="control-label"
+			   size="150" label="COM_CONFERENCEPLUS_INVOICESTREET"
+			   description="COM_CONFERENCEPLUS_INVOICESTREET_DESC" required="true" />
+
+		<field name="invoiceline2" type="text" class="inputbox form-control"  labelclass="control-label"
+			   size="150" label="COM_CONFERENCEPLUS_INVOICELINE2"
+			   description="COM_CONFERENCEPLUS_INVOICELINE2_DESC" required="false" />
+
+		<field name="invoicepcode" type="text" class="inputbox form-control"  labelclass="control-label"
+			   size="150" label="COM_CONFERENCEPLUS_INVOICEPCODE"
+			   description="COM_CONFERENCEPLUS_INVOICEPCODE_DESC" required="true" />
+
+		<field name="invoicecity" type="text" class="inputbox form-control"  labelclass="control-label"
+			   size="150" label="COM_CONFERENCEPLUS_INVOICECITY"
+			   description="COM_CONFERENCEPLUS_INVOICECITY_DESC" required="true" />
+
+		<field name="invoicecountry" type="conferenceplus.country" class="inputbox form-control"  labelclass="control-label"
+			   label="COM_CONFERENCEPLUS_INVOICECOUNTRY"
+			   description="COM_CONFERENCEPLUS_INVOICECOUNTRY_DESC" required="true" />
 	</fieldset>
 
 </form>

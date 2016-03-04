@@ -23,6 +23,10 @@
         <header name="productname" sortable="true"/>
         <header name="free" sortable="false"/>
         <header name="partner" sortable="true"/>
+        <header name="eventname" type="fieldselectable" sortable="true"
+                source_class="Conferenceplus\Filter\Events"
+                source_method="getItems" source_format="optionsobject"
+        />
     </headerset>
 
     <fieldset name="items">
@@ -46,6 +50,7 @@
         <field name="productname" type="text"/>
         <field name="free" type="text"/>
         <field name="partner" type="text"/>
+        <field name="eventname" type="text"/>
     </fieldset>
 
 </form>

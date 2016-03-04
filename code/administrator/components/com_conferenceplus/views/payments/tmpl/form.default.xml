@@ -13,6 +13,10 @@
                 buttons="yes" buttonclass="btn" placeholder="COM_CONFERENCEPLUS_SEARCH_IN_NAME"
                 />
         <header name="processkey" type="fieldsearchable" sortable="true"/>
+        <header name="eventname" type="fieldselectable" sortable="true"
+                source_class="Conferenceplus\Filter\Events"
+                source_method="getItems" source_format="optionsobject"
+        />
     </headerset>
 
     <fieldset name="items">
@@ -24,6 +28,7 @@
                empty_replacement="COM_CONFERENCEPLUS_EMPTY_REPLACMENT_PAYMENT"
                 />
         <field name="processkey" type="text"/>
+        <field name="eventname" type="text"/>
     </fieldset>
 
 </form>

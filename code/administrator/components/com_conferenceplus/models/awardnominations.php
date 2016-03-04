@@ -16,7 +16,24 @@ require_once 'default.php';
 
 class ConferenceplusModelAwardnominations extends ConferenceplusModelDefault
 {
-
+	/**
+	 * Method to auto-populate the model state.
+	 *
+	 * This method should only be called once per instantiation and is designed
+	 * to be called on the first call to the getState() method unless the model
+	 * configuration flag to ignore the request is set.
+	 *
+	 * @return  void
+	 *
+	 * @note    Calling getState in this method will result in recursion.
+	 * @since   12.2
+	 */
+	protected function populateState()
+	{
+		// Load the filters.
+		$this->setState('filter.event_id',
+			$this->getUserStateFromRequest('filter.awardnominations.event_id', 'eventname', ''));
+	}
 	/**
 	 * Ajust the query
 	 *
@@ -33,16 +50,23 @@ class ConferenceplusModelAwardnominations extends ConferenceplusModelDefault
 
 		if ($formName == 'form.default')
 		{
-			$query->select('e.name AS eventname');
-
 			// Join category
 			$query->join('INNER', '#__conferenceplus_awardcategories AS awc ON awc.conferenceplus_awardcategory_id = awn.awardcategory_id')
 				->select($db->qn('awc.name') . ' AS ' . $db->qn('category'));
 
 			// Join events
-			$query->join('INNER', '#__conferenceplus_events AS e ON e.conferenceplus_event_id = awc.event_id');
+			$query->join('INNER', '#__conferenceplus_events AS e ON e.conferenceplus_event_id = awc.event_id')
+				->select('e.name AS eventname');
 
 			$query->where($db->qn('e.enabled') . ' = 1');
+
+			// Filter
+			$filterevent_id = $this->getState('filter.event_id');
+
+			if ( ! empty($filterevent_id))
+			{
+				$query->where($db->qn('e.conferenceplus_event_id') . ' = ' . $db->q($filterevent_id));
+			}
 		}
 
 		return $query;

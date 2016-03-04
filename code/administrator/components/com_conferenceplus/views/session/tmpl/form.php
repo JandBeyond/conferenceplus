@@ -29,7 +29,7 @@ JFactory::getDocument()->addScriptDeclaration('
 ');
 
 $fields = ['enabled','title','description','catid','sessiontype','addidionalinfo',
-	       'mainspeakerid','notes','slides','video','event_id'];
+	       'speaker_listids','notes','slides','video','event_id'];
 
 $rooms = $this->item->rooms;
 $slots = $this->item->slots;

@@ -35,8 +35,8 @@
 		       description="COM_CONFERENCEPLUS_SESSIONADDIDIONALINFO_DESC"
 		       buttons="false" rows="5" cols="80"/>
 
-		<field name="mainspeakerid" type="conferenceplus.speaker" class="inputbox form-control"  labelClass="control-label"
-		       label="COM_CONFERENCEPLUS_SPEAKER" default=""/>
+		<field name="speaker_listids" type="conferenceplus.speaker" class="inputbox form-control"  labelClass="control-label"
+		       label="COM_CONFERENCEPLUS_SPEAKER" default="" multiple="true"/>
 
 		<field name="notes" type="textarea" class="inputbox form-control"  labelClass="control-label"
 		       size="150" label="COM_CONFERENCEPLUS_SESSIONNOTES"

@@ -17,6 +17,25 @@ require_once 'default.php';
 class ConferenceplusModelSessiontypes extends ConferenceplusModelDefault
 {
     /**
+     * Method to auto-populate the model state.
+     *
+     * This method should only be called once per instantiation and is designed
+     * to be called on the first call to the getState() method unless the model
+     * configuration flag to ignore the request is set.
+     *
+     * @return  void
+     *
+     * @note    Calling getState in this method will result in recursion.
+     * @since   12.2
+     */
+    protected function populateState()
+    {
+        // Load the filters.
+        $this->setState('filter.event_id',
+            $this->getUserStateFromRequest('filter.sessiontypes.event_id', 'eventname', ''));
+    }
+
+    /**
      * Ajust the query
      *
      * @param   boolean  $overrideLimits  Are we requested to override the set limits?
@@ -33,12 +52,18 @@ class ConferenceplusModelSessiontypes extends ConferenceplusModelDefault
 
         if ($formName == 'form.default')
         {
-            $query->select('e.name AS eventname');
-
             // Join events
-            $query->join('INNER', '#__conferenceplus_events AS e ON e.conferenceplus_event_id = st.event_id');
+            $query->join('INNER', '#__conferenceplus_events AS e ON e.conferenceplus_event_id = st.event_id')
+                    ->select('e.name AS eventname')
+                    ->where($db->qn('e.enabled') . ' = 1');
 
-            $query->where($db->qn('e.enabled') . ' = 1');
+            // Filter
+            $filterevent_id = $this->getState('filter.event_id');
+
+            if ( ! empty($filterevent_id))
+            {
+                $query->where($db->qn('e.conferenceplus_event_id') . ' = ' . $db->q($filterevent_id));
+            }
         }
 
         return $query;

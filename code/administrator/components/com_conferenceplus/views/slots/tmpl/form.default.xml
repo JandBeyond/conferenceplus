@@ -16,7 +16,10 @@
         <header name="etime" type="text"/>
         <header name="dayname" type="text"/>
         <header name="slottype" type="text"/>
-
+        <header name="eventname" type="fieldselectable" sortable="true"
+                source_class="Conferenceplus\Filter\Events"
+                source_method="getItems" source_format="optionsobject"
+        />
     </headerset>
 
     <fieldset name="items">
@@ -30,6 +33,7 @@
         <field name="etime" type="text"/>
         <field name="dayname" type="text"/>
         <field name="slottype" type="text"/>
+        <field name="eventname" type="text"/>
 
     </fieldset>
 
