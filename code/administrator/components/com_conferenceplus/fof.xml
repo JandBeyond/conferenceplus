@@ -29,6 +29,9 @@
         <table name="invoice">
             <tablealias>invoice</tablealias>
         </table>
+        <table name="payment">
+            <tablealias>pay</tablealias>
+        </table>
         <table name="room">
             <tablealias>room</tablealias>
         </table>
