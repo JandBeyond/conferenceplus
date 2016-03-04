@@ -138,7 +138,35 @@ class Helper
 			}
 
 		}
-
 	}
 
+	/**
+	 * @param $id
+	 *
+	 * @return string
+     */
+	public static function getCountryTextById($id)
+	{
+		if ($id == 0)
+		{
+			return '';
+		}
+
+		\JFormHelper::loadFieldClass('conferenceplus.country');
+
+		$field = new \ConferenceplusFormFieldCountry;
+
+		$options = $field->getOptions();
+
+		foreach($options as $option)
+		{
+			if ($option->value == $id)
+			{
+				$text = $option->text;
+				break;
+			}
+		}
+
+		return $text;
+	}
 }
