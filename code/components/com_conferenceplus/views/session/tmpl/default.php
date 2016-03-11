@@ -38,14 +38,14 @@ $return    = base64_decode($this->input->getBase64('return', ''));
 			</h<?php echo $shl1; ?>>
 
 		<div class="row clearfix">
-			<div class="col-md-6">
-				<?php if (file_exists(JPATH_SITE . $base . '/' .$speaker['imagefile'])) : ?>
+			<div class="col-md-4">
+				<?php if (file_exists(JPATH_SITE . $base . '/' .$speaker['imagefile']) && is_file(JPATH_SITE . $base . '/' .$speaker['imagefile'])) : ?>
 					<img class="speakerimage img-responsive img-thumbnail" src="<?php echo $base . '/' .$speaker['imagefile']; ?>"/>
 				<?php else : ?>
-					placeholder
+					<img class="speakerimage img-responsive img-thumbnail" src="https://placeholdit.imgix.net/~text?txtsize=19&txt=200%C3%97200&w=200&h=200" />
 				<?php endif; ?>
 			</div>
-			<div class="col-md-6">
+			<div class="col-md-8">
 				<?php echo nl2br($speaker['bio']); ?>
 			</div>
 		</div>

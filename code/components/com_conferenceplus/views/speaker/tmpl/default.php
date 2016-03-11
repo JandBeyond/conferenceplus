@@ -23,6 +23,8 @@ JFactory::getDocument()->setTitle($title);
 
 $return    = base64_decode($this->input->getBase64('return', ''));
 
+$showImg = file_exists(JPATH_SITE . $base . '/' . $item->imagefile) && is_file(JPATH_SITE . $base . '/' . $item->imagefile);
+
 $Itemid = Conferenceplus\Route\Helper::getItemid();
 ?>
 <!-- ************************** START: conferenceplus ************************** -->
@@ -30,14 +32,14 @@ $Itemid = Conferenceplus\Route\Helper::getItemid();
 	<h<?php echo $headerlevel; ?>><?php echo $title; ?></h<?php echo $headerlevel; ?>>
 
 		<div class="row clearfix">
-			<div class="span3">
-				<?php if (file_exists(JPATH_SITE . $base . '/' . $item->imagefile)) : ?>
+			<div class="col-md-4">
+				<?php if ($showImg) : ?>
 					<img class="speakerimage img-responsive img-thumbnail" src="<?php echo $base . '/' . $item->imagefile; ?>" />
 				<?php else : ?>
-				<img class="speakerimage img-responsive img-thumbnail" src="http://placehold.it/300x300" />
+					<img class="speakerimage img-responsive img-thumbnail" src="https://placeholdit.imgix.net/~text?txtsize=19&txt=200%C3%97200&w=200&h=200" />
 				<?php endif; ?>
 			</div>
-			<div class="span5">
+			<div class="col-md-8">
 				<?php echo nl2br($item->bio); ?>
 			</div>
 		</div>
