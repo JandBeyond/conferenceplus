@@ -34,6 +34,11 @@ $script = "
             .done(function (result) {
                 if (result.state == 99) {
                     jQuery('#fee').html(result.discounted);
+                    if (result.value == 0) {
+                        // This is an dead end, you can not change the coupon
+                        jQuery('#invoicefields').hide();
+                        jQuery('#couponcodeid').prop('readonly', true);
+                    }
                 }
                 jQuery('.coupon .recalculateresult').html(result.msg);
             });
@@ -57,6 +62,9 @@ if ( ! empty($displayData->couponCode))
     {
         $readonly = 'readonly="readonly"';
         $button = false;
+        $doc->addScriptDeclaration("jQuery(document).ready(function() {
+                                        cprecal();
+                                    });");
     }
 }
 
