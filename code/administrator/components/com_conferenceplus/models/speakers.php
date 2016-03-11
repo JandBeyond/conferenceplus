@@ -89,6 +89,9 @@ class ConferenceplusModelSpeakers extends ConferenceplusModelDefault
 
 		$query->select('session.*')
 			->from('#__conferenceplus_sessions AS session')
+			->from('#__conferenceplus_events AS e')
+			->where('e.conferenceplus_event_id = session.event_id')
+			->where('e.enabled = 1')
 			->from('#__conferenceplus_sessions_to_rooms_slots AS rel')
 			->select('room.name AS roomname')
 			->from('#__conferenceplus_rooms AS room')
