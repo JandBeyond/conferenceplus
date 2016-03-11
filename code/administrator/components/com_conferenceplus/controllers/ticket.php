@@ -57,6 +57,14 @@ class ConferenceplusControllerTicket extends FOFController
 			// We need to check if save was successful
 			if ( ! empty($model->_errors))
 			{
+				// Check for a coupon
+				$coupon = $this->input->get('coupon');
+
+				if (! empty($coupon))
+				{
+					$this->redirect .= '&coupon=' . $coupon;
+				}
+
 				return true;
 			}
 
