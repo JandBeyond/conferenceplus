@@ -31,7 +31,7 @@ class ConferenceplusFormFieldCountry extends JFormFieldList
 	{
 		$options = array();
 
-		$options[] = JHtml::_('select.option', 0, '- Select -');
+		$options[] = JHtml::_('select.option', '', '- Select -');
 		$options[] = JHtml::_('select.option', 4,'Afghanistan');
 		$options[] = JHtml::_('select.option', 248,'Åland Islands');
 		$options[] = JHtml::_('select.option', 8,'Albania');
