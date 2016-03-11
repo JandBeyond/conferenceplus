@@ -73,6 +73,7 @@ class ConferenceplusModelSessions extends ConferenceplusModelDefault
 				$query->join('INNER', '#__conferenceplus_sessions_to_rooms_slots AS relation_rs ON relation_rs.session_id = session.conferenceplus_session_id')
 					->join('INNER', '#__conferenceplus_rooms AS r ON relation_rs.room_id = r.conferenceplus_room_id')
 					->join('INNER', '#__conferenceplus_slots AS s ON relation_rs.slot_id = s.conferenceplus_slot_id')
+					->join('INNER', '#__conferenceplus_days AS day ON s.day_id = day.conferenceplus_day_id')
 					->select($db->qn('r.conferenceplus_room_id') . ' AS ' . $db->qn('room_id'))
 					->select($db->qn('r.name') . ' AS ' . $db->qn('roomname'))
 					->select($db->qn('r.description') . ' AS ' . $db->qn('roomdesciption'))
@@ -88,7 +89,7 @@ class ConferenceplusModelSessions extends ConferenceplusModelDefault
 					->where($db->qn('day.enabled') . ' = 1')
 					->where($db->qn('r.enabled') . ' = 1')
 					->where($db->qn('session.event_id') . ' =' . $db->qn('day.event_id'))
-					->order('d.sdate, s.stime');
+					->order('day.sdate, s.stime');
 			}
 
 			// Filter
