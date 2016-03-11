@@ -141,6 +141,7 @@ class ConferenceplusControllerCallback extends FOFController
 
 		$data['fee']   		= $currency . ' ' . number_format($fee / 100, 0, ',', '');
 		$data['discounted'] = $currency . ' ' . number_format($discounted / 100, 0, ',', '');
+		$data['value']      = $discounted;
 		$data['msg']   		= $msg;
 		$data['state'] 		= $returnType;
 
