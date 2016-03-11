@@ -31,8 +31,8 @@ $showMessages = ! empty(JFactory::getApplication()->getMessageQueue());
 
 $validCouponAvailable = $this->item->couponAvailable;
 
-$fields = array('firstname', 'lastname', 'email', 'ask4gender', 'ask4tshirtsize', 'ask4food', 'ask4food0',
-				'invoicecompany', 'invoicestreet', 'invoiceline2', 'invoicepcode', 'invoicecity', 'invoicecountry');
+$fields = array('firstname', 'lastname', 'email', 'ask4gender', 'ask4tshirtsize', 'ask4food', 'ask4food0');
+$fieldsInvoice = array('invoicecompany', 'invoicestreet', 'invoiceline2', 'invoicepcode', 'invoicecity', 'invoicecountry');
 
 ?>
 
@@ -43,7 +43,7 @@ $fields = array('firstname', 'lastname', 'email', 'ask4gender', 'ask4tshirtsize'
 		echo "<h$headerlevel>" . $title . "</h$headerlevel>";
 		echo JText::_('COM_CONFERENCEPLUS_PREBUY_TICKET');
 	?>
-	<form action="index.php?option=com_conferenceplus&view=ticket&task=save&layout=buy&Itemid=<?php echo $Itemid;?>" method="post" id="adminForm" role="form">
+	<form action="index.php?option=com_conferenceplus&view=ticket&task=save&layout=buy&Itemid=<?php echo $Itemid;?>" method="post" id="adminForm" role="form" novalidate="novalidate" class="prebuy">
 
 		<div class="selectedticket">
 			<?php echo JText::_('COM_CONFERENCEPLUS_PREBUY_TICKET_YOURSELECTION');?>
@@ -87,18 +87,32 @@ $fields = array('firstname', 'lastname', 'email', 'ask4gender', 'ask4tshirtsize'
 
 				<?php endforeach; ?>
 
+				<div id="invoicefields">
+					<?php foreach($fieldsInvoice AS $f) : ?>
+
+						<?php if (in_array($f, $keys)) : ?>
+							<?php echo JText::_(Conferenceplus\Helper::checkLangTag('COM_CONFERENCEPLUS_' . strtoupper($f) . 'PREINFO', '', 'COM_CONFERENCEPLUS_EMPTY', '')); ?>
+							<?php $displayData->label = $form->getLabel($f); ?>
+							<?php $displayData->input = $form->getInput($f); ?>
+							<?php echo JLayoutHelper::render('form.formelement', $displayData, $baseLayoutPath); ?>
+							<?php echo JText::_(Conferenceplus\Helper::checkLangTag('COM_CONFERENCEPLUS_' . strtoupper($f) . 'POSTINFO', '', 'COM_CONFERENCEPLUS_EMPTY', '')); ?>
+						<?php endif; ?>
+
+					<?php endforeach; ?>
+				</div>
+
 				<div class="form-actions">
 					<input type="submit" value="<?php echo JText::_('COM_CONFERENCEPLUS_SEND');?>" class="btn btn-danger" />
 				</div>
-
-				<input type="hidden" name="option" value="com_conferenceplus" />
-				<input type="hidden" name="view" value="ticket" />
-				<input type="hidden" name="task" value="save" />
-				<input type="hidden" name="layout" value="buy" />
-				<input type="hidden" name="returnurl" value="<?php echo $returnurl; ?>" />
-				<input type="hidden" name="<?php echo JFactory::getSession()->getFormToken();?>" value="1" />
-
 			</div>
+
+			<input type="hidden" name="option" value="com_conferenceplus" />
+			<input type="hidden" name="view" value="ticket" />
+			<input type="hidden" name="task" value="save" />
+			<input type="hidden" name="layout" value="buy" />
+			<input type="hidden" name="returnurl" value="<?php echo $returnurl; ?>" />
+			<input type="hidden" name="<?php echo JFactory::getSession()->getFormToken();?>" value="1" />
+
 		</div>
 	</form>
 
