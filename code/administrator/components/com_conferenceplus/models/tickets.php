@@ -34,9 +34,9 @@ class ConferenceplusModelTickets extends ConferenceplusModelDefault
 		// Load the filters.
 		$this->setState('filter.title', $this->getUserStateFromRequest('filter.title', 'firstname', ''));
 		$this->setState('filter.paymentstate',
-			$this->getUserStateFromRequest('filter.ticket.paymentstate', 'paymentstate', ''));
+							$this->getUserStateFromRequest('filter.ticket.paymentstate', 'paymentstate', ''));
 		$this->setState('filter.event_id',
-			$this->getUserStateFromRequest('filter.ticket.event_id', 'eventname', ''));
+							$this->getUserStateFromRequest('filter.ticket.event_id', 'eventname', ''));
 	}
 
 	/**
@@ -133,7 +133,7 @@ class ConferenceplusModelTickets extends ConferenceplusModelDefault
 		// We need to check here again if a coupon is valid and remove it from the data to save if not
 		if (array_key_exists('coupon', $data) && $data['coupon'] != "")
 		{
-			$coupon = FOFModel::getAnInstance('coupons', 'ConferenceplusModel');
+			$coupon = $this->getCouponModel();
 
 			$resultCouponCheck 		= $coupon->checkCouponAndTicket($data['coupon'], $data['tickettype_id']);
 			$processdata['coupon'] 	= $resultCouponCheck['returnType'] == 99 ? $data['coupon'] : '';
@@ -163,7 +163,7 @@ class ConferenceplusModelTickets extends ConferenceplusModelDefault
 
 		if ($data['coupon'] != "")
 		{
-			$coupon = FOFModel::getAnInstance('coupons', 'ConferenceplusModel');
+			$coupon = $this->getCouponModel();
 			$coupon->setTemporaryUsed($data['coupon'], $table->conferenceplus_ticket_id);
 		}
 
@@ -203,7 +203,7 @@ class ConferenceplusModelTickets extends ConferenceplusModelDefault
 		$eventTable->load($event_id);
 		$params = $event->getEventParams($eventTable);
 
-		$coupon = FOFModel::getAnInstance('coupons', 'ConferenceplusModel');
+		$coupon = $this->getCouponModel();
 
 		$record->couponAvailable = $coupon->isAvailable($tickettypeId);
 
@@ -239,30 +239,46 @@ class ConferenceplusModelTickets extends ConferenceplusModelDefault
 	{
 		$task = $this->input->get('task');
 
-		if ('add' == $task)
+		if (in_array($task, array('add', 'save')))
 		{
-			$item = $this->record;
+			$method = 'onAfterPreprocess' . ucfirst($task) . 'Form';
+			$this->$method($form, $data);
+		}
+	}
 
-			$ticketType = $item->ticketType;
+	/**
+	 * Allows data and form manipulation after preprocessing the form
+	 *
+	 * @param   FOFForm  &$form  A FOFForm object.
+	 * @param   array    &$data  The data expected for the form.
+	 *
+	 * @codeCoverageIgnore
+	 *
+	 * @return  void
+	 */
+	public function onAfterPreprocessAddForm(FOFForm &$form, &$data)
+	{
+		$item = $this->record;
 
-			$eventParams = $item->eventParams;
+		$ticketType = $item->ticketType;
 
-			$fields = ['ask4gender', 'ask4tshirtsize', 'ask4food'];
+		$eventParams = $item->eventParams;
 
-			foreach ($fields as $fieldname)
+		$fields = ['ask4gender', 'ask4tshirtsize', 'ask4food'];
+
+		foreach ($fields as $fieldname)
+		{
+			if (!empty($eventParams[$fieldname]))
 			{
-				if ( ! empty($eventParams[$fieldname]))
+				$field = $this->createAskFormField($fieldname, $eventParams[$fieldname]);
+
+				$form->setField($field);
+
+				if ($ticketType->partnerticket == 1 && $fieldname == 'ask4food')
 				{
-					$field = $this->createAskFormField($fieldname, $eventParams[$fieldname]);
+					$field = $this->createAskFormField('ask4food', $eventParams['ask4food'], true);
 
 					$form->setField($field);
-
-					if ($ticketType->partnerticket == 1 && $fieldname == 'ask4food')
-					{
-						$field = $this->createAskFormField('ask4food', $eventParams['ask4food'], true);
-
-						$form->setField($field);
-					}
 				}
 			}
 		}
@@ -302,6 +318,73 @@ class ConferenceplusModelTickets extends ConferenceplusModelDefault
 		return $field;
 	}
 
+
+	/**
+	 * Allows data and form manipulation after preprocessing the form
+	 *
+	 * @param   FOFForm  &$form  A FOFForm object.
+	 * @param   array    &$data  The data expected for the form.
+	 *
+	 * @codeCoverageIgnore
+	 *
+	 * @return  void
+	 */
+	public function onAfterPreprocessSaveForm(FOFForm &$form, &$data)
+	{
+		$addInvoiceFields = true;
+
+		// Check if we have a coupon
+		if (! empty($data['coupon']))
+		{
+			$tickettypeId = $this->getTicketTypeId();
+
+			$coupon = $this->getCouponModel();
+
+			$couponAvailable = $coupon->isAvailable($tickettypeId);
+
+			if ($couponAvailable)
+			{
+				$resultCouponCheck = $coupon->checkCouponAndTicket($data['coupon'], $tickettypeId);
+
+				if ($resultCouponCheck['returnType'] == 99)
+				{
+					$addInvoiceFields = $resultCouponCheck['discounted'] != 0;
+				}
+			}
+		}
+
+		if ($addInvoiceFields)
+		{
+			// ticket fee is bigger than zero
+			$fields = array('invoicestreet', 'invoicepcode', 'invoicecity', 'invoicecountry');
+
+			foreach ($fields as $field)
+			{
+				$form->setField($this->createFormField($field));
+			}
+		}
+	}
+
+	/**
+	 * create a simple text form field
+	 *
+	 * @param   string  $fieldname   the Fieldname
+	 *
+	 * @return SimpleXMLElement
+	 */
+	protected function createFormField($fieldname)
+	{
+		$field = new SimpleXMLElement('<field></field>');
+		$field->addAttribute('name', $fieldname);
+		$field->addAttribute('type', 'text');
+		$field->addAttribute('label', 'COM_CONFERENCEPLUS_' . strtoupper($fieldname));
+		$field->addAttribute('required', 'true');
+		$field->addAttribute('class', 'inputbox form-control');
+		$field->addAttribute('labelclass', 'control-label');
+
+		return $field;
+	}
+
 	/**
 	 * Get the tickettype
 	 *
@@ -312,5 +395,16 @@ class ConferenceplusModelTickets extends ConferenceplusModelDefault
 	private function getTicketTypeId()
 	{
 		return JFactory::getApplication()->getUserState('com_conferenceplus.tickettypeId');
+	}
+
+	/**
+	 *
+	 * @return FOFModel
+	 */
+	protected function getCouponModel()
+	{
+		$coupon = FOFModel::getAnInstance('coupons', 'ConferenceplusModel');
+
+		return $coupon;
 	}
 }
