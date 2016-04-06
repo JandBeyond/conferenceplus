@@ -242,6 +242,11 @@ class ConferenceplusModelTickets extends ConferenceplusModelDefault
 		if (in_array($task, array('add', 'save')))
 		{
 			$method = 'onAfterPreprocess' . ucfirst($task) . 'Form';
+
+			if (empty($data))
+			{
+				$data = $this->_formData;
+			}
 			$this->$method($form, $data);
 		}
 	}
