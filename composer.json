@@ -1,5 +1,7 @@
 {
     "require-dev": {
-        "robmorgan/phinx": "*"
+        "robmorgan/phinx": "*",
+        "codegyre/robo": "~0.5",
+        "joomla-projects/robo": "dev-master"
     }
 }
