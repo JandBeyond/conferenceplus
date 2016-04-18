@@ -21,7 +21,7 @@
         <field name="enabled" type="published"/>
         <field name="name" type="text"
                show_link="true"
-               url="index.php?option=com_conferenceplus&amp;view=emailtemplate&amp;id=[ITEM:ID]"
+               url="index.php?option=com_conferenceplus&amp;view=template&amp;id=[ITEM:ID]"
                 />
         <field name="description" type="text"/>
         <field name="eventname" type="text"/>

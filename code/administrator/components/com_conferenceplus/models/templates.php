@@ -14,7 +14,7 @@ defined('_JEXEC') or die;
 
 require_once 'default.php';
 
-class ConferenceplusModelEmailtemplates extends ConferenceplusModelDefault
+class ConferenceplusModelTemplates extends ConferenceplusModelDefault
 {
     /**
      * Ajust the query
@@ -36,7 +36,7 @@ class ConferenceplusModelEmailtemplates extends ConferenceplusModelDefault
             $query->select('e.name AS eventname');
 
             // Join events
-            $query->join('INNER', '#__conferenceplus_events AS e ON e.conferenceplus_event_id = et.event_id');
+            $query->join('INNER', '#__conferenceplus_events AS e ON e.conferenceplus_event_id = template.event_id');
 
             $query->where($db->qn('e.enabled') . ' = 1');
         }

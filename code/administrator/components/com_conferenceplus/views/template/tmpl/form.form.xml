@@ -16,8 +16,8 @@
 		</field>
 
 		<field name="name" type="text" class="inputbox form-control"  labelClass="control-label"
-		       size="150" label="COM_CONFERENCEPLUS_EMAILTEMPLATENAME"
-		       description="COM_CONFERENCEPLUS_EMAILTEMPLATENAME_DESC" required="true" />
+		       size="150" label="COM_CONFERENCEPLUS_TEMPLATENAME"
+		       description="COM_CONFERENCEPLUS_TEMPLATENAME_DESC" required="true" />
 
 		<field name="description" type="textarea" labelClass="control-label"
 		       label="COM_CONFERENCEPLUS_EMAILTEMPLATEDESCRIPTION"

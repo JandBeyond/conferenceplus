@@ -23,8 +23,8 @@
         <table name="day">
             <tablealias>day</tablealias>
         </table>
-        <table name="emailtemplate">
-            <tablealias>et</tablealias>
+        <table name="template">
+            <tablealias>template</tablealias>
         </table>
         <table name="invoice">
             <tablealias>invoice</tablealias>

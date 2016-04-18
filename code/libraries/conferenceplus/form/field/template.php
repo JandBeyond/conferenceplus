@@ -15,7 +15,7 @@ JFormHelper::loadFieldClass('list');
  * @package  conferenceplus
  * @since    1.0.0
  */
-class ConferenceplusFormFieldEmailtemplate extends JFormFieldList
+class ConferenceplusFormFieldTemplate extends JFormFieldList
 {
 	/**
 	 * The form field type.
@@ -33,7 +33,7 @@ class ConferenceplusFormFieldEmailtemplate extends JFormFieldList
 
 		$obj = new StdClass;
 
-		$obj->text  = JText::_('CON_CONFERENCEPLUS_EMAILTEMPLATE');
+		$obj->text  = JText::_('CON_CONFERENCEPLUS_TEMPLATE');
 		$obj->value = 0;
 		$options[]  = $obj;
 		unset($obj);
@@ -41,8 +41,8 @@ class ConferenceplusFormFieldEmailtemplate extends JFormFieldList
 		$db		= JFactory::getDbo();
 		$query	= $db->getQuery(true);
 
-		$query->select('CONCAT(a.name ,  " | ", e.name) as text, a.conferenceplus_emailtemplate_id as value')
-			->from('#__conferenceplus_emailtemplates AS a')
+		$query->select('CONCAT(a.name ,  " | ", e.name) as text, a.conferenceplus_template_id as value')
+			->from('#__conferenceplus_templates AS a')
 			->from('#__conferenceplus_events AS e')
 			->where('a.event_id = e.conferenceplus_event_id');
 

@@ -130,11 +130,11 @@ class ConferenceplusToolbar extends FOFToolbar
 	}
 
 	/**
-	 * Renders the toolbar for the component emailtemplates add page
+	 * Renders the toolbar for the component templates add page
 	 *
 	 * @return  void
 	 */
-	public function onEmailtemplatesAdd()
+	public function onTemplatesAdd()
 	{
 		$this->onTaskAdd();
 	}
