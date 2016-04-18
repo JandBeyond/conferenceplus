@@ -53,11 +53,11 @@ $odd = $itemcount % 2 != 0;
 			?>
 				<div class="row clearfix">
 			<?php endif; ?>
-			<div class="span4 speakersblock">
-				<div class="col-md-6 image">
+			<div class="col-xs-6 speakersblock">
+				<div class="col-xs-12 image">
 					<img src="<?php echo $base . '/' . $item->imagefile; ?>" class="img-responsive maxheight" />
 				</div>
-				<div class="col-md-6 info">
+				<div class="col-xs-12 info">
 					<span class="speakername"><?php echo $item->firstname . ' ' . $item->lastname; ?><br /></span>
 					<?php echo JHtml::_('string.truncate', $item->bio, 80); ?><br />
 					<?php

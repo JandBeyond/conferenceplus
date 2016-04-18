@@ -35,6 +35,11 @@
                    required="false"
                    description="" class="input-xxlarge"
                     />
+            <field name="excludespeaker" type="conferenceplus.speaker"
+                   label="Exclude Speakers" size="20" multiple="true"
+                   required="false"
+                   description="" class="input-xxlarge"
+            />
 
         </fieldset>
     </fields>

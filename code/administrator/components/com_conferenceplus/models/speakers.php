@@ -48,6 +48,16 @@ class ConferenceplusModelSpeakers extends ConferenceplusModelDefault
 					$query->where($db->qn('conferenceplus_speaker_id') . ' in ' . $inFilter);
 				}
 
+				$excludespeaker = $this->getState('parameters.menu')->get('excludespeaker', array());
+
+				if ( ! empty($excludespeaker))
+				{
+					$inFilter = '(' . implode(',', $excludespeaker) . ')';
+					$query->where($db->qn('conferenceplus_speaker_id') . ' not in ' . $inFilter);
+				}
+
+				$query->where($db->qn('enabled') . ' = 1 ');
+
 				$query->clear('order');
 				$query->order('firstname, lastname');
 			}
