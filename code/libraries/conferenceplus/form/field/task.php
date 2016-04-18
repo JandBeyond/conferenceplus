@@ -33,6 +33,8 @@ class ConferenceplusFormFieldTask extends JFormFieldList
 
 		$options[] = JHtml::_('select.option', 0, '- Select -');
 		$options[] = JHtml::_('select.option', 'ConfirmEmail', 'ConfirmEmail');
+		$options[] = JHtml::_('select.option', 'RenderPdfInvoice', 'RenderPdfInvoice');
+		$options[] = JHtml::_('select.option', 'RenderPdfTicket', 'RenderPdfTicket');
 		$options[] = JHtml::_('select.option', 'SendInvoice', 'SendInvoice');
 		$options[] = JHtml::_('select.option', 'SendTicket', 'SendTicket');
 

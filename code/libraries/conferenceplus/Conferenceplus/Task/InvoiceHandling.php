@@ -12,36 +12,13 @@
 namespace Conferenceplus\Task;
 
 /**
- * Class DownloadInvoiceCollmex
+ * Class InvoiceHandling
  *
  * @package  Conferenceplus\Task
  * @since    0.0.1
  */
-class DownloadInvoiceCollmex extends BaseTask
+class InvoiceHandling extends BaseTask
 {
-
-	/**
-	 * run before the task is executed
-	 *
-	 * @param   mixed  &$task  task data
-	 *
-	 * @return bool
-	 */
-	public function onBeforeDoProcess(&$task)
-	{
-		// We need to make sure that we have addressdata
-		if ( ! array_key_exists('invoiceaddress', $task->processdata))
-		{
-			$ticket = $task->processdata['processdata']['ticket']['ticket'];
-
-			if (isset($ticket['processdata']['invoiceaddress']))
-			{
-				$task->processdata['invoiceaddress'] = $ticket['processdata']['invoiceaddress'];
-			}
-		}
-
-		return true;
-	}
 
 	/**
 	 * Do the work
@@ -53,7 +30,7 @@ class DownloadInvoiceCollmex extends BaseTask
 	protected function doProcess($task)
 	{
 		// 1st check is if we need to send an invoice at all
-		// for INTERNAL Tickets it isn't needed
+		// for freetickets == INTERNAL Tickets it isn't needed
 		if ($task->processdata['processdata']['paymentprovider']['processkey'] == 'INTERNAL')
 		{
 			// DONE
@@ -72,13 +49,14 @@ class DownloadInvoiceCollmex extends BaseTask
 	 */
 	protected function instantiateNextTasks($task)
 	{
-		if ($this->config->get('invoicehandeling') == 1)
+		if ($this->config['cpconf']->get('invoicehandeling') == 1)
 		{
 			$next = new InvoiceHandlingCollmex($this->config);
 
 			return $next->create($task->processdata);
 		}
 
+		$next = new InvoiceHandlingConferenceplus($this->config);
 
 		return $next->create($task->processdata);
 	}

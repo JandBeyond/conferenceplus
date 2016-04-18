@@ -17,7 +17,7 @@ namespace Conferenceplus\Task;
  * @package  Conferenceplus\Task
  * @since    0.0.1
  */
-class InvoiceHandling extends BaseTask
+class DownloadInvoiceCollmex extends BaseTask
 {
 
 	/**

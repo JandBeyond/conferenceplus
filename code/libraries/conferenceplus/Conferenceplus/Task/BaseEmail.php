@@ -19,10 +19,8 @@ namespace Conferenceplus\Task;
  */
 abstract class BaseEmail extends BaseTask
 {
-	/*
-	 * holds the email template
-	 */
-	public $emailTemplate = null;
+
+	use TemplateTrait;
 
 	/*
 	 * Mailer
@@ -62,7 +60,7 @@ abstract class BaseEmail extends BaseTask
 		$mailfrom = $this->application->get('mailfrom');
 		$fromname = $this->application->get('fromname');
 
-		$et = $this->getEmailTemplate();
+		$et = $this->getTemplate();
 
 		if (trim($et->from_email) != "")
 		{
@@ -82,70 +80,5 @@ abstract class BaseEmail extends BaseTask
 									$this->getTextFromTemplate($data, 'html'),
 									true
 		);
-	}
-
-	/**
-	 * get the mailtext for the email
-	 *
-	 * @param   array   $data   the data
-	 * @param   string  $field  the data
-	 *
-	 * @return string
-	 */
-	protected function getTextFromTemplate($data, $field = 'title')
-	{
-		$text = '';
-		$et   = $this->getEmailTemplate();
-
-		if ( ! empty($et))
-		{
-			$text = $this->replacePlaceHolders($et->$field, $data);
-		}
-
-		return $text;
-	}
-
-	/**
-	 * get the EmailTemplate
-	 *
-	 * @return mixed
-	 */
-	protected function getEmailTemplate()
-	{
-		if (is_null($this->emailTemplate))
-		{
-			$query = $this->db->getQuery(true);
-
-			$query->select('*')
-					->from('#__conferenceplus_emailtemplates')
-					->where($this->db->qn('taskname') . ' =' . $this->db->q($this->taskname))
-					->where($this->db->qn('enabled') . ' = 1');
-
-			$this->db->setQuery($query);
-			$this->emailTemplate = $this->db->loadObject();
-		}
-
-		return $this->emailTemplate;
-	}
-
-	/**
-	 * replace tags with data within the text
-	 *
-	 * @param   string  $text  the text
-	 * @param   mixed   $data  the data
-	 *
-	 * @return  string
-	 */
-	protected function replacePlaceHolders($text, $data)
-	{
-		foreach ($data as $placeHolder => $value)
-		{
-			if (is_string($value))
-			{
-				$text = str_replace('{' . $placeHolder . '}', $value, $text);
-			}
-		}
-
-		return $text;
 	}
 }

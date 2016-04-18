@@ -19,20 +19,40 @@ namespace Conferenceplus\Pdf;
  */
 abstract class Base
 {
+	/** @var string Pageorientation */
 	protected $pageOrientation = 'P';
 
+	/** @var string pageUnit */
 	protected $pageUnit = 'mm';
 
+	/** @var string pageSize */
 	protected $pageSize = 'mm';
 
-	protected $overwritableFields = ['pageOrientation', 'pageUnit', 'pageSize', 'text'];
+	/** @var array fields allowed to overwrite */
+	protected $overwritableFields = ['pageOrientation', 'pageUnit', 'pageSize', 'text', 'creator', 'author'];
 
+	/** @var string text */
 	protected $text = '';
 
+	/** @var null|\TCPDF pdf object */
 	protected $pdf = null;
 
+	/** @var string title */
+	protected $title = '';
 
+	/** @var string folder */
+	protected $folder = '';
 
+	/** @var string creator */
+	protected $creator = 'ConferencePlus/Tcpdf';
+
+	/** @var string author */
+	protected $author = 'Conference Staff';
+
+	/**
+	 * Base constructor.
+	 * @param array $config
+     */
 	public function __construct($config = array())
 	{
 		foreach ($this->overwritableFields as $field)
@@ -46,18 +66,31 @@ abstract class Base
 		$this->pdf = new \TCPDF($this->pageOrientation, $this->pageUnit, $this->pageSize, true, 'UTF-8', false);
 	}
 
-	public function render($data)
+	/**
+	 * @param $data
+	 * @param $template
+     *
+	 * @return string
+     */
+	public function render($data, $template)
 	{
-		$this->text = $this->replacePlaceHolders($this->getText(), $data);
+		$this->text = $this->replacePlaceHolders($template, $data);
 
-		$this->pdf->SetCreator('ConferencePlus/Tcpdf');
-		$this->pdf->SetAuthor('JAB e.V.');
-	}
+		$this->pdf->SetCreator($this->creator);
+		$this->pdf->SetAuthor($this->author);
 
+		$this->pdf->SetTitle($this->title);
+		$this->pdf->setPrintHeader(false);
+		$this->pdf->AddPage();
 
-	protected function getText()
-	{
-		return '';
+		$this->pdf->writeHTML($this->text, true, false, true, false, '');
+
+		$filename = $data['basename'];
+		$fullpath = JPATH_BASE . '/media/conferenceplus/' . $this->folder . '/' . $filename . '.pdf';
+
+		$this->pdf->Output($fullpath, 'F');
+
+		return $fullpath;
 	}
 
 	/**
@@ -78,5 +111,4 @@ abstract class Base
 
 		return $text;
 	}
-
 }

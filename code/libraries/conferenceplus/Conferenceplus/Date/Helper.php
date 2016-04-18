@@ -59,9 +59,6 @@ trait Helper {
 
 	}
 
-
-
-
 	/**
 	 * it merges date and time fields and allows to separate between time not set and 00:00:00
 	 *
@@ -128,7 +125,6 @@ trait Helper {
 
 		return true;
 	}
-
 
 	/**
 	 * checks if a Date is valid
@@ -224,5 +220,4 @@ trait Helper {
 
 		return false;
 	}
-
 }

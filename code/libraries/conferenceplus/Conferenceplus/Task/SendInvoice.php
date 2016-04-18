@@ -72,7 +72,7 @@ class SendInvoice extends BaseEmail
 		$mailfrom = $this->application->get('mailfrom');
 		$fromname = $this->application->get('fromname');
 
-		$et = $this->getEmailTemplate();
+		$et = $this->getTemplate();
 
 		if (trim($et->from_email) != "")
 		{
@@ -87,7 +87,6 @@ class SendInvoice extends BaseEmail
 		return $this->mailer->sendMail(
 			$mailfrom,
 			$fromname,
-			'ad@asysta.de',
 			$this->getTextFromTemplate($data, 'subject'),
 			$this->getTextFromTemplate($data, 'html'),
 			true

@@ -19,9 +19,9 @@ namespace Conferenceplus\Task;
  */
 abstract class RenderPdf extends BaseTask
 {
-	/*
-	 * pdf
- 	 */
+	use TemplateTrait;
+
+	/** @var null|\Conferenceplus\Pdf\Base */
 	protected $pdf = null;
 
 	/**
@@ -62,7 +62,7 @@ abstract class RenderPdf extends BaseTask
 			return false;
 		}
 
-		$filename = $this->render($data);
+		$filename = $this->render($data, $task);
 
 		if ($filename === false)
 		{
@@ -94,8 +94,18 @@ abstract class RenderPdf extends BaseTask
 	 *
 	 * @return mixed
 	 */
-	protected function render($data)
+	protected function render($data, $task)
 	{
-		return $this->pdf->render($data);
+		$event_id = 0;
+
+		// Get the template
+		if (isset($task->processdata['processdata']['ticket']['tickettype']['event_id']))
+		{
+			$event_id = $task->processdata['processdata']['ticket']['tickettype']['event_id'];
+		}
+
+		$template = $this->getTemplate($event_id);
+
+		return $this->pdf->render($data, $template->html);
 	}
 }
