@@ -20,9 +20,9 @@ ConferencePlus = {
 
     relaceId : function(){
         var html = this.clonedArea.html();
-        newhtml = html
-            .replace('nominee','nominee_' + this.nextNomination,'gm')
-            .replace('awardcategory_id','awardcategory_id_' + this.nextNomination,'gm');
+        var newhtml = html
+            .replace(/nominee/gm, 'nominee_' + this.nextNomination)
+            .replace(/awardcategory_id/gm, 'awardcategory_id_' + this.nextNomination);
 
         return newhtml;
     },
@@ -45,7 +45,7 @@ ConferencePlus = {
     prepareClone : function() {
         this.clonedArea = this.area.clone();
     }
-}
+};
 
 jQuery(document).ready(function() {
     ConferencePlus.setArea();

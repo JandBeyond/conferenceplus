@@ -37,7 +37,8 @@ class ConferenceplusFormFieldAwardcategory extends JFormFieldList
 		$query->select('CONCAT(a.name , " | ", e.name) as text, a.conferenceplus_awardcategory_id as value')
 			->from('#__conferenceplus_awardcategories AS a')
 			->from('#__conferenceplus_events AS e')
-			->where('a.event_id = e.conferenceplus_event_id');
+			->where('a.event_id = e.conferenceplus_event_id')
+			->where('e.enabled = 1');
 
 		$db->setQuery($query);
 		$options = $db->loadObjectList();
