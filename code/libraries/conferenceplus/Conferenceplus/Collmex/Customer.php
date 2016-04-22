@@ -43,7 +43,7 @@ class Customer extends Base
 
         $customerData['country']       = $data['invoicecountry'];
 
-        $customerData['client_id'] = "";
+        $customerData['client_id'] = "1";
 
         $customer = new CollmexCustomer($customerData);
 

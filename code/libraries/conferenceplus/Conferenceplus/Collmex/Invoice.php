@@ -3,7 +3,7 @@
 namespace Conferenceplus\Collmex;
 
 use Conferenceplus\Collmex\Exception\CreateInvoiceException;
-
+use \MarcusJaschen\Collmex\Type\Invoice as CollmexInvoice;
 /**
  * Class Invoice
  * @since   1.0
@@ -18,30 +18,47 @@ class Invoice extends Base
      */
     public function create($data)
     {
-        $customerData = array();
+        $customerData = [];
 
-        if (! empty($data['invoicecompany']))
+        $customerData['customer_id']  = $data['customer_id'];
+        $customerData['invoice_type'] = CollmexInvoice::INVOICE_TYPE_INVOICE ;
+        $customerData['annotation']   = $data['processid'];
+
+        // Zahlungsbedingungen paypal == 14
+        $customerData['terms_of_payment']    = "14";
+        $customerData['currency']            = 'EUR';
+        $customerData['product_description'] = $data['product_description'];
+        $customerData['quantity_unit']       = "PCE";
+        $customerData['quantity']            = "1";
+        $customerData['price_quantity']      = "PCE";
+        $customerData['price']               = str_replace('.',',', (string) ($data['price'] / 100));
+        $customerData['product_type']        = "1";
+
+        // Calculate Tax rate
+        switch ($data['tax_rate'])
         {
-            $customerData['firm'] = $data['invoicecompany'];
+            case '0':
+                $customerData['tax_rate'] = CollmexInvoice::TAX_RATE_TAXFREE;
+                break;
+            case '7':
+                $customerData['tax_rate'] = CollmexInvoice::TAX_RATE_REDUCED;
+                break;
+
+            case '19':
+            default:
+                $customerData['tax_rate'] = CollmexInvoice::TAX_RATE_FULL;
+                break;
         }
 
-        if (! empty($data['invoiceline2']))
-        {
-            $customerData['department']    = $data['invoiceline2'];
-        }
+        // fix value
+        $customerData['client_id'] = "1";
 
-        $customerData['forename']      = $data['firstname'];
-        $customerData['lastname']      = $data['lastname'];
-        $customerData['street']        = $data['invoicestreet'];
-        $customerData['zipcode']       = $data['invoicepcode'];
-        $customerData['city']          = $data['invoicecity'];
-        $customerData['email']         = $data['email'];
-        $customerData['output_medium'] = Customer::OUTPUT_MEDIUM_EMAIL;
-        $customerData['inactive']      = Customer::STATUS_ACTIVE;
+        $customerData['language'] = CollmexInvoice::LANGUAGE_ENGLISH;
 
-        $customerData['country']       = $data['invoicecountry'];
+        $customerData['foreign_tax'] = "0";
+        $customerData['system_name'] = 'Conferenceplus';
 
-        $customer = new CollmexCustomer($customerData);
+        $customer = new CollmexInvoice($customerData);
 
         // send HTTP request and get response object
         $respose = $this->request->send($customer->getCsv());
@@ -54,6 +71,7 @@ class Invoice extends Base
         }
 
         $newObject = $respose->getFirstRecord();
+
 
         return $newObject->new_id;
     }

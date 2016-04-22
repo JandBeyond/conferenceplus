@@ -32,7 +32,7 @@ class CreateInvoiceCollmex extends BaseTask
 	 */
 	protected function doProcess($task)
 	{
-		$invoice = new Invoice($this);
+		$invoice = new Invoice($this->config);
 
 		$data = $this->prepareDataArray($task->processdata);
 
@@ -47,41 +47,48 @@ class CreateInvoiceCollmex extends BaseTask
 
 		$task->processdata['invoice_id']  = $newInvoiceId;
 
-		return $this->instantiateNextTasks($task);
+		return true;
 	}
 
 	/**
-	 * Fire up the next needed task if there are any
+	 * Prepare the data
 	 *
-	 * @param   \JTable  $task  taskdata
+	 * @param  array  $processdata
 	 *
-	 * @return bool
-	 */
-	protected function instantiateNextTasks($task)
-	{
-		$next = new CreateInvoiceCollmex($this->config);
-
-		return $next->create($task->processdata);
-	}
-
+	 * @return array|bool
+     */
 	private function prepareDataArray($processdata)
 	{
 		$data = [];
 
 		$customerId = $processdata['customer_id'];
+		$processId  = $processdata['processkey'];
+		$tickettype = $processdata['processdata']['ticket']['tickettype'];
 
-		/*
-		$formdata   = $ticketdata['processdata'];
+		// That's needed to find the correct table
+		$config['input']['option'] = 'com_conferenceplus';
+		$eventTable = \FOFTable::getAnInstance('event', 'JTable', $config);
 
-		$data['customer_id']    = $customerId;
-		$data['invoicepcode']   = $formdata['invoicepcode'];
-		$data['invoicecity']    = $formdata['invoicecity'];
-		$data['invoicecompany'] = $formdata['invoicecompany'];
-		$data['invoiceline2']   = $formdata['invoiceline2'];
-		$data['firstname']      = $ticketdata['firstname'];
-		$data['lastname']       = $ticketdata['lastname'];
-		$data['email']          = $ticketdata['email'];
-		*/
+		if ( ! $eventTable->load($tickettype['event_id']))
+		{
+			return false;
+		}
+
+		$name    = $eventTable->name;
+		$city    = $eventTable->city;
+		$country = $eventTable->country;
+		$product = $tickettype['productname'] . ' -  ' . $name . ', ' . $city . ', ' . $country;
+
+		// must exist
+		$data['customer_id'] = $customerId;
+
+		// Payment reference
+		$data['processid'] = $processId;
+
+		$data['product_description'] = $product;
+		$data['quantity']            = 1;
+		$data['price']               = $tickettype['fee'];
+		$data['tax_rate']			 = $tickettype['vat'];
 
 		return $data;
 	}
