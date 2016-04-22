@@ -65,7 +65,7 @@ trait TemplateTrait
 
             if ($event_id != 0)
             {
-                $query->where($this->db->qn('event_id') . ' =' . (int) $this->db->q($event_id));
+                $query->where($this->db->qn('event_id') . ' =' . (int) $event_id);
             }
 
             $this->db->setQuery($query);
