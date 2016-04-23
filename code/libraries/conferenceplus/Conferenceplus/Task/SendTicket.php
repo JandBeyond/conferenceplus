@@ -29,7 +29,7 @@ class SendTicket extends BaseEmail
 	public function onBeforeDoProcess($task)
 	{
 		$filename = $task->processdata['filename'];
-		$name = 'Ticket';
+		$name = 'Ticket.pdf';
 		$this->mailer->addAttachment($filename, $name);
 
 		$ticket = $task->processdata['processdata']['ticket']['ticket'];
