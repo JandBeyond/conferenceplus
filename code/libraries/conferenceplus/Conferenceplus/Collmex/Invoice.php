@@ -23,6 +23,7 @@ class Invoice extends Base
         $customerData['customer_id']  = $data['customer_id'];
         $customerData['invoice_type'] = CollmexInvoice::INVOICE_TYPE_INVOICE ;
         $customerData['annotation']   = $data['processid'];
+        $customerData['invoice_text'] = $data['eventname'];
 
         // Zahlungsbedingungen paypal == 14
         $customerData['terms_of_payment']    = "14";
@@ -71,7 +72,6 @@ class Invoice extends Base
         }
 
         $newObject = $respose->getFirstRecord();
-
 
         return $newObject->new_id;
     }

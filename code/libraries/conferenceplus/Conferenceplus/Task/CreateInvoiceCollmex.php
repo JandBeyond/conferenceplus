@@ -89,6 +89,7 @@ class CreateInvoiceCollmex extends BaseTask
 		$data['quantity']            = 1;
 		$data['price']               = $tickettype['fee'];
 		$data['tax_rate']			 = $tickettype['vat'];
+		$data['eventname']			 = $name;
 
 		return $data;
 	}
