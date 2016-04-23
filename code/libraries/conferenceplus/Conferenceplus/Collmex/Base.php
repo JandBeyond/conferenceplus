@@ -20,6 +20,12 @@ class Base
 
     protected $request;
 
+    protected $company;
+
+    protected $language;
+
+    protected $foreintax;
+
     /**
      * Base constructor.
      * @param $config
@@ -37,5 +43,9 @@ class Base
 
         // create request object
         $this->request = new Request($this->client);
+
+        $this->company   = $this->config['cpconf']->get('collmexcompany');
+        $this->language  = $this->config['cpconf']->get('collmexlanguage');
+        $this->foreintax = $this->config['cpconf']->get('collmexforeintax');
     }
 }

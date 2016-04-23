@@ -117,6 +117,27 @@
 			   size="150" label="COM_CONFERENCEPLUS_COLLMEXPASS"
 			   description="COM_CONFERENCEPLUS_COLLMEXPASS_DESC" />
 
+		<field name="collmexcompany" type="text" class="form-control"  labelClass="control-label"
+			   size="10" label="COM_CONFERENCEPLUS_COLLMEXCOMPANY"
+			   description="COM_CONFERENCEPLUS_COLLMEXCOMPANY_DESC"
+			   default="1"/>
+
+		<field name="collmexlanguage" type="list"
+			   default="0" label="COM_CONFERENCEPLUS_COLLMEXLANGUAGE"
+			   description="COM_CONFERENCEPLUS_COLLMEXLANGUAGE_DESC"
+				>
+			<option value="0">ENGLISH</option>
+			<option value="1">GERMAN</option>
+		</field>
+
+		<field name="collmexforeintax" type="list"
+			   size="150" label="COM_CONFERENCEPLUS_COLLMEXFOREINTAX"
+			   description="COM_CONFERENCEPLUS_COLLMEXFOREINTAX_DESC"
+				>
+			<option value="0">COM_CONFERENCEPLUS_COLLMEXFOREINTAX_NOT_CONTROLLABLE</option>
+			<option value="1">COM_CONFERENCEPLUS_COLLMEXFOREINTAX_CONTROLLABLE</option>
+		</field>
+
 	</fieldset>
 
 	<fieldset name="permissions"

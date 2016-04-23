@@ -20,20 +20,20 @@ class Invoice extends Base
     {
         $customerData = [];
 
-        $customerData['customer_id']  = $data['customer_id'];
-        $customerData['invoice_type'] = CollmexInvoice::INVOICE_TYPE_INVOICE ;
-        $customerData['annotation']   = $data['processid'];
+        $customerData['customer_id'] = $data['customer_id'];
+        $customerData['invoice_type'] = CollmexInvoice::INVOICE_TYPE_INVOICE;
+        $customerData['annotation'] = $data['processid'];
         $customerData['invoice_text'] = $data['eventname'];
 
         // Zahlungsbedingungen paypal == 14
-        $customerData['terms_of_payment']    = "14";
-        $customerData['currency']            = 'EUR';
+        $customerData['terms_of_payment'] = "14";
+        $customerData['currency'] = 'EUR';
         $customerData['product_description'] = $data['product_description'];
-        $customerData['quantity_unit']       = "PCE";
-        $customerData['quantity']            = "1";
-        $customerData['price_quantity']      = "PCE";
-        $customerData['price']               = str_replace('.',',', (string) ($data['price'] / 100));
-        $customerData['product_type']        = "1";
+        $customerData['quantity_unit'] = "PCE";
+        $customerData['quantity'] = "1";
+        $customerData['price_quantity'] = "PCE";
+        $customerData['price'] = str_replace('.', ',', (string)($data['price'] / 100));
+        $customerData['product_type'] = "1";
 
         // Calculate Tax rate
         switch ($data['tax_rate'])
@@ -52,11 +52,16 @@ class Invoice extends Base
         }
 
         // fix value
-        $customerData['client_id'] = "1";
+        $customerData['client_id'] = $this->company;
 
         $customerData['language'] = CollmexInvoice::LANGUAGE_ENGLISH;
 
-        $customerData['foreign_tax'] = "0";
+        if ($this->language == 1)
+        {
+            $customerData['language'] = CollmexInvoice::LANGUAGE_GERMAN;
+        }
+
+        $customerData['foreign_tax'] = $this->foreintax;
         $customerData['system_name'] = 'Conferenceplus';
 
         $customer = new CollmexInvoice($customerData);
