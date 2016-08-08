@@ -32,7 +32,7 @@ $Itemid = Conferenceplus\Route\Helper::getItemid();
 		<div class="row clearfix">
 			<div class="col-md-6">
 				<?php if (file_exists(JPATH_SITE . $base . '/' . $item->imagefile)) : ?>
-					<img class="speakerimage img-responsive img-thumbnail" src="<?php echo $base . '/' . $item->imagefile; ?>"/>
+					<div class="speakerimage" style="background-image:url('<?php echo $base . '/' . $item->imagefile; ?>');"></div>
 				<?php else : ?>
 					placeholder
 				<?php endif; ?>
